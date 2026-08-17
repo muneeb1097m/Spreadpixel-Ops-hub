@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/auth/(.*)",
+      "destination": "/api/auth-router?action=$1"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron-tasks?type=12pm",
+      "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron-tasks?type=6pm",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/sync-attendance?type=daily_sync",
+      "schedule": "50 18 * * *"
+    },
+    {
+      "path": "/api/sync-attendance?type=monthly_report",
+      "schedule": "0 4 1 * *"
+    }
+  ]
+}
