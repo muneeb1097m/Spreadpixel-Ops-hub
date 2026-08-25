@@ -22,6 +22,117 @@ export const ROLES = {
   CRM:      { label: "CRM Executive",            color: "#3b82f6", short: "CRM" },
 };
 
+export const SERVICES = [
+  {
+    "id": "cold_email",
+    "label": "Cold Email Outreach",
+    "icon": "Mail",
+    "color": "#3b82f6",
+    "desc": "5-30 Domains, Mailboxes, 14d Warmup, 4-Touch Sending, Deliverability QA"
+  },
+  {
+    "id": "linkedin_outreach",
+    "label": "LinkedIn Outreach & SDR",
+    "icon": "UserCheck",
+    "color": "#0284c7",
+    "desc": "Profile Optimization, SalesNav Search, 15-40 Daily Connections & DMs"
+  },
+  {
+    "id": "social_media",
+    "label": "Social Media Management",
+    "icon": "Sparkles",
+    "color": "#0ea5e9",
+    "desc": "Content Calendar, 12-20 Static/Carousel Posts, Captions & Community"
+  },
+  {
+    "id": "video_reels",
+    "label": "Short-Form Video (Reels)",
+    "icon": "Play",
+    "color": "#a78bfa",
+    "desc": "High-converting vertical video editing (6-12 Reels/month cadence)"
+  },
+  {
+    "id": "ghostwriting",
+    "label": "Founder Ghostwriting",
+    "icon": "BookOpen",
+    "color": "#a855f7",
+    "desc": "3 Thought-Leadership Posts/Week (Mon/Wed/Fri) on Founder Profile"
+  },
+  {
+    "id": "meta_ads",
+    "label": "Meta Ads (FB & IG)",
+    "icon": "Target",
+    "color": "#f43f5e",
+    "desc": "Pixel/CAPI Setup, Lead Gen Campaigns, Ad Creatives & Copy, Retargeting"
+  },
+  {
+    "id": "google_ads",
+    "label": "Google Search & PMax Ads",
+    "icon": "Search",
+    "color": "#f59e0b",
+    "desc": "High-Intent Search Campaigns, Negative Keyword Pruning, Bid Management"
+  },
+  {
+    "id": "landing_page",
+    "label": "Landing Page Development",
+    "icon": "Globe",
+    "color": "#10b981",
+    "desc": "Direct-Response Wireframe, Responsive Design, GHL Funnel Integration"
+  },
+  {
+    "id": "seo",
+    "label": "SEO & Authority Backlinks",
+    "icon": "TrendingUp",
+    "color": "#059669",
+    "desc": "Technical SEO Audit, 15-30 Keywords, Authority Blogs & Backlinks"
+  },
+  {
+    "id": "ai_crm",
+    "label": "AI Chatbot & GHL CRM",
+    "icon": "Bot",
+    "color": "#6366f1",
+    "desc": "Dedicated GoHighLevel Sub-Account, Calendar Routing, AI Lead Scorer"
+  }
+];
+
+export const PACKAGE_SERVICES = {
+  "cold_outreach": [
+    "cold_email",
+    "linkedin_outreach",
+    "ai_crm"
+  ],
+  "growth_starter": [
+    "linkedin_outreach",
+    "social_media",
+    "meta_ads",
+    "landing_page",
+    "ai_crm"
+  ],
+  "growth_engine": [
+    "cold_email",
+    "linkedin_outreach",
+    "social_media",
+    "video_reels",
+    "meta_ads",
+    "google_ads",
+    "landing_page",
+    "seo",
+    "ai_crm"
+  ],
+  "growth_dominance": [
+    "cold_email",
+    "linkedin_outreach",
+    "social_media",
+    "video_reels",
+    "ghostwriting",
+    "meta_ads",
+    "google_ads",
+    "landing_page",
+    "seo",
+    "ai_crm"
+  ]
+};
+
 export const PACKAGES = [
   {
     id: "cold_outreach",
@@ -29,7 +140,8 @@ export const PACKAGES = [
     price: "100,000",
     color: "#3b82f6",
     kra: "5 Domains, 15 Mailboxes, 1 LinkedIn (Booked Calls)",
-    desc: "15 Mailboxes, 375 sends/day, 1 LinkedIn Profile, 3 Copy Angles, GHL Pipeline."
+    desc: "15 Mailboxes, 375 sends/day, 1 LinkedIn Profile, 3 Copy Angles, GHL Pipeline.",
+    defaultServices: ['cold_email', 'linkedin_outreach', 'ai_crm']
   },
   {
     id: "growth_starter",
@@ -37,7 +149,8 @@ export const PACKAGES = [
     price: "175,000",
     color: "#10b981",
     kra: "1 LinkedIn, 12 Static Posts, 2 Meta Ads, 1 LP, 500 Leads",
-    desc: "LinkedIn Outreach (15/day), 2 Social Platforms (12 Posts/mo), Meta Ads (100K spend), 1 LP."
+    desc: "LinkedIn Outreach (15/day), 2 Social Platforms (12 Posts/mo), Meta Ads (100K spend), 1 LP.",
+    defaultServices: ['linkedin_outreach', 'social_media', 'meta_ads', 'landing_page', 'ai_crm']
   },
   {
     id: "growth_engine",
@@ -45,7 +158,8 @@ export const PACKAGES = [
     price: "300,000",
     color: "#ea580c",
     kra: "18 Mailboxes, 2 LIs, Meta/Google Ads, SEO (15 KW), 2 LPs",
-    desc: "Cold Email (450/day), 2 LinkedIn Profiles (40/day), Meta & Google Ads, 20 Posts + 6 Reels, SEO."
+    desc: "Cold Email (450/day), 2 LinkedIn Profiles (40/day), Meta & Google Ads, 20 Posts + 6 Reels, SEO.",
+    defaultServices: ['cold_email', 'linkedin_outreach', 'social_media', 'video_reels', 'meta_ads', 'google_ads', 'landing_page', 'seo', 'ai_crm']
   },
   {
     id: "growth_dominance",
@@ -53,7 +167,8 @@ export const PACKAGES = [
     price: "500,000",
     color: "#8b5cf6",
     kra: "30 Mailboxes, Ghostwriting, 3 Ads Platforms, SEO (30 KW), AI Chatbot",
-    desc: "Full Omnichannel: 750 sends/day, 3 LIs + Ghostwriting, Meta/Google/LI Ads (1M), Unlimited LPs, AI."
+    desc: "Full Omnichannel: 750 sends/day, 3 LIs + Ghostwriting, Meta/Google/LI Ads (1M), Unlimited LPs, AI.",
+    defaultServices: ['cold_email', 'linkedin_outreach', 'social_media', 'video_reels', 'ghostwriting', 'meta_ads', 'google_ads', 'landing_page', 'seo', 'ai_crm']
   }
 ];
 
@@ -67,6 +182,7 @@ export const PACKAGE_TASKS = {
   "cold_outreach": [
     {
       "id": "co_s01_a",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Conduct Kickoff Meeting with Client",
@@ -77,6 +193,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s01_b",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Collect Platform Credentials",
@@ -89,6 +206,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s01_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 1,
       "n": "Purchase 5 Cold Email Domains",
@@ -101,6 +219,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s01_d",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 1,
       "n": "Configure SPF, DKIM, DMARC DNS Records",
@@ -113,6 +232,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s02_a",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Audit Client Offer",
@@ -125,6 +245,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s02_b",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Audit Client Proof Materials",
@@ -137,6 +258,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s02_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 2,
       "n": "Create 15 Mailboxes across Domains",
@@ -149,6 +271,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s03_a",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Draft Target ICP Definition Document",
@@ -161,6 +284,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s03_b",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Submit ICP Scorecard for Client Approval",
@@ -173,6 +297,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s03_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 3,
       "n": "Connect 15 Mailboxes to Warmup Pool",
@@ -185,6 +310,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s03_d",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 3,
       "n": "Set Automated Warmup Schedule",
@@ -197,6 +323,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s04_a",
+      "service": "core",
       "phase": "sprint",
       "day": 4,
       "n": "Benchmark Competitor Outbound Campaigns",
@@ -209,6 +336,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s04_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 4,
       "n": "Setup GHL Sub-Account Pipeline Stages",
@@ -221,6 +349,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s05_a",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Configure GHL Calendar Booking Link and Reminders",
@@ -233,6 +362,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s05_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Set Up Slack Lead Notification Webhook",
@@ -245,6 +375,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s06_a",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 6,
       "n": "Optimize Client LinkedIn Profile",
@@ -257,6 +388,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s06_b",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 6,
       "n": "Activate Sales Navigator Search Filters",
@@ -269,6 +401,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s07_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Draft Email Sequence Angle 1 Direct Pitch",
@@ -281,6 +414,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s07_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Draft Email Sequence Angle 2 Pain Point",
@@ -293,6 +427,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s07_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Source First 1,250 Verified ICP Contacts",
@@ -305,6 +440,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s08_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 8,
       "n": "Draft Email Sequence Angle 3 Case Study and Social Proof",
@@ -317,6 +453,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s08_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 8,
       "n": "Write 4 Follow Up Variations Per Angle",
@@ -329,6 +466,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s09_a",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 9,
       "n": "Write LinkedIn Connection Note and 3 Step DM Sequence",
@@ -341,6 +479,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s09_b",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 9,
       "n": "Design LinkedIn Banner and Optimize Headline",
@@ -353,6 +492,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s10_a",
+      "service": "core",
       "phase": "sprint",
       "day": 10,
       "n": "Messaging Approval Call with Client on Angles and Content Pillars",
@@ -366,6 +506,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s10_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 10,
       "n": "Upload Approved Sequences to Sending Platform",
@@ -378,6 +519,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s11_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 11,
       "n": "Build Intent Trigger Contact List",
@@ -390,6 +532,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s11_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 11,
       "n": "Clean and Verify Email Deliverability on All Leads",
@@ -402,6 +545,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s12_a",
+      "service": "core",
       "phase": "sprint",
       "day": 12,
       "n": "Write Discovery Call Script and Objection Handling Document",
@@ -414,6 +558,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s12_b",
+      "service": "core",
       "phase": "sprint",
       "day": 12,
       "n": "Prepare Proposal Template for Client Use",
@@ -426,6 +571,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s13_a",
+      "service": "core",
       "phase": "sprint",
       "day": 13,
       "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
@@ -438,6 +584,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s13_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 13,
       "n": "Source Additional 1,250 Verified ICP Contacts",
@@ -450,6 +597,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s14_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 14,
       "n": "Execute Seed List Test Send to 10 Inboxes",
@@ -463,6 +611,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s14_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 14,
       "n": "Verify 0% Spam Placement across Seed Accounts",
@@ -475,6 +624,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s15_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 15,
       "n": "Final Deliverability QA and Inbox Placement Check",
@@ -487,6 +637,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_s15_b",
+      "service": "core",
       "phase": "sprint",
       "day": 15,
       "n": "Compile Day 15 Go Live Report and Conduct Milestone Review",
@@ -499,6 +650,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d16_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 16,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -509,6 +661,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d16_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 16,
       "n": "Send Booked Call Confirmations",
@@ -519,6 +672,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d16_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 16,
       "n": "Follow-up Missed Call No-Shows",
@@ -529,6 +683,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d17_ramp",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Start Cold Email Sending at 20 Percent Volume",
@@ -539,6 +694,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d17_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Send Cold Email Ramp-Up Batch",
@@ -549,6 +705,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d17_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Sequence Performance Review by Angle",
@@ -559,6 +716,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d17_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 17,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -569,6 +727,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d18_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 18,
       "n": "Clean Inactive Lead Database Contacts",
@@ -579,6 +738,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d18_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 18,
       "n": "Remove Hard Bounced Email Addresses",
@@ -589,6 +749,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d19_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 19,
       "n": "Review Weekly KPI Metrics",
@@ -599,6 +760,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d19_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -609,6 +771,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d19_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -619,6 +782,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d19_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Send Cold Email Ramp-Up Batch",
@@ -629,6 +793,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d19_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 19,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -639,6 +804,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d20_scale",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Scale Cold Email to Full Daily Volume",
@@ -649,6 +815,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d20_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -659,6 +826,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d20_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Morning Inbound Reply Triage",
@@ -669,6 +837,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d20_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Evening Inbound Reply Triage",
@@ -679,6 +848,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d20_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 20,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -689,6 +859,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d21_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 21,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -699,6 +870,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d21_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 21,
       "n": "Launch Automated Follow-up Wave",
@@ -709,6 +881,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d21_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 21,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -719,6 +892,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d21_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 21,
       "n": "Process Meeting Bookings from Replies",
@@ -729,6 +903,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d22_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 22,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -739,6 +914,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d22_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 22,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -749,6 +925,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d22_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 22,
       "n": "Send Booked Call Confirmations",
@@ -759,6 +936,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d22_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 22,
       "n": "Follow-up Missed Call No-Shows",
@@ -769,6 +947,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d23_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 23,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -779,6 +958,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d23_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 23,
       "n": "Sequence Performance Review by Angle",
@@ -789,6 +969,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d23_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 23,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -799,6 +980,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d24_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 24,
       "n": "Clean Inactive Lead Database Contacts",
@@ -809,6 +991,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d24_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 24,
       "n": "Remove Hard Bounced Email Addresses",
@@ -819,6 +1002,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d25_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 25,
       "n": "Review Weekly KPI Metrics",
@@ -829,6 +1013,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d25_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -839,6 +1024,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d25_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -849,6 +1035,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d25_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -859,6 +1046,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d25_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 25,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -869,6 +1057,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d26_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -879,6 +1068,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d26_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Morning Inbound Reply Triage",
@@ -889,6 +1079,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d26_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Evening Inbound Reply Triage",
@@ -899,6 +1090,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d26_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 26,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -909,6 +1101,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d27_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 27,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -919,6 +1112,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d27_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 27,
       "n": "Launch Automated Follow-up Wave",
@@ -929,6 +1123,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d27_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 27,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -939,6 +1134,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d27_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 27,
       "n": "Process Meeting Bookings from Replies",
@@ -949,6 +1145,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d28_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 28,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -959,6 +1156,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d28_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 28,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -969,6 +1167,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d28_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 28,
       "n": "Send Booked Call Confirmations",
@@ -979,6 +1178,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d28_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 28,
       "n": "Follow-up Missed Call No-Shows",
@@ -989,6 +1189,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d29_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 29,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -999,6 +1200,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d29_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 29,
       "n": "Sequence Performance Review by Angle",
@@ -1009,6 +1211,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d29_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 29,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -1019,6 +1222,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d30_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 30,
       "n": "Clean Inactive Lead Database Contacts",
@@ -1029,6 +1233,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d30_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 30,
       "n": "Remove Hard Bounced Email Addresses",
@@ -1039,6 +1244,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d31_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 31,
       "n": "Review Weekly KPI Metrics",
@@ -1049,6 +1255,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d31_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -1059,6 +1266,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d31_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -1069,6 +1277,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d31_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1079,6 +1288,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d31_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 31,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1089,6 +1299,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d32_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1099,6 +1310,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d32_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Morning Inbound Reply Triage",
@@ -1109,6 +1321,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d32_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Evening Inbound Reply Triage",
@@ -1119,6 +1332,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d32_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 32,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1129,6 +1343,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d33_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 33,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1139,6 +1354,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d33_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 33,
       "n": "Launch Automated Follow-up Wave",
@@ -1149,6 +1365,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d33_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 33,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -1159,6 +1376,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d33_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 33,
       "n": "Process Meeting Bookings from Replies",
@@ -1169,6 +1387,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d34_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 34,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1179,6 +1398,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d34_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 34,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1189,6 +1409,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d34_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 34,
       "n": "Send Booked Call Confirmations",
@@ -1199,6 +1420,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d34_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 34,
       "n": "Follow-up Missed Call No-Shows",
@@ -1209,6 +1431,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d35_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 35,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1219,6 +1442,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d35_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 35,
       "n": "Sequence Performance Review by Angle",
@@ -1229,6 +1453,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d35_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 35,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -1239,6 +1464,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d36_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 36,
       "n": "Clean Inactive Lead Database Contacts",
@@ -1249,6 +1475,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d36_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 36,
       "n": "Remove Hard Bounced Email Addresses",
@@ -1259,6 +1486,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d37_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 37,
       "n": "Review Weekly KPI Metrics",
@@ -1269,6 +1497,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d37_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -1279,6 +1508,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d37_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -1289,6 +1519,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d37_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1299,6 +1530,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d37_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 37,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1309,6 +1541,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d38_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1319,6 +1552,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d38_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Morning Inbound Reply Triage",
@@ -1329,6 +1563,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d38_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Evening Inbound Reply Triage",
@@ -1339,6 +1574,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d38_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 38,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1349,6 +1585,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d39_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 39,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1359,6 +1596,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d39_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 39,
       "n": "Launch Automated Follow-up Wave",
@@ -1369,6 +1607,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d39_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 39,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -1379,6 +1618,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d39_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 39,
       "n": "Process Meeting Bookings from Replies",
@@ -1389,6 +1629,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d40_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 40,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1399,6 +1640,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d40_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 40,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1409,6 +1651,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d40_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 40,
       "n": "Send Booked Call Confirmations",
@@ -1419,6 +1662,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d40_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 40,
       "n": "Follow-up Missed Call No-Shows",
@@ -1429,6 +1673,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d41_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 41,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1439,6 +1684,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d41_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 41,
       "n": "Sequence Performance Review by Angle",
@@ -1449,6 +1695,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d41_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 41,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -1459,6 +1706,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d42_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 42,
       "n": "Clean Inactive Lead Database Contacts",
@@ -1469,6 +1717,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d42_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 42,
       "n": "Remove Hard Bounced Email Addresses",
@@ -1479,6 +1728,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d43_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 43,
       "n": "Review Weekly KPI Metrics",
@@ -1489,6 +1739,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d43_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -1499,6 +1750,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d43_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -1509,6 +1761,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d43_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1519,6 +1772,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d43_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 43,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1529,6 +1783,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d44_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1539,6 +1794,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d44_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Morning Inbound Reply Triage",
@@ -1549,6 +1805,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d44_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Evening Inbound Reply Triage",
@@ -1559,6 +1816,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d44_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 44,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1569,6 +1827,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d45_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 45,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1579,6 +1838,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d45_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 45,
       "n": "Launch Automated Follow-up Wave",
@@ -1589,6 +1849,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d45_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 45,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -1599,6 +1860,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d45_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 45,
       "n": "Process Meeting Bookings from Replies",
@@ -1609,6 +1871,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d46_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 46,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1619,6 +1882,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d46_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 46,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1629,6 +1893,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d46_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 46,
       "n": "Send Booked Call Confirmations",
@@ -1639,6 +1904,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d46_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 46,
       "n": "Follow-up Missed Call No-Shows",
@@ -1649,6 +1915,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d47_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 47,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1659,6 +1926,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d47_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 47,
       "n": "Sequence Performance Review by Angle",
@@ -1669,6 +1937,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d47_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 47,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -1679,6 +1948,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d48_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 48,
       "n": "Clean Inactive Lead Database Contacts",
@@ -1689,6 +1959,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d48_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 48,
       "n": "Remove Hard Bounced Email Addresses",
@@ -1699,6 +1970,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d49_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 49,
       "n": "Review Weekly KPI Metrics",
@@ -1709,6 +1981,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d49_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -1719,6 +1992,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d49_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -1729,6 +2003,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d49_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1739,6 +2014,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d49_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 49,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1749,6 +2025,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d50_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1759,6 +2036,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d50_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Morning Inbound Reply Triage",
@@ -1769,6 +2047,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d50_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Evening Inbound Reply Triage",
@@ -1779,6 +2058,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d50_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 50,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1789,6 +2069,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d51_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 51,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1799,6 +2080,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d51_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 51,
       "n": "Launch Automated Follow-up Wave",
@@ -1809,6 +2091,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d51_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 51,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -1819,6 +2102,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d51_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 51,
       "n": "Process Meeting Bookings from Replies",
@@ -1829,6 +2113,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d52_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 52,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1839,6 +2124,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d52_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 52,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1849,6 +2135,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d52_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 52,
       "n": "Send Booked Call Confirmations",
@@ -1859,6 +2146,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d52_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 52,
       "n": "Follow-up Missed Call No-Shows",
@@ -1869,6 +2157,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d53_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 53,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1879,6 +2168,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d53_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 53,
       "n": "Sequence Performance Review by Angle",
@@ -1889,6 +2179,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d53_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 53,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -1899,6 +2190,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d54_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 54,
       "n": "Clean Inactive Lead Database Contacts",
@@ -1909,6 +2201,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d54_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 54,
       "n": "Remove Hard Bounced Email Addresses",
@@ -1919,6 +2212,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d55_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 55,
       "n": "Review Weekly KPI Metrics",
@@ -1929,6 +2223,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d55_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -1939,6 +2234,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d55_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -1949,6 +2245,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d55_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1959,6 +2256,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d55_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 55,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -1969,6 +2267,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d56_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -1979,6 +2278,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d56_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Morning Inbound Reply Triage",
@@ -1989,6 +2289,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d56_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Evening Inbound Reply Triage",
@@ -1999,6 +2300,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d56_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 56,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2009,6 +2311,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d57_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 57,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2019,6 +2322,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d57_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 57,
       "n": "Launch Automated Follow-up Wave",
@@ -2029,6 +2333,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d57_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 57,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -2039,6 +2344,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d57_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 57,
       "n": "Process Meeting Bookings from Replies",
@@ -2049,6 +2355,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d58_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 58,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2059,6 +2366,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d58_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 58,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2069,6 +2377,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d58_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 58,
       "n": "Send Booked Call Confirmations",
@@ -2079,6 +2388,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d58_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 58,
       "n": "Follow-up Missed Call No-Shows",
@@ -2089,6 +2399,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d59_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 59,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2099,6 +2410,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d59_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 59,
       "n": "Sequence Performance Review by Angle",
@@ -2109,6 +2421,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d59_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 59,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -2119,6 +2432,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d60_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 60,
       "n": "Clean Inactive Lead Database Contacts",
@@ -2129,6 +2443,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d60_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 60,
       "n": "Remove Hard Bounced Email Addresses",
@@ -2139,6 +2454,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d61_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 61,
       "n": "Review Weekly KPI Metrics",
@@ -2149,6 +2465,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d61_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -2159,6 +2476,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d61_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -2169,6 +2487,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d61_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2179,6 +2498,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d61_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 61,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2189,6 +2509,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d62_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2199,6 +2520,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d62_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Morning Inbound Reply Triage",
@@ -2209,6 +2531,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d62_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Evening Inbound Reply Triage",
@@ -2219,6 +2542,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d62_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 62,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2229,6 +2553,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d63_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 63,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2239,6 +2564,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d63_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 63,
       "n": "Launch Automated Follow-up Wave",
@@ -2249,6 +2575,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d63_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 63,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -2259,6 +2586,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d63_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 63,
       "n": "Process Meeting Bookings from Replies",
@@ -2269,6 +2597,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d64_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 64,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2279,6 +2608,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d64_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 64,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2289,6 +2619,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d64_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 64,
       "n": "Send Booked Call Confirmations",
@@ -2299,6 +2630,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d64_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 64,
       "n": "Follow-up Missed Call No-Shows",
@@ -2309,6 +2641,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d65_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 65,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2319,6 +2652,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d65_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 65,
       "n": "Sequence Performance Review by Angle",
@@ -2329,6 +2663,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d65_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 65,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -2339,6 +2674,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d66_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 66,
       "n": "Clean Inactive Lead Database Contacts",
@@ -2349,6 +2685,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d66_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 66,
       "n": "Remove Hard Bounced Email Addresses",
@@ -2359,6 +2696,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d67_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 67,
       "n": "Review Weekly KPI Metrics",
@@ -2369,6 +2707,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d67_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -2379,6 +2718,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d67_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -2389,6 +2729,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d67_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2399,6 +2740,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d67_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 67,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2409,6 +2751,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d68_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2419,6 +2762,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d68_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Morning Inbound Reply Triage",
@@ -2429,6 +2773,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d68_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Evening Inbound Reply Triage",
@@ -2439,6 +2784,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d68_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 68,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2449,6 +2795,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d69_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 69,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2459,6 +2806,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d69_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 69,
       "n": "Launch Automated Follow-up Wave",
@@ -2469,6 +2817,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d69_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 69,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -2479,6 +2828,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d69_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 69,
       "n": "Process Meeting Bookings from Replies",
@@ -2489,6 +2839,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d70_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 70,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2499,6 +2850,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d70_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 70,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2509,6 +2861,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d70_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 70,
       "n": "Send Booked Call Confirmations",
@@ -2519,6 +2872,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d70_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 70,
       "n": "Follow-up Missed Call No-Shows",
@@ -2529,6 +2883,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d71_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 71,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2539,6 +2894,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d71_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 71,
       "n": "Sequence Performance Review by Angle",
@@ -2549,6 +2905,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d71_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 71,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -2559,6 +2916,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d72_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 72,
       "n": "Clean Inactive Lead Database Contacts",
@@ -2569,6 +2927,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d72_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 72,
       "n": "Remove Hard Bounced Email Addresses",
@@ -2579,6 +2938,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d73_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 73,
       "n": "Review Weekly KPI Metrics",
@@ -2589,6 +2949,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d73_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -2599,6 +2960,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d73_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -2609,6 +2971,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d73_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2619,6 +2982,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d73_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 73,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2629,6 +2993,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d74_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2639,6 +3004,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d74_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Morning Inbound Reply Triage",
@@ -2649,6 +3015,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d74_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Evening Inbound Reply Triage",
@@ -2659,6 +3026,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d74_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 74,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2669,6 +3037,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d75_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 75,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2679,6 +3048,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d75_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 75,
       "n": "Launch Automated Follow-up Wave",
@@ -2689,6 +3059,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d75_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 75,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -2699,6 +3070,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d75_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 75,
       "n": "Process Meeting Bookings from Replies",
@@ -2709,6 +3081,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d76_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 76,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2719,6 +3092,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d76_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 76,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2729,6 +3103,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d76_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 76,
       "n": "Send Booked Call Confirmations",
@@ -2739,6 +3114,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d76_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 76,
       "n": "Follow-up Missed Call No-Shows",
@@ -2749,6 +3125,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d77_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 77,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2759,6 +3136,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d77_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 77,
       "n": "Sequence Performance Review by Angle",
@@ -2769,6 +3147,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d77_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 77,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -2779,6 +3158,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d78_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 78,
       "n": "Clean Inactive Lead Database Contacts",
@@ -2789,6 +3169,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d78_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 78,
       "n": "Remove Hard Bounced Email Addresses",
@@ -2799,6 +3180,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d79_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 79,
       "n": "Review Weekly KPI Metrics",
@@ -2809,6 +3191,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d79_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -2819,6 +3202,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d79_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -2829,6 +3213,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d79_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2839,6 +3224,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d79_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 79,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2849,6 +3235,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d80_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2859,6 +3246,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d80_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Morning Inbound Reply Triage",
@@ -2869,6 +3257,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d80_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Evening Inbound Reply Triage",
@@ -2879,6 +3268,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d80_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 80,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2889,6 +3279,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d81_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 81,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2899,6 +3290,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d81_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 81,
       "n": "Launch Automated Follow-up Wave",
@@ -2909,6 +3301,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d81_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 81,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -2919,6 +3312,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d81_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 81,
       "n": "Process Meeting Bookings from Replies",
@@ -2929,6 +3323,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d82_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 82,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2939,6 +3334,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d82_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 82,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -2949,6 +3345,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d82_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 82,
       "n": "Send Booked Call Confirmations",
@@ -2959,6 +3356,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d82_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 82,
       "n": "Follow-up Missed Call No-Shows",
@@ -2969,6 +3367,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d83_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 83,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -2979,6 +3378,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d83_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 83,
       "n": "Sequence Performance Review by Angle",
@@ -2989,6 +3389,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d83_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 83,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -2999,6 +3400,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d84_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 84,
       "n": "Clean Inactive Lead Database Contacts",
@@ -3009,6 +3411,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d84_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 84,
       "n": "Remove Hard Bounced Email Addresses",
@@ -3019,6 +3422,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d85_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 85,
       "n": "Review Weekly KPI Metrics",
@@ -3029,6 +3433,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d85_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Mailbox Health Check on 15 Boxes",
@@ -3039,6 +3444,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d85_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Build Weekly Verified Lead List (625 Contacts)",
@@ -3049,6 +3455,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d85_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -3059,6 +3466,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d85_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 85,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3069,6 +3477,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d86_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -3079,6 +3488,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d86_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Morning Inbound Reply Triage",
@@ -3089,6 +3499,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d86_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Evening Inbound Reply Triage",
@@ -3099,6 +3510,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d86_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 86,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3109,6 +3521,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d87_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 87,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -3119,6 +3532,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d87_wave",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 87,
       "n": "Launch Automated Follow-up Wave",
@@ -3129,6 +3543,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d87_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 87,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -3139,6 +3554,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d87_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 87,
       "n": "Process Meeting Bookings from Replies",
@@ -3149,6 +3565,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d88_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 88,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -3159,6 +3576,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d88_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 88,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3169,6 +3587,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d88_confirm",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 88,
       "n": "Send Booked Call Confirmations",
@@ -3179,6 +3598,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d88_noshow",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 88,
       "n": "Follow-up Missed Call No-Shows",
@@ -3189,6 +3609,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d89_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 89,
       "n": "Send Cold Email Batch (375 Sends)",
@@ -3199,6 +3620,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d89_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 89,
       "n": "Sequence Performance Review by Angle",
@@ -3209,6 +3631,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d89_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 89,
       "n": "GHL Pipeline Hygiene and Lead Routing Check",
@@ -3219,6 +3642,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d90_clean",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 90,
       "n": "Clean Inactive Lead Database Contacts",
@@ -3229,6 +3653,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_d90_bounce",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 90,
       "n": "Remove Hard Bounced Email Addresses",
@@ -3239,6 +3664,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_m25",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Kill Weakest Email Angle and Reallocate Its Volume",
@@ -3249,6 +3675,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_m30",
+      "service": "core",
       "phase": "ongoing",
       "day": 30,
       "n": "Conduct Month 1 Performance Review",
@@ -3259,6 +3686,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_m40",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 40,
       "n": "Rewrite Offer Language Using Real Objections Collected",
@@ -3269,6 +3697,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_m52",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 52,
       "n": "Rotate Burnt Domains and Start Warmup on 2 Replacements",
@@ -3279,6 +3708,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_m60",
+      "service": "core",
       "phase": "ongoing",
       "day": 60,
       "n": "Conduct Month 2 Pricing Check and Performance Review",
@@ -3289,6 +3719,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "co_m90",
+      "service": "core",
       "phase": "ongoing",
       "day": 90,
       "n": "Conduct Quarter Review and Renewal Conversation",
@@ -3301,6 +3732,7 @@ export const PACKAGE_TASKS = {
   "growth_starter": [
     {
       "id": "gs_s01_a",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Conduct Kickoff Meeting with Client",
@@ -3311,6 +3743,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s01_b",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Collect Social Account Access Logins",
@@ -3323,6 +3756,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s02_a",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Audit Client Business Model",
@@ -3335,6 +3769,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s02_b",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Scan Competitor Funnels and Positioning",
@@ -3347,6 +3782,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s03_a",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Draft Target ICP Profile",
@@ -3359,6 +3795,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s03_b",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Submit ICP Scorecard for Client Approval",
@@ -3371,6 +3808,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s04_a",
+      "service": "social_media",
       "phase": "sprint",
       "day": 4,
       "n": "Collect Client Brand Assets",
@@ -3383,6 +3821,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s04_b",
+      "service": "social_media",
       "phase": "sprint",
       "day": 4,
       "n": "Lock Brand Color Palette and Typography Guidelines",
@@ -3395,6 +3834,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s05_a",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Create Dedicated GoHighLevel Sub Account and Grant Client Access",
@@ -3407,6 +3847,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s05_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Build GHL Pipeline Stages and Booking Calendar",
@@ -3419,6 +3860,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s06_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 6,
       "n": "Install Meta Pixel Conversion Events",
@@ -3431,6 +3873,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s06_b",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 6,
       "n": "Setup Google Analytics 4 Tracking",
@@ -3443,6 +3886,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s07_a",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 7,
       "n": "Source First 500 Verified Target Contacts",
@@ -3455,6 +3899,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s07_b",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 7,
       "n": "Verify Contact Data Deliverability",
@@ -3467,6 +3912,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s08_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 8,
       "n": "Audit Meta Ad Account Settings",
@@ -3479,6 +3925,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s08_b",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 8,
       "n": "Build Custom Target Audiences for Meta Lead Gen",
@@ -3491,6 +3938,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s09_a",
+      "service": "core",
       "phase": "sprint",
       "day": 9,
       "n": "Conduct Messaging Review Call with Client",
@@ -3503,6 +3951,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s09_b",
+      "service": "social_media",
       "phase": "sprint",
       "day": 9,
       "n": "Finalize Social Content Pillars for 2 Platforms",
@@ -3515,6 +3964,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s09_c",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 9,
       "n": "Connect Landing Page Form and Ads Lead Forms to GHL Pipeline",
@@ -3527,6 +3977,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s10_a",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 10,
       "n": "Design Landing Page Structure Wireframe",
@@ -3540,6 +3991,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s10_b",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 10,
       "n": "Build Landing Page Visual Elements",
@@ -3552,6 +4004,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s11_a",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 11,
       "n": "Optimize LinkedIn Profile Banner and Headline",
@@ -3564,6 +4017,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s11_b",
+      "service": "social_media",
       "phase": "sprint",
       "day": 11,
       "n": "Write First Content Batch (12 Static Social Posts)",
@@ -3576,6 +4030,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s12_a",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 12,
       "n": "Deploy Landing Page Live and Verify Functionality",
@@ -3588,6 +4043,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s12_b",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 12,
       "n": "Test GHL Lead Capture and Booking Form",
@@ -3601,6 +4057,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s13_a",
+      "service": "core",
       "phase": "sprint",
       "day": 13,
       "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
@@ -3613,6 +4070,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s13_b",
+      "service": "core",
       "phase": "sprint",
       "day": 13,
       "n": "Issue Client Login Portal Walkthrough",
@@ -3625,6 +4083,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s14_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 14,
       "n": "Build 2 Meta Lead Generation Ad Campaigns in Paused Drafts",
@@ -3638,6 +4097,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s14_b",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 14,
       "n": "Confirm Monthly Ad Spend Budget and Billing Method in Writing",
@@ -3650,6 +4110,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s15_a",
+      "service": "core",
       "phase": "sprint",
       "day": 15,
       "n": "Deliver Go Live Audit Report",
@@ -3662,6 +4123,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s15_b",
+      "service": "core",
       "phase": "sprint",
       "day": 15,
       "n": "Conduct Go/No-Go Launch Sign-Off",
@@ -3674,6 +4136,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_s15_c",
+      "service": "core",
       "phase": "sprint",
       "day": 15,
       "n": "Set Client Expectation That Month 1 Produces No Cold Email Booked Calls Since Outbound Is Not Included",
@@ -3686,6 +4149,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d16_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 16,
       "n": "Produce Second Weekly Post Batch",
@@ -3696,6 +4160,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d16_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 16,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3706,6 +4171,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d16_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 16,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -3716,6 +4182,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d16_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 16,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -3726,6 +4193,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d17_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 17,
       "n": "Audit GHL Lead Routing Automation",
@@ -3736,6 +4204,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d17_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 17,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3746,6 +4215,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d17_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 17,
       "n": "Send Weekly Performance Summary to Client",
@@ -3756,6 +4226,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d18_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 18,
       "n": "Engage with Community Followers",
@@ -3766,6 +4237,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d19_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 19,
       "n": "Review Weekly KPI Numbers",
@@ -3776,6 +4248,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d19_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 19,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -3786,6 +4259,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d19_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 19,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -3796,6 +4270,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d19_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 19,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3806,6 +4281,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d19_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 19,
       "n": "Check Meta Ads Daily Spend Health",
@@ -3816,6 +4292,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d20_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 20,
       "n": "Design Static Post Visuals",
@@ -3826,6 +4303,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d20_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 20,
       "n": "Write Post Captions and Hashtags",
@@ -3836,6 +4314,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d20_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 20,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3846,6 +4325,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d20_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 20,
       "n": "Process LinkedIn Inbound Replies",
@@ -3856,6 +4336,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d20_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 20,
       "n": "Audit Meta Ad Performance Metrics",
@@ -3866,6 +4347,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d21_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 21,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -3876,6 +4358,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d21_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 21,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -3886,6 +4369,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d21_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 21,
       "n": "Respond to Social Media Comments and Messages",
@@ -3896,6 +4380,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d22_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 22,
       "n": "Produce Second Weekly Post Batch",
@@ -3906,6 +4391,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d22_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 22,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3916,6 +4402,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d22_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 22,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -3926,6 +4413,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d22_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 22,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -3936,6 +4424,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d23_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 23,
       "n": "Audit GHL Lead Routing Automation",
@@ -3946,6 +4435,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d23_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 23,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -3956,6 +4446,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d23_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 23,
       "n": "Send Weekly Performance Summary to Client",
@@ -3966,6 +4457,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d24_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 24,
       "n": "Engage with Community Followers",
@@ -3976,6 +4468,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d25_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 25,
       "n": "Review Weekly KPI Numbers",
@@ -3986,6 +4479,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d25_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 25,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -3996,6 +4490,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d25_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 25,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -4006,6 +4501,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d25_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 25,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4016,6 +4512,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d25_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 25,
       "n": "Check Meta Ads Daily Spend Health",
@@ -4026,6 +4523,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m25_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 25,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -4036,6 +4534,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d26_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 26,
       "n": "Design Static Post Visuals",
@@ -4046,6 +4545,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d26_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 26,
       "n": "Write Post Captions and Hashtags",
@@ -4056,6 +4556,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d26_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 26,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4066,6 +4567,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d26_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 26,
       "n": "Process LinkedIn Inbound Replies",
@@ -4076,6 +4578,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d26_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 26,
       "n": "Audit Meta Ad Performance Metrics",
@@ -4086,6 +4589,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d27_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 27,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -4096,6 +4600,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d27_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 27,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -4106,6 +4611,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d27_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 27,
       "n": "Respond to Social Media Comments and Messages",
@@ -4116,6 +4622,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d28_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 28,
       "n": "Produce Second Weekly Post Batch",
@@ -4126,6 +4633,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d28_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 28,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4136,6 +4644,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d28_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 28,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -4146,6 +4655,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d28_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 28,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -4156,6 +4666,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d29_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 29,
       "n": "Audit GHL Lead Routing Automation",
@@ -4166,6 +4677,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d29_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 29,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4176,6 +4688,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d29_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 29,
       "n": "Send Weekly Performance Summary to Client",
@@ -4186,6 +4699,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d30_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 30,
       "n": "Engage with Community Followers",
@@ -4196,6 +4710,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d31_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 31,
       "n": "Review Weekly KPI Numbers",
@@ -4206,6 +4721,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d31_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 31,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -4216,6 +4732,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d31_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 31,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -4226,6 +4743,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d31_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 31,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4236,6 +4754,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d31_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 31,
       "n": "Check Meta Ads Daily Spend Health",
@@ -4246,6 +4765,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d32_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 32,
       "n": "Design Static Post Visuals",
@@ -4256,6 +4776,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d32_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 32,
       "n": "Write Post Captions and Hashtags",
@@ -4266,6 +4787,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d32_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 32,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4276,6 +4798,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d32_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 32,
       "n": "Process LinkedIn Inbound Replies",
@@ -4286,6 +4809,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d32_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 32,
       "n": "Audit Meta Ad Performance Metrics",
@@ -4296,6 +4820,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d33_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 33,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -4306,6 +4831,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d33_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 33,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -4316,6 +4842,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d33_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 33,
       "n": "Respond to Social Media Comments and Messages",
@@ -4326,6 +4853,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d34_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 34,
       "n": "Produce Second Weekly Post Batch",
@@ -4336,6 +4864,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d34_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 34,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4346,6 +4875,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d34_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 34,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -4356,6 +4886,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d34_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 34,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -4366,6 +4897,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d35_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 35,
       "n": "Audit GHL Lead Routing Automation",
@@ -4376,6 +4908,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d35_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 35,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4386,6 +4919,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d35_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 35,
       "n": "Send Weekly Performance Summary to Client",
@@ -4396,6 +4930,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d36_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 36,
       "n": "Engage with Community Followers",
@@ -4406,6 +4941,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d37_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 37,
       "n": "Review Weekly KPI Numbers",
@@ -4416,6 +4952,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d37_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 37,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -4426,6 +4963,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d37_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 37,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -4436,6 +4974,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d37_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 37,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4446,6 +4985,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d37_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 37,
       "n": "Check Meta Ads Daily Spend Health",
@@ -4456,6 +4996,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d38_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 38,
       "n": "Design Static Post Visuals",
@@ -4466,6 +5007,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d38_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 38,
       "n": "Write Post Captions and Hashtags",
@@ -4476,6 +5018,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d38_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 38,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4486,6 +5029,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d38_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 38,
       "n": "Process LinkedIn Inbound Replies",
@@ -4496,6 +5040,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d38_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 38,
       "n": "Audit Meta Ad Performance Metrics",
@@ -4506,6 +5051,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d39_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 39,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -4516,6 +5062,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d39_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 39,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -4526,6 +5073,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d39_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 39,
       "n": "Respond to Social Media Comments and Messages",
@@ -4536,6 +5084,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d40_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 40,
       "n": "Produce Second Weekly Post Batch",
@@ -4546,6 +5095,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d40_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 40,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4556,6 +5106,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d40_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 40,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -4566,6 +5117,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d40_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 40,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -4576,6 +5128,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d41_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 41,
       "n": "Audit GHL Lead Routing Automation",
@@ -4586,6 +5139,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d41_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 41,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4596,6 +5150,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d41_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 41,
       "n": "Send Weekly Performance Summary to Client",
@@ -4606,6 +5161,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d42_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 42,
       "n": "Engage with Community Followers",
@@ -4616,6 +5172,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d43_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 43,
       "n": "Review Weekly KPI Numbers",
@@ -4626,6 +5183,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d43_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 43,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -4636,6 +5194,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d43_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 43,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -4646,6 +5205,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d43_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 43,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4656,6 +5216,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d43_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 43,
       "n": "Check Meta Ads Daily Spend Health",
@@ -4666,6 +5227,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d44_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 44,
       "n": "Design Static Post Visuals",
@@ -4676,6 +5238,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d44_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 44,
       "n": "Write Post Captions and Hashtags",
@@ -4686,6 +5249,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d44_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 44,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4696,6 +5260,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d44_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 44,
       "n": "Process LinkedIn Inbound Replies",
@@ -4706,6 +5271,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d44_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 44,
       "n": "Audit Meta Ad Performance Metrics",
@@ -4716,6 +5282,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d45_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 45,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -4726,6 +5293,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d45_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 45,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -4736,6 +5304,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d45_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 45,
       "n": "Respond to Social Media Comments and Messages",
@@ -4746,6 +5315,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d46_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 46,
       "n": "Produce Second Weekly Post Batch",
@@ -4756,6 +5326,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d46_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 46,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4766,6 +5337,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d46_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 46,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -4776,6 +5348,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d46_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 46,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -4786,6 +5359,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d47_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 47,
       "n": "Audit GHL Lead Routing Automation",
@@ -4796,6 +5370,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d47_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 47,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4806,6 +5381,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d47_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 47,
       "n": "Send Weekly Performance Summary to Client",
@@ -4816,6 +5392,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d48_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 48,
       "n": "Engage with Community Followers",
@@ -4826,6 +5403,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d49_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 49,
       "n": "Review Weekly KPI Numbers",
@@ -4836,6 +5414,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d49_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 49,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -4846,6 +5425,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d49_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 49,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -4856,6 +5436,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d49_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 49,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4866,6 +5447,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d49_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 49,
       "n": "Check Meta Ads Daily Spend Health",
@@ -4876,6 +5458,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d50_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 50,
       "n": "Design Static Post Visuals",
@@ -4886,6 +5469,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d50_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 50,
       "n": "Write Post Captions and Hashtags",
@@ -4896,6 +5480,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d50_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 50,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4906,6 +5491,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d50_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 50,
       "n": "Process LinkedIn Inbound Replies",
@@ -4916,6 +5502,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d50_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 50,
       "n": "Audit Meta Ad Performance Metrics",
@@ -4926,6 +5513,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d51_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 51,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -4936,6 +5524,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d51_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 51,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -4946,6 +5535,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d51_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 51,
       "n": "Respond to Social Media Comments and Messages",
@@ -4956,6 +5546,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d52_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 52,
       "n": "Produce Second Weekly Post Batch",
@@ -4966,6 +5557,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d52_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 52,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -4976,6 +5568,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d52_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 52,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -4986,6 +5579,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d52_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 52,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -4996,6 +5590,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d53_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 53,
       "n": "Audit GHL Lead Routing Automation",
@@ -5006,6 +5601,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d53_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 53,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5016,6 +5612,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d53_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 53,
       "n": "Send Weekly Performance Summary to Client",
@@ -5026,6 +5623,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d54_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 54,
       "n": "Engage with Community Followers",
@@ -5036,6 +5634,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d55_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 55,
       "n": "Review Weekly KPI Numbers",
@@ -5046,6 +5645,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d55_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 55,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -5056,6 +5656,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d55_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 55,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -5066,6 +5667,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d55_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 55,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5076,6 +5678,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d55_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 55,
       "n": "Check Meta Ads Daily Spend Health",
@@ -5086,6 +5689,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m55_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 55,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -5096,6 +5700,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d56_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 56,
       "n": "Design Static Post Visuals",
@@ -5106,6 +5711,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d56_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 56,
       "n": "Write Post Captions and Hashtags",
@@ -5116,6 +5722,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d56_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 56,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5126,6 +5733,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d56_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 56,
       "n": "Process LinkedIn Inbound Replies",
@@ -5136,6 +5744,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d56_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 56,
       "n": "Audit Meta Ad Performance Metrics",
@@ -5146,6 +5755,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d57_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 57,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -5156,6 +5766,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d57_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 57,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -5166,6 +5777,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d57_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 57,
       "n": "Respond to Social Media Comments and Messages",
@@ -5176,6 +5788,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d58_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 58,
       "n": "Produce Second Weekly Post Batch",
@@ -5186,6 +5799,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d58_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 58,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5196,6 +5810,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d58_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 58,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -5206,6 +5821,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d58_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 58,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -5216,6 +5832,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d59_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 59,
       "n": "Audit GHL Lead Routing Automation",
@@ -5226,6 +5843,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d59_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 59,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5236,6 +5854,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d59_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 59,
       "n": "Send Weekly Performance Summary to Client",
@@ -5246,6 +5865,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d60_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 60,
       "n": "Engage with Community Followers",
@@ -5256,6 +5876,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d61_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 61,
       "n": "Review Weekly KPI Numbers",
@@ -5266,6 +5887,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d61_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 61,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -5276,6 +5898,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d61_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 61,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -5286,6 +5909,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d61_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 61,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5296,6 +5920,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d61_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 61,
       "n": "Check Meta Ads Daily Spend Health",
@@ -5306,6 +5931,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d62_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 62,
       "n": "Design Static Post Visuals",
@@ -5316,6 +5942,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d62_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 62,
       "n": "Write Post Captions and Hashtags",
@@ -5326,6 +5953,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d62_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 62,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5336,6 +5964,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d62_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 62,
       "n": "Process LinkedIn Inbound Replies",
@@ -5346,6 +5975,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d62_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 62,
       "n": "Audit Meta Ad Performance Metrics",
@@ -5356,6 +5986,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d63_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 63,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -5366,6 +5997,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d63_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 63,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -5376,6 +6008,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d63_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 63,
       "n": "Respond to Social Media Comments and Messages",
@@ -5386,6 +6019,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d64_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 64,
       "n": "Produce Second Weekly Post Batch",
@@ -5396,6 +6030,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d64_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 64,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5406,6 +6041,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d64_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 64,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -5416,6 +6052,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d64_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 64,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -5426,6 +6063,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d65_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 65,
       "n": "Audit GHL Lead Routing Automation",
@@ -5436,6 +6074,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d65_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 65,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5446,6 +6085,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d65_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 65,
       "n": "Send Weekly Performance Summary to Client",
@@ -5456,6 +6096,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d66_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 66,
       "n": "Engage with Community Followers",
@@ -5466,6 +6107,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d67_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 67,
       "n": "Review Weekly KPI Numbers",
@@ -5476,6 +6118,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d67_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 67,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -5486,6 +6129,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d67_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 67,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -5496,6 +6140,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d67_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 67,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5506,6 +6151,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d67_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 67,
       "n": "Check Meta Ads Daily Spend Health",
@@ -5516,6 +6162,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d68_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 68,
       "n": "Design Static Post Visuals",
@@ -5526,6 +6173,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d68_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 68,
       "n": "Write Post Captions and Hashtags",
@@ -5536,6 +6184,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d68_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 68,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5546,6 +6195,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d68_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 68,
       "n": "Process LinkedIn Inbound Replies",
@@ -5556,6 +6206,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d68_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 68,
       "n": "Audit Meta Ad Performance Metrics",
@@ -5566,6 +6217,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d69_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 69,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -5576,6 +6228,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d69_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 69,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -5586,6 +6239,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d69_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 69,
       "n": "Respond to Social Media Comments and Messages",
@@ -5596,6 +6250,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d70_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 70,
       "n": "Produce Second Weekly Post Batch",
@@ -5606,6 +6261,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d70_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 70,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5616,6 +6272,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d70_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 70,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -5626,6 +6283,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d70_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 70,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -5636,6 +6294,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d71_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 71,
       "n": "Audit GHL Lead Routing Automation",
@@ -5646,6 +6305,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d71_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 71,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5656,6 +6316,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d71_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 71,
       "n": "Send Weekly Performance Summary to Client",
@@ -5666,6 +6327,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d72_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 72,
       "n": "Engage with Community Followers",
@@ -5676,6 +6338,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d73_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 73,
       "n": "Review Weekly KPI Numbers",
@@ -5686,6 +6349,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d73_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 73,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -5696,6 +6360,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d73_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 73,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -5706,6 +6371,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d73_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 73,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5716,6 +6382,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d73_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 73,
       "n": "Check Meta Ads Daily Spend Health",
@@ -5726,6 +6393,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d74_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 74,
       "n": "Design Static Post Visuals",
@@ -5736,6 +6404,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d74_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 74,
       "n": "Write Post Captions and Hashtags",
@@ -5746,6 +6415,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d74_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 74,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5756,6 +6426,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d74_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 74,
       "n": "Process LinkedIn Inbound Replies",
@@ -5766,6 +6437,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d74_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 74,
       "n": "Audit Meta Ad Performance Metrics",
@@ -5776,6 +6448,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d75_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 75,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -5786,6 +6459,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d75_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 75,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -5796,6 +6470,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d75_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 75,
       "n": "Respond to Social Media Comments and Messages",
@@ -5806,6 +6481,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d76_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 76,
       "n": "Produce Second Weekly Post Batch",
@@ -5816,6 +6492,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d76_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 76,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5826,6 +6503,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d76_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 76,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -5836,6 +6514,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d76_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 76,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -5846,6 +6525,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d77_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 77,
       "n": "Audit GHL Lead Routing Automation",
@@ -5856,6 +6536,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d77_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 77,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5866,6 +6547,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d77_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 77,
       "n": "Send Weekly Performance Summary to Client",
@@ -5876,6 +6558,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d78_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 78,
       "n": "Engage with Community Followers",
@@ -5886,6 +6569,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d79_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 79,
       "n": "Review Weekly KPI Numbers",
@@ -5896,6 +6580,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d79_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 79,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -5906,6 +6591,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d79_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 79,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -5916,6 +6602,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d79_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 79,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5926,6 +6613,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d79_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 79,
       "n": "Check Meta Ads Daily Spend Health",
@@ -5936,6 +6624,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d80_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 80,
       "n": "Design Static Post Visuals",
@@ -5946,6 +6635,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d80_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 80,
       "n": "Write Post Captions and Hashtags",
@@ -5956,6 +6646,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d80_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 80,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -5966,6 +6657,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d80_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 80,
       "n": "Process LinkedIn Inbound Replies",
@@ -5976,6 +6668,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d80_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 80,
       "n": "Audit Meta Ad Performance Metrics",
@@ -5986,6 +6679,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d81_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 81,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -5996,6 +6690,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d81_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 81,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -6006,6 +6701,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d81_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 81,
       "n": "Respond to Social Media Comments and Messages",
@@ -6016,6 +6712,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d82_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 82,
       "n": "Produce Second Weekly Post Batch",
@@ -6026,6 +6723,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d82_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 82,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -6036,6 +6734,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d82_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 82,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -6046,6 +6745,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d82_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 82,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -6056,6 +6756,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d83_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 83,
       "n": "Audit GHL Lead Routing Automation",
@@ -6066,6 +6767,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d83_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 83,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -6076,6 +6778,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d83_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 83,
       "n": "Send Weekly Performance Summary to Client",
@@ -6086,6 +6789,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d84_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 84,
       "n": "Engage with Community Followers",
@@ -6096,6 +6800,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d85_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 85,
       "n": "Review Weekly KPI Numbers",
@@ -6106,6 +6811,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d85_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 85,
       "n": "Schedule Weekly Posts on 2 Platforms",
@@ -6116,6 +6822,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d85_list",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 85,
       "n": "Build Weekly Target Contact List (125 Contacts)",
@@ -6126,6 +6833,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d85_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 85,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -6136,6 +6844,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d85_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 85,
       "n": "Check Meta Ads Daily Spend Health",
@@ -6146,6 +6855,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m85_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 85,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -6156,6 +6866,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d86_design",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 86,
       "n": "Design Static Post Visuals",
@@ -6166,6 +6877,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d86_copy",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 86,
       "n": "Write Post Captions and Hashtags",
@@ -6176,6 +6888,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d86_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 86,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -6186,6 +6899,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d86_reply",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 86,
       "n": "Process LinkedIn Inbound Replies",
@@ -6196,6 +6910,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d86_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 86,
       "n": "Audit Meta Ad Performance Metrics",
@@ -6206,6 +6921,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d87_opt",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 87,
       "n": "Optimize Meta Lead Generation Campaign Budgets",
@@ -6216,6 +6932,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d87_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 87,
       "n": "Send 15 LinkedIn Outreach DMs",
@@ -6226,6 +6943,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d87_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 87,
       "n": "Respond to Social Media Comments and Messages",
@@ -6236,6 +6954,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d88_post2",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 88,
       "n": "Produce Second Weekly Post Batch",
@@ -6246,6 +6965,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d88_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 88,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -6256,6 +6976,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d88_book",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 88,
       "n": "Schedule Inbound Discovery Calls in GHL",
@@ -6266,6 +6987,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d88_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 88,
       "n": "Check Meta Lead Form Conversion Quality",
@@ -6276,6 +6998,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d89_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 89,
       "n": "Audit GHL Lead Routing Automation",
@@ -6286,6 +7009,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d89_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 89,
       "n": "Send 15 LinkedIn Connection Requests",
@@ -6296,6 +7020,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d89_wrap",
+      "service": "core",
       "phase": "ongoing",
       "day": 89,
       "n": "Send Weekly Performance Summary to Client",
@@ -6306,6 +7031,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_d90_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 90,
       "n": "Engage with Community Followers",
@@ -6316,6 +7042,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m30",
+      "service": "core",
       "phase": "ongoing",
       "day": 30,
       "n": "Conduct Month 1 Performance Review",
@@ -6326,6 +7053,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m40",
+      "service": "landing_page",
       "phase": "ongoing",
       "day": 40,
       "n": "Audit Landing Page Conversion Rate",
@@ -6336,6 +7064,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m60",
+      "service": "core",
       "phase": "ongoing",
       "day": 60,
       "n": "Conduct Month 2 Pricing Check and Performance Review",
@@ -6346,6 +7075,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m70",
+      "service": "landing_page",
       "phase": "ongoing",
       "day": 70,
       "n": "Audit Mobile Usability on Landing Page",
@@ -6356,6 +7086,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gs_m90",
+      "service": "core",
       "phase": "ongoing",
       "day": 90,
       "n": "Conduct Quarter Review and Renewal Conversation",
@@ -6368,6 +7099,7 @@ export const PACKAGE_TASKS = {
   "growth_engine": [
     {
       "id": "ge_s01_a",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Conduct Kickoff Meeting with Client",
@@ -6378,6 +7110,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s01_b",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Collect Platform Credentials",
@@ -6390,6 +7123,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s01_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 1,
       "n": "Purchase 6 Sending Domains",
@@ -6402,6 +7136,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s01_d",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 1,
       "n": "Configure SPF, DKIM, DMARC DNS Records",
@@ -6414,6 +7149,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s02_a",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Audit Client Business Offer",
@@ -6426,6 +7162,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s02_b",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Benchmark Competitor Market Strategies",
@@ -6438,6 +7175,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s02_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 2,
       "n": "Create 18 Mailboxes across 6 Domains",
@@ -6450,6 +7188,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s03_a",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Draft Target ICP Profile",
@@ -6462,6 +7201,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s03_b",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Submit ICP Scorecard for Approval",
@@ -6474,6 +7214,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s03_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 3,
       "n": "Connect 18 Mailboxes to Warmup Pool",
@@ -6486,6 +7227,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s03_d",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 3,
       "n": "Set Automated Warmup Schedule",
@@ -6498,6 +7240,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s04_a",
+      "service": "social_media",
       "phase": "sprint",
       "day": 4,
       "n": "Collect Brand Identity Assets",
@@ -6510,6 +7253,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s04_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 4,
       "n": "Build GHL Sub-Account Multi-Pipeline Stages",
@@ -6522,6 +7266,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s05_a",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Configure Booking Calendar and Routing Automation",
@@ -6534,6 +7279,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s05_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Setup Slack Live Lead Alerts",
@@ -6546,6 +7292,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s06_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 6,
       "n": "Deploy Meta Pixel Conversion Events",
@@ -6558,6 +7305,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s06_b",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 6,
       "n": "Setup Google Analytics 4 and Tag Manager",
@@ -6570,6 +7318,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s07_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Draft Email Sequence Angle 1 Direct Pitch",
@@ -6582,6 +7331,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s07_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Draft Email Sequence Angle 2 Pain Point",
@@ -6594,6 +7344,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s07_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Source First 1,500 Verified ICP Contacts",
@@ -6606,6 +7357,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s08_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 8,
       "n": "Draft Email Sequence Angle 3 Case Study and Social Proof",
@@ -6618,6 +7370,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s08_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 8,
       "n": "Write 4 Follow Up Variations Per Angle",
@@ -6630,6 +7383,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s08_c",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 8,
       "n": "Audit Meta and Google Ad Account Settings",
@@ -6642,6 +7396,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s09_a",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 9,
       "n": "Write LinkedIn Connection Note and 3 Step DM Sequence",
@@ -6654,6 +7409,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s09_b",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 9,
       "n": "Design LinkedIn Banner and Optimize Headline",
@@ -6666,6 +7422,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s09_c",
+      "service": "seo",
       "phase": "sprint",
       "day": 9,
       "n": "Execute Technical SEO Audit and Crawl Review",
@@ -6678,6 +7435,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s10_a",
+      "service": "core",
       "phase": "sprint",
       "day": 10,
       "n": "Messaging Approval Call with Client on Angles and Content Pillars",
@@ -6691,6 +7449,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s10_b",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 10,
       "n": "Design Landing Page 1 Layout Wireframe",
@@ -6703,6 +7462,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s10_c",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 10,
       "n": "Optimize 2 LinkedIn Personal Profiles",
@@ -6715,6 +7475,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s11_a",
+      "service": "seo",
       "phase": "sprint",
       "day": 11,
       "n": "Map 15 High Intent Primary Keywords",
@@ -6727,6 +7488,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s11_b",
+      "service": "social_media",
       "phase": "sprint",
       "day": 11,
       "n": "Produce Initial Social Content Batch (10 Posts)",
@@ -6739,6 +7501,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s12_a",
+      "service": "core",
       "phase": "sprint",
       "day": 12,
       "n": "Write Discovery Call Script and Objection Handling Document",
@@ -6751,6 +7514,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s12_b",
+      "service": "core",
       "phase": "sprint",
       "day": 12,
       "n": "Prepare Proposal Template for Client Use",
@@ -6763,6 +7527,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s12_c",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 12,
       "n": "Deploy 2 Landing Pages Live on Subdomains",
@@ -6775,6 +7540,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s13_a",
+      "service": "core",
       "phase": "sprint",
       "day": 13,
       "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
@@ -6787,6 +7553,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s13_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 13,
       "n": "Source Additional 1,500 Verified ICP Contacts",
@@ -6799,6 +7566,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s14_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 14,
       "n": "Build Meta and Google Search Campaigns in Paused Drafts",
@@ -6812,6 +7580,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s14_b",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 14,
       "n": "Confirm Monthly Ad Spend Budget and Billing Method in Writing",
@@ -6824,6 +7593,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s14_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 14,
       "n": "Execute Seed List Test Send to 10 Inboxes",
@@ -6836,6 +7606,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s15_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 15,
       "n": "Final Deliverability QA and Inbox Placement Check",
@@ -6848,6 +7619,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_s15_b",
+      "service": "core",
       "phase": "sprint",
       "day": 15,
       "n": "Compile Go Live Performance Report and Conduct Milestone Review",
@@ -6860,6 +7632,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d16_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 16,
       "n": "Execute Backlink Outreach Pitching",
@@ -6870,6 +7643,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d16_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 16,
       "n": "Produce Weekly Post Batch Visuals",
@@ -6880,6 +7654,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d16_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 16,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -6890,6 +7665,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d16_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 16,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -6900,6 +7676,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d16_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 16,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -6910,6 +7687,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d17_ramp",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Start Cold Email Sending at 20 Percent Volume",
@@ -6920,6 +7698,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d17_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Send Cold Email Ramp-Up Batch",
@@ -6930,6 +7709,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d17_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -6940,6 +7720,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d17_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 17,
       "n": "Publish Google Business Profile Update",
@@ -6950,6 +7731,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d17_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 17,
       "n": "Audit GHL CRM Lead Automation",
@@ -6960,6 +7742,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d18_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 18,
       "n": "Manage Social Community Engagement",
@@ -6970,6 +7753,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 19,
       "n": "Review Weekly KPI Scorecard",
@@ -6980,6 +7764,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -6990,6 +7775,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -7000,6 +7786,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Send Cold Email Ramp-Up Batch",
@@ -7010,6 +7797,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 19,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -7020,6 +7808,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 19,
       "n": "Track Keyword Ranking Movement",
@@ -7030,6 +7819,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 19,
       "n": "Schedule Weekly Content across Channels",
@@ -7040,6 +7830,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d19_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 19,
       "n": "Check Meta and Google Ads Daily Health",
@@ -7050,6 +7841,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_scale",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Scale Cold Email to Full Daily Volume",
@@ -7060,6 +7852,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7070,6 +7863,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Morning Reply Triage",
@@ -7080,6 +7874,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Evening Reply Triage",
@@ -7090,6 +7885,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 20,
       "n": "Produce Short-Form Video Reel",
@@ -7100,6 +7896,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 20,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -7110,6 +7907,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d20_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 20,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -7120,6 +7918,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d21_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 21,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7130,6 +7929,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d21_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 21,
       "n": "Publish SEO Optimized Blog Post",
@@ -7140,6 +7940,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d21_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 21,
       "n": "Refresh Retargeting Ad Creatives",
@@ -7150,6 +7951,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d21_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 21,
       "n": "Send LinkedIn Outbound DMs",
@@ -7160,6 +7962,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d21_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 21,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -7170,6 +7973,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d22_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 22,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7180,6 +7984,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d22_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 22,
       "n": "Execute Backlink Outreach Pitching",
@@ -7190,6 +7995,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d22_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 22,
       "n": "Produce Weekly Post Batch Visuals",
@@ -7200,6 +8006,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d22_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 22,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -7210,6 +8017,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d22_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 22,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -7220,6 +8028,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d22_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 22,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -7230,6 +8039,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d23_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 23,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7240,6 +8050,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d23_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 23,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -7250,6 +8061,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d23_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 23,
       "n": "Publish Google Business Profile Update",
@@ -7260,6 +8072,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d23_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 23,
       "n": "Audit GHL CRM Lead Automation",
@@ -7270,6 +8083,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d24_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 24,
       "n": "Manage Social Community Engagement",
@@ -7280,6 +8094,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 25,
       "n": "Review Weekly KPI Scorecard",
@@ -7290,6 +8105,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -7300,6 +8116,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -7310,6 +8127,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7320,6 +8138,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 25,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -7330,6 +8149,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 25,
       "n": "Track Keyword Ranking Movement",
@@ -7340,6 +8160,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 25,
       "n": "Schedule Weekly Content across Channels",
@@ -7350,6 +8171,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d25_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 25,
       "n": "Check Meta and Google Ads Daily Health",
@@ -7360,6 +8182,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m25_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 25,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -7370,6 +8193,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d26_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7380,6 +8204,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d26_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Morning Reply Triage",
@@ -7390,6 +8215,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d26_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Evening Reply Triage",
@@ -7400,6 +8226,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d26_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 26,
       "n": "Produce Short-Form Video Reel",
@@ -7410,6 +8237,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d26_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 26,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -7420,6 +8248,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d26_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 26,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -7430,6 +8259,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d27_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 27,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7440,6 +8270,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d27_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 27,
       "n": "Publish SEO Optimized Blog Post",
@@ -7450,6 +8281,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d27_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 27,
       "n": "Refresh Retargeting Ad Creatives",
@@ -7460,6 +8292,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d27_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 27,
       "n": "Send LinkedIn Outbound DMs",
@@ -7470,6 +8303,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d27_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 27,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -7480,6 +8314,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d28_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 28,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7490,6 +8325,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d28_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 28,
       "n": "Execute Backlink Outreach Pitching",
@@ -7500,6 +8336,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d28_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 28,
       "n": "Produce Weekly Post Batch Visuals",
@@ -7510,6 +8347,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d28_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 28,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -7520,6 +8358,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d28_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 28,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -7530,6 +8369,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d28_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 28,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -7540,6 +8380,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d29_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 29,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7550,6 +8391,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d29_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 29,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -7560,6 +8402,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d29_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 29,
       "n": "Publish Google Business Profile Update",
@@ -7570,6 +8413,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d29_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 29,
       "n": "Audit GHL CRM Lead Automation",
@@ -7580,6 +8424,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d30_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 30,
       "n": "Manage Social Community Engagement",
@@ -7590,6 +8435,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 31,
       "n": "Review Weekly KPI Scorecard",
@@ -7600,6 +8446,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -7610,6 +8457,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -7620,6 +8468,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7630,6 +8479,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 31,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -7640,6 +8490,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 31,
       "n": "Track Keyword Ranking Movement",
@@ -7650,6 +8501,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 31,
       "n": "Schedule Weekly Content across Channels",
@@ -7660,6 +8512,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d31_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 31,
       "n": "Check Meta and Google Ads Daily Health",
@@ -7670,6 +8523,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d32_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7680,6 +8534,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d32_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Morning Reply Triage",
@@ -7690,6 +8545,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d32_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Evening Reply Triage",
@@ -7700,6 +8556,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d32_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 32,
       "n": "Produce Short-Form Video Reel",
@@ -7710,6 +8567,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d32_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 32,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -7720,6 +8578,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d32_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 32,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -7730,6 +8589,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d33_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 33,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7740,6 +8600,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d33_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 33,
       "n": "Publish SEO Optimized Blog Post",
@@ -7750,6 +8611,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d33_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 33,
       "n": "Refresh Retargeting Ad Creatives",
@@ -7760,6 +8622,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d33_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 33,
       "n": "Send LinkedIn Outbound DMs",
@@ -7770,6 +8633,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d33_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 33,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -7780,6 +8644,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d34_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 34,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7790,6 +8655,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d34_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 34,
       "n": "Execute Backlink Outreach Pitching",
@@ -7800,6 +8666,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d34_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 34,
       "n": "Produce Weekly Post Batch Visuals",
@@ -7810,6 +8677,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d34_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 34,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -7820,6 +8688,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d34_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 34,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -7830,6 +8699,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d34_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 34,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -7840,6 +8710,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d35_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 35,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7850,6 +8721,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d35_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 35,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -7860,6 +8732,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d35_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 35,
       "n": "Publish Google Business Profile Update",
@@ -7870,6 +8743,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d35_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 35,
       "n": "Audit GHL CRM Lead Automation",
@@ -7880,6 +8754,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d36_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 36,
       "n": "Manage Social Community Engagement",
@@ -7890,6 +8765,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 37,
       "n": "Review Weekly KPI Scorecard",
@@ -7900,6 +8776,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -7910,6 +8787,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -7920,6 +8798,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7930,6 +8809,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 37,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -7940,6 +8820,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 37,
       "n": "Track Keyword Ranking Movement",
@@ -7950,6 +8831,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 37,
       "n": "Schedule Weekly Content across Channels",
@@ -7960,6 +8842,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d37_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 37,
       "n": "Check Meta and Google Ads Daily Health",
@@ -7970,6 +8853,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d38_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -7980,6 +8864,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d38_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Morning Reply Triage",
@@ -7990,6 +8875,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d38_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Evening Reply Triage",
@@ -8000,6 +8886,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d38_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 38,
       "n": "Produce Short-Form Video Reel",
@@ -8010,6 +8897,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d38_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 38,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8020,6 +8908,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d38_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 38,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -8030,6 +8919,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d39_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 39,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8040,6 +8930,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d39_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 39,
       "n": "Publish SEO Optimized Blog Post",
@@ -8050,6 +8941,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d39_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 39,
       "n": "Refresh Retargeting Ad Creatives",
@@ -8060,6 +8952,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d39_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 39,
       "n": "Send LinkedIn Outbound DMs",
@@ -8070,6 +8963,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d39_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 39,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -8080,6 +8974,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d40_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 40,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8090,6 +8985,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d40_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 40,
       "n": "Execute Backlink Outreach Pitching",
@@ -8100,6 +8996,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d40_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 40,
       "n": "Produce Weekly Post Batch Visuals",
@@ -8110,6 +9007,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d40_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 40,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8120,6 +9018,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d40_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 40,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -8130,6 +9029,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d40_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 40,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -8140,6 +9040,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d41_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 41,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8150,6 +9051,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d41_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 41,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -8160,6 +9062,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d41_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 41,
       "n": "Publish Google Business Profile Update",
@@ -8170,6 +9073,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d41_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 41,
       "n": "Audit GHL CRM Lead Automation",
@@ -8180,6 +9084,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d42_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 42,
       "n": "Manage Social Community Engagement",
@@ -8190,6 +9095,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 43,
       "n": "Review Weekly KPI Scorecard",
@@ -8200,6 +9106,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -8210,6 +9117,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -8220,6 +9128,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8230,6 +9139,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 43,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -8240,6 +9150,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 43,
       "n": "Track Keyword Ranking Movement",
@@ -8250,6 +9161,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 43,
       "n": "Schedule Weekly Content across Channels",
@@ -8260,6 +9172,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d43_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 43,
       "n": "Check Meta and Google Ads Daily Health",
@@ -8270,6 +9183,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d44_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8280,6 +9194,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d44_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Morning Reply Triage",
@@ -8290,6 +9205,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d44_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Evening Reply Triage",
@@ -8300,6 +9216,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d44_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 44,
       "n": "Produce Short-Form Video Reel",
@@ -8310,6 +9227,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d44_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 44,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8320,6 +9238,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d44_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 44,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -8330,6 +9249,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d45_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 45,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8340,6 +9260,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d45_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 45,
       "n": "Publish SEO Optimized Blog Post",
@@ -8350,6 +9271,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d45_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 45,
       "n": "Refresh Retargeting Ad Creatives",
@@ -8360,6 +9282,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d45_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 45,
       "n": "Send LinkedIn Outbound DMs",
@@ -8370,6 +9293,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d45_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 45,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -8380,6 +9304,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d46_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 46,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8390,6 +9315,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d46_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 46,
       "n": "Execute Backlink Outreach Pitching",
@@ -8400,6 +9326,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d46_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 46,
       "n": "Produce Weekly Post Batch Visuals",
@@ -8410,6 +9337,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d46_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 46,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8420,6 +9348,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d46_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 46,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -8430,6 +9359,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d46_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 46,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -8440,6 +9370,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d47_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 47,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8450,6 +9381,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d47_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 47,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -8460,6 +9392,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d47_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 47,
       "n": "Publish Google Business Profile Update",
@@ -8470,6 +9403,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d47_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 47,
       "n": "Audit GHL CRM Lead Automation",
@@ -8480,6 +9414,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d48_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 48,
       "n": "Manage Social Community Engagement",
@@ -8490,6 +9425,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 49,
       "n": "Review Weekly KPI Scorecard",
@@ -8500,6 +9436,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -8510,6 +9447,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -8520,6 +9458,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8530,6 +9469,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 49,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -8540,6 +9480,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 49,
       "n": "Track Keyword Ranking Movement",
@@ -8550,6 +9491,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 49,
       "n": "Schedule Weekly Content across Channels",
@@ -8560,6 +9502,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d49_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 49,
       "n": "Check Meta and Google Ads Daily Health",
@@ -8570,6 +9513,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d50_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8580,6 +9524,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d50_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Morning Reply Triage",
@@ -8590,6 +9535,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d50_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Evening Reply Triage",
@@ -8600,6 +9546,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d50_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 50,
       "n": "Produce Short-Form Video Reel",
@@ -8610,6 +9557,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d50_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 50,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8620,6 +9568,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d50_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 50,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -8630,6 +9579,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d51_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 51,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8640,6 +9590,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d51_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 51,
       "n": "Publish SEO Optimized Blog Post",
@@ -8650,6 +9601,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d51_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 51,
       "n": "Refresh Retargeting Ad Creatives",
@@ -8660,6 +9612,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d51_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 51,
       "n": "Send LinkedIn Outbound DMs",
@@ -8670,6 +9623,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d51_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 51,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -8680,6 +9634,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d52_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 52,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8690,6 +9645,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d52_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 52,
       "n": "Execute Backlink Outreach Pitching",
@@ -8700,6 +9656,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d52_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 52,
       "n": "Produce Weekly Post Batch Visuals",
@@ -8710,6 +9667,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d52_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 52,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8720,6 +9678,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d52_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 52,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -8730,6 +9689,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d52_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 52,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -8740,6 +9700,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d53_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 53,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8750,6 +9711,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d53_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 53,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -8760,6 +9722,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d53_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 53,
       "n": "Publish Google Business Profile Update",
@@ -8770,6 +9733,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d53_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 53,
       "n": "Audit GHL CRM Lead Automation",
@@ -8780,6 +9744,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d54_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 54,
       "n": "Manage Social Community Engagement",
@@ -8790,6 +9755,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 55,
       "n": "Review Weekly KPI Scorecard",
@@ -8800,6 +9766,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -8810,6 +9777,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -8820,6 +9788,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8830,6 +9799,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 55,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -8840,6 +9810,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 55,
       "n": "Track Keyword Ranking Movement",
@@ -8850,6 +9821,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 55,
       "n": "Schedule Weekly Content across Channels",
@@ -8860,6 +9832,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d55_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 55,
       "n": "Check Meta and Google Ads Daily Health",
@@ -8870,6 +9843,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m55_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 55,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -8880,6 +9854,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d56_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8890,6 +9865,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d56_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Morning Reply Triage",
@@ -8900,6 +9876,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d56_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Evening Reply Triage",
@@ -8910,6 +9887,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d56_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 56,
       "n": "Produce Short-Form Video Reel",
@@ -8920,6 +9898,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d56_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 56,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -8930,6 +9909,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d56_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 56,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -8940,6 +9920,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d57_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 57,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -8950,6 +9931,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d57_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 57,
       "n": "Publish SEO Optimized Blog Post",
@@ -8960,6 +9942,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d57_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 57,
       "n": "Refresh Retargeting Ad Creatives",
@@ -8970,6 +9953,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d57_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 57,
       "n": "Send LinkedIn Outbound DMs",
@@ -8980,6 +9964,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d57_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 57,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -8990,6 +9975,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d58_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 58,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9000,6 +9986,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d58_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 58,
       "n": "Execute Backlink Outreach Pitching",
@@ -9010,6 +9997,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d58_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 58,
       "n": "Produce Weekly Post Batch Visuals",
@@ -9020,6 +10008,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d58_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 58,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9030,6 +10019,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d58_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 58,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -9040,6 +10030,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d58_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 58,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -9050,6 +10041,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d59_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 59,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9060,6 +10052,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d59_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 59,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -9070,6 +10063,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d59_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 59,
       "n": "Publish Google Business Profile Update",
@@ -9080,6 +10074,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d59_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 59,
       "n": "Audit GHL CRM Lead Automation",
@@ -9090,6 +10085,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d60_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 60,
       "n": "Manage Social Community Engagement",
@@ -9100,6 +10096,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 61,
       "n": "Review Weekly KPI Scorecard",
@@ -9110,6 +10107,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -9120,6 +10118,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -9130,6 +10129,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9140,6 +10140,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 61,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -9150,6 +10151,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 61,
       "n": "Track Keyword Ranking Movement",
@@ -9160,6 +10162,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 61,
       "n": "Schedule Weekly Content across Channels",
@@ -9170,6 +10173,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d61_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 61,
       "n": "Check Meta and Google Ads Daily Health",
@@ -9180,6 +10184,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d62_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9190,6 +10195,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d62_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Morning Reply Triage",
@@ -9200,6 +10206,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d62_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Evening Reply Triage",
@@ -9210,6 +10217,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d62_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 62,
       "n": "Produce Short-Form Video Reel",
@@ -9220,6 +10228,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d62_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 62,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9230,6 +10239,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d62_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 62,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -9240,6 +10250,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d63_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 63,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9250,6 +10261,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d63_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 63,
       "n": "Publish SEO Optimized Blog Post",
@@ -9260,6 +10272,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d63_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 63,
       "n": "Refresh Retargeting Ad Creatives",
@@ -9270,6 +10283,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d63_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 63,
       "n": "Send LinkedIn Outbound DMs",
@@ -9280,6 +10294,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d63_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 63,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -9290,6 +10305,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d64_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 64,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9300,6 +10316,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d64_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 64,
       "n": "Execute Backlink Outreach Pitching",
@@ -9310,6 +10327,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d64_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 64,
       "n": "Produce Weekly Post Batch Visuals",
@@ -9320,6 +10338,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d64_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 64,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9330,6 +10349,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d64_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 64,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -9340,6 +10360,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d64_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 64,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -9350,6 +10371,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d65_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 65,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9360,6 +10382,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d65_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 65,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -9370,6 +10393,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d65_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 65,
       "n": "Publish Google Business Profile Update",
@@ -9380,6 +10404,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d65_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 65,
       "n": "Audit GHL CRM Lead Automation",
@@ -9390,6 +10415,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d66_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 66,
       "n": "Manage Social Community Engagement",
@@ -9400,6 +10426,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 67,
       "n": "Review Weekly KPI Scorecard",
@@ -9410,6 +10437,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -9420,6 +10448,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -9430,6 +10459,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9440,6 +10470,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 67,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -9450,6 +10481,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 67,
       "n": "Track Keyword Ranking Movement",
@@ -9460,6 +10492,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 67,
       "n": "Schedule Weekly Content across Channels",
@@ -9470,6 +10503,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d67_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 67,
       "n": "Check Meta and Google Ads Daily Health",
@@ -9480,6 +10514,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d68_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9490,6 +10525,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d68_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Morning Reply Triage",
@@ -9500,6 +10536,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d68_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Evening Reply Triage",
@@ -9510,6 +10547,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d68_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 68,
       "n": "Produce Short-Form Video Reel",
@@ -9520,6 +10558,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d68_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 68,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9530,6 +10569,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d68_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 68,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -9540,6 +10580,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d69_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 69,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9550,6 +10591,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d69_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 69,
       "n": "Publish SEO Optimized Blog Post",
@@ -9560,6 +10602,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d69_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 69,
       "n": "Refresh Retargeting Ad Creatives",
@@ -9570,6 +10613,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d69_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 69,
       "n": "Send LinkedIn Outbound DMs",
@@ -9580,6 +10624,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d69_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 69,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -9590,6 +10635,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d70_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 70,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9600,6 +10646,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d70_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 70,
       "n": "Execute Backlink Outreach Pitching",
@@ -9610,6 +10657,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d70_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 70,
       "n": "Produce Weekly Post Batch Visuals",
@@ -9620,6 +10668,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d70_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 70,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9630,6 +10679,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d70_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 70,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -9640,6 +10690,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d70_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 70,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -9650,6 +10701,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d71_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 71,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9660,6 +10712,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d71_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 71,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -9670,6 +10723,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d71_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 71,
       "n": "Publish Google Business Profile Update",
@@ -9680,6 +10734,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d71_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 71,
       "n": "Audit GHL CRM Lead Automation",
@@ -9690,6 +10745,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d72_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 72,
       "n": "Manage Social Community Engagement",
@@ -9700,6 +10756,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 73,
       "n": "Review Weekly KPI Scorecard",
@@ -9710,6 +10767,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -9720,6 +10778,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -9730,6 +10789,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9740,6 +10800,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 73,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -9750,6 +10811,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 73,
       "n": "Track Keyword Ranking Movement",
@@ -9760,6 +10822,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 73,
       "n": "Schedule Weekly Content across Channels",
@@ -9770,6 +10833,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d73_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 73,
       "n": "Check Meta and Google Ads Daily Health",
@@ -9780,6 +10844,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d74_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9790,6 +10855,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d74_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Morning Reply Triage",
@@ -9800,6 +10866,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d74_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Evening Reply Triage",
@@ -9810,6 +10877,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d74_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 74,
       "n": "Produce Short-Form Video Reel",
@@ -9820,6 +10888,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d74_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 74,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9830,6 +10899,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d74_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 74,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -9840,6 +10910,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d75_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 75,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9850,6 +10921,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d75_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 75,
       "n": "Publish SEO Optimized Blog Post",
@@ -9860,6 +10932,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d75_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 75,
       "n": "Refresh Retargeting Ad Creatives",
@@ -9870,6 +10943,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d75_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 75,
       "n": "Send LinkedIn Outbound DMs",
@@ -9880,6 +10954,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d75_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 75,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -9890,6 +10965,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d76_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 76,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9900,6 +10976,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d76_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 76,
       "n": "Execute Backlink Outreach Pitching",
@@ -9910,6 +10987,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d76_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 76,
       "n": "Produce Weekly Post Batch Visuals",
@@ -9920,6 +10998,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d76_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 76,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -9930,6 +11009,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d76_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 76,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -9940,6 +11020,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d76_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 76,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -9950,6 +11031,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d77_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 77,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -9960,6 +11042,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d77_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 77,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -9970,6 +11053,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d77_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 77,
       "n": "Publish Google Business Profile Update",
@@ -9980,6 +11064,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d77_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 77,
       "n": "Audit GHL CRM Lead Automation",
@@ -9990,6 +11075,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d78_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 78,
       "n": "Manage Social Community Engagement",
@@ -10000,6 +11086,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 79,
       "n": "Review Weekly KPI Scorecard",
@@ -10010,6 +11097,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -10020,6 +11108,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -10030,6 +11119,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10040,6 +11130,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 79,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -10050,6 +11141,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 79,
       "n": "Track Keyword Ranking Movement",
@@ -10060,6 +11152,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 79,
       "n": "Schedule Weekly Content across Channels",
@@ -10070,6 +11163,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d79_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 79,
       "n": "Check Meta and Google Ads Daily Health",
@@ -10080,6 +11174,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d80_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10090,6 +11185,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d80_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Morning Reply Triage",
@@ -10100,6 +11196,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d80_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Evening Reply Triage",
@@ -10110,6 +11207,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d80_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 80,
       "n": "Produce Short-Form Video Reel",
@@ -10120,6 +11218,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d80_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 80,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -10130,6 +11229,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d80_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 80,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -10140,6 +11240,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d81_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 81,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10150,6 +11251,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d81_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 81,
       "n": "Publish SEO Optimized Blog Post",
@@ -10160,6 +11262,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d81_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 81,
       "n": "Refresh Retargeting Ad Creatives",
@@ -10170,6 +11273,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d81_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 81,
       "n": "Send LinkedIn Outbound DMs",
@@ -10180,6 +11284,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d81_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 81,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -10190,6 +11295,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d82_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 82,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10200,6 +11306,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d82_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 82,
       "n": "Execute Backlink Outreach Pitching",
@@ -10210,6 +11317,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d82_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 82,
       "n": "Produce Weekly Post Batch Visuals",
@@ -10220,6 +11328,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d82_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 82,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -10230,6 +11339,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d82_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 82,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -10240,6 +11350,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d82_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 82,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -10250,6 +11361,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d83_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 83,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10260,6 +11372,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d83_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 83,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -10270,6 +11383,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d83_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 83,
       "n": "Publish Google Business Profile Update",
@@ -10280,6 +11394,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d83_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 83,
       "n": "Audit GHL CRM Lead Automation",
@@ -10290,6 +11405,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d84_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 84,
       "n": "Manage Social Community Engagement",
@@ -10300,6 +11416,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 85,
       "n": "Review Weekly KPI Scorecard",
@@ -10310,6 +11427,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Check Mailbox Health (18 Boxes)",
@@ -10320,6 +11438,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Build Weekly Verified Lead List (750 Contacts)",
@@ -10330,6 +11449,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10340,6 +11460,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 85,
       "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
@@ -10350,6 +11471,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_kw",
+      "service": "seo",
       "phase": "ongoing",
       "day": 85,
       "n": "Track Keyword Ranking Movement",
@@ -10360,6 +11482,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_sched",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 85,
       "n": "Schedule Weekly Content across Channels",
@@ -10370,6 +11493,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d85_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 85,
       "n": "Check Meta and Google Ads Daily Health",
@@ -10380,6 +11504,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m85_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 85,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -10390,6 +11515,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d86_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10400,6 +11526,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d86_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Morning Reply Triage",
@@ -10410,6 +11537,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d86_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Evening Reply Triage",
@@ -10420,6 +11548,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d86_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 86,
       "n": "Produce Short-Form Video Reel",
@@ -10430,6 +11559,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d86_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 86,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -10440,6 +11570,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d86_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 86,
       "n": "Audit Ad Acquisition Cost Metrics",
@@ -10450,6 +11581,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d87_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 87,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10460,6 +11592,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d87_blog",
+      "service": "seo",
       "phase": "ongoing",
       "day": 87,
       "n": "Publish SEO Optimized Blog Post",
@@ -10470,6 +11603,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d87_retarg",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 87,
       "n": "Refresh Retargeting Ad Creatives",
@@ -10480,6 +11614,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d87_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 87,
       "n": "Send LinkedIn Outbound DMs",
@@ -10490,6 +11625,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d87_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 87,
       "n": "Process Meeting Calendar Bookings in GHL",
@@ -10500,6 +11636,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d88_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 88,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10510,6 +11647,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d88_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 88,
       "n": "Execute Backlink Outreach Pitching",
@@ -10520,6 +11658,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d88_posts",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 88,
       "n": "Produce Weekly Post Batch Visuals",
@@ -10530,6 +11669,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d88_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 88,
       "n": "Send 40 LinkedIn Connection Requests",
@@ -10540,6 +11680,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d88_calls",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 88,
       "n": "Confirm Scheduled Calls and Send Reminders",
@@ -10550,6 +11691,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d88_ads",
+      "service": "google_ads",
       "phase": "ongoing",
       "day": 88,
       "n": "Optimize Google Search Keywords and Negative Terms",
@@ -10560,6 +11702,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d89_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 89,
       "n": "Send Cold Email Batch (450 Sends)",
@@ -10570,6 +11713,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d89_seq",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 89,
       "n": "Analyze Sequence Conversion Rates by Angle",
@@ -10580,6 +11724,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d89_gmb",
+      "service": "seo",
       "phase": "ongoing",
       "day": 89,
       "n": "Publish Google Business Profile Update",
@@ -10590,6 +11735,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d89_hyg",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 89,
       "n": "Audit GHL CRM Lead Automation",
@@ -10600,6 +11746,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_d90_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 90,
       "n": "Manage Social Community Engagement",
@@ -10610,6 +11757,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m25",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Kill Weakest Email Angle and Reallocate Its Volume",
@@ -10620,6 +11768,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m30",
+      "service": "core",
       "phase": "ongoing",
       "day": 30,
       "n": "Conduct Month 1 Performance Review",
@@ -10630,6 +11779,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m45",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 45,
       "n": "Launch Omnichannel Retargeting Campaigns",
@@ -10640,6 +11790,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m52",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 52,
       "n": "Rotate Burnt Domains and Start Warmup on 2 Replacements",
@@ -10650,6 +11801,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m60",
+      "service": "core",
       "phase": "ongoing",
       "day": 60,
       "n": "Conduct Month 2 Pricing Check and Performance Review",
@@ -10660,6 +11812,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "ge_m90",
+      "service": "core",
       "phase": "ongoing",
       "day": 90,
       "n": "Conduct Quarter Review and Renewal Conversation",
@@ -10672,6 +11825,7 @@ export const PACKAGE_TASKS = {
   "growth_dominance": [
     {
       "id": "gd_s01_a",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Conduct Executive Kickoff Meeting with Client",
@@ -10682,6 +11836,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s01_b",
+      "service": "core",
       "phase": "sprint",
       "day": 1,
       "n": "Collect Omnichannel Platform Credentials",
@@ -10694,6 +11849,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s01_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 1,
       "n": "Purchase 10 Sending Domains",
@@ -10706,6 +11862,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s01_d",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 1,
       "n": "Configure SPF, DKIM, DMARC DNS Records",
@@ -10718,6 +11875,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s02_a",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Audit Full Funnel Architecture",
@@ -10730,6 +11888,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s02_b",
+      "service": "core",
       "phase": "sprint",
       "day": 2,
       "n": "Execute Market Intelligence Scan",
@@ -10742,6 +11901,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s02_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 2,
       "n": "Create 30 Mailboxes across 10 Domains",
@@ -10754,6 +11914,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s03_a",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Formulate Enterprise ICP Document",
@@ -10766,6 +11927,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s03_b",
+      "service": "core",
       "phase": "sprint",
       "day": 3,
       "n": "Build Lead Qualification Scorecard",
@@ -10778,6 +11940,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s03_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 3,
       "n": "Connect 30 Mailboxes to Warmup Pool",
@@ -10790,6 +11953,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s03_d",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 3,
       "n": "Set Automated Warmup Schedule",
@@ -10802,6 +11966,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s04_a",
+      "service": "social_media",
       "phase": "sprint",
       "day": 4,
       "n": "Organize Brand Creative Assets",
@@ -10814,6 +11979,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s04_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 4,
       "n": "Build Multi-Pipeline Stages in GHL",
@@ -10826,6 +11992,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s05_a",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Configure Booking Calendar and Intelligent Routing",
@@ -10838,6 +12005,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s05_b",
+      "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
       "n": "Configure Custom AI Chatbot Qualification Logic",
@@ -10850,6 +12018,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s06_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 6,
       "n": "Deploy Omnichannel Tracking Pixels (Meta, Google, LinkedIn)",
@@ -10862,6 +12031,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s06_b",
+      "service": "google_ads",
       "phase": "sprint",
       "day": 6,
       "n": "Setup Call Tracking and Data Streams in GA4",
@@ -10874,6 +12044,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s07_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Draft Email Sequence Angle 1 Direct Pitch",
@@ -10886,6 +12057,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s07_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Draft Email Sequence Angle 2 Pain Point",
@@ -10898,6 +12070,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s07_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 7,
       "n": "Source First 2,250 Verified ICP Contacts",
@@ -10910,6 +12083,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s08_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 8,
       "n": "Draft Email Sequence Angle 3 Case Study and Social Proof",
@@ -10922,6 +12096,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s08_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 8,
       "n": "Write 4 Follow Up Variations Per Angle",
@@ -10934,6 +12109,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s08_c",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 8,
       "n": "Audit Meta, Google, and LinkedIn Ad Accounts",
@@ -10946,6 +12122,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s09_a",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 9,
       "n": "Write LinkedIn Connection Note and 3 Step DM Sequence for 3 Profiles",
@@ -10958,6 +12135,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s09_b",
+      "service": "linkedin_outreach",
       "phase": "sprint",
       "day": 9,
       "n": "Design LinkedIn Banners and Optimize Headlines for 3 Profiles",
@@ -10970,6 +12148,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s09_c",
+      "service": "seo",
       "phase": "sprint",
       "day": 9,
       "n": "Formulate Enterprise SEO Architecture and 30 Keyword Clusters",
@@ -10982,6 +12161,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s10_a",
+      "service": "core",
       "phase": "sprint",
       "day": 10,
       "n": "Messaging Approval Call with Client on Angles and Content Pillars",
@@ -10995,6 +12175,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s10_b",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 10,
       "n": "Design High Converting Landing Page Layout Wireframe",
@@ -11007,6 +12188,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s10_c",
+      "service": "ghostwriting",
       "phase": "sprint",
       "day": 10,
       "n": "Conduct Founder Ghostwriting Alignment Interview",
@@ -11019,6 +12201,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s11_a",
+      "service": "seo",
       "phase": "sprint",
       "day": 11,
       "n": "Deploy 30 Tracked Primary SEO Keywords",
@@ -11031,6 +12214,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s11_b",
+      "service": "ghostwriting",
       "phase": "sprint",
       "day": 11,
       "n": "Draft First Batch of Founder Thought Leadership Posts",
@@ -11043,6 +12227,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s12_a",
+      "service": "core",
       "phase": "sprint",
       "day": 12,
       "n": "Write Discovery Call Script and Objection Handling Document",
@@ -11055,6 +12240,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s12_b",
+      "service": "core",
       "phase": "sprint",
       "day": 12,
       "n": "Prepare Proposal Template for Client Use",
@@ -11067,6 +12253,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s12_c",
+      "service": "landing_page",
       "phase": "sprint",
       "day": 12,
       "n": "Deploy Landing Pages Live and Test Integrations",
@@ -11079,6 +12266,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s13_a",
+      "service": "core",
       "phase": "sprint",
       "day": 13,
       "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
@@ -11091,6 +12279,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s13_b",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 13,
       "n": "Source Additional 2,250 Verified ICP Contacts",
@@ -11103,6 +12292,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s14_a",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 14,
       "n": "Build Meta, Google, and LinkedIn Ad Campaigns in Paused Drafts",
@@ -11116,6 +12306,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s14_b",
+      "service": "meta_ads",
       "phase": "sprint",
       "day": 14,
       "n": "Confirm Monthly Ad Spend Budget and Billing Method in Writing",
@@ -11128,6 +12319,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s14_c",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 14,
       "n": "Execute Seed List Test Send to 15 Inboxes",
@@ -11140,6 +12332,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s15_a",
+      "service": "cold_email",
       "phase": "sprint",
       "day": 15,
       "n": "Final Deliverability QA and Inbox Placement Check",
@@ -11152,6 +12345,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_s15_b",
+      "service": "core",
       "phase": "sprint",
       "day": 15,
       "n": "Compile Enterprise Go Live Audit Report and Sign-Off",
@@ -11164,6 +12358,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d16_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 16,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11174,6 +12369,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d16_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 16,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -11184,6 +12380,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d16_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 16,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -11194,6 +12391,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d16_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 16,
       "n": "Send LinkedIn Connection Requests",
@@ -11204,6 +12402,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d17_ramp",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Start Cold Email Sending at 20 Percent Volume",
@@ -11214,6 +12413,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d17_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 17,
       "n": "Send Cold Email Ramp-Up Batch",
@@ -11224,6 +12424,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d17_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 17,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -11234,6 +12435,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d17_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 17,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -11244,6 +12446,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d17_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 17,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -11254,6 +12457,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d18_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 18,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11264,6 +12468,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d18_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 18,
       "n": "Omnichannel Social Community Management",
@@ -11274,6 +12479,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 19,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -11284,6 +12490,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -11294,6 +12501,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -11304,6 +12512,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 19,
       "n": "Send Cold Email Ramp-Up Batch",
@@ -11314,6 +12523,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 19,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -11324,6 +12534,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 19,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -11334,6 +12545,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d19_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 19,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -11344,6 +12556,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_scale",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Scale Cold Email to Full Daily Volume",
@@ -11354,6 +12567,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11364,6 +12578,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Morning Omnichannel Inbound Triage",
@@ -11374,6 +12589,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 20,
       "n": "Evening Omnichannel Inbound Triage",
@@ -11384,6 +12600,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 20,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11394,6 +12611,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 20,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -11404,6 +12622,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d20_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 20,
       "n": "Send LinkedIn Connection Requests",
@@ -11414,6 +12633,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d21_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 21,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11424,6 +12644,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d21_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 21,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -11434,6 +12655,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d21_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 21,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -11444,6 +12666,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d21_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 21,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -11454,6 +12677,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d21_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 21,
       "n": "Process Qualified Meeting Bookings",
@@ -11464,6 +12688,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d22_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 22,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11474,6 +12699,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d22_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 22,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11484,6 +12710,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d22_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 22,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -11494,6 +12721,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d22_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 22,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -11504,6 +12732,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d22_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 22,
       "n": "Send LinkedIn Connection Requests",
@@ -11514,6 +12743,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d23_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 23,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11524,6 +12754,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d23_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 23,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -11534,6 +12765,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d23_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 23,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -11544,6 +12776,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d23_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 23,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -11554,6 +12787,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d24_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 24,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11564,6 +12798,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d24_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 24,
       "n": "Omnichannel Social Community Management",
@@ -11574,6 +12809,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 25,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -11584,6 +12820,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -11594,6 +12831,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -11604,6 +12842,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11614,6 +12853,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 25,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -11624,6 +12864,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 25,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -11634,6 +12875,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d25_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 25,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -11644,6 +12886,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m25_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 25,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -11654,6 +12897,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d26_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11664,6 +12908,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d26_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Morning Omnichannel Inbound Triage",
@@ -11674,6 +12919,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d26_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 26,
       "n": "Evening Omnichannel Inbound Triage",
@@ -11684,6 +12930,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d26_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 26,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11694,6 +12941,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d26_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 26,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -11704,6 +12952,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d26_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 26,
       "n": "Send LinkedIn Connection Requests",
@@ -11714,6 +12963,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d27_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 27,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11724,6 +12974,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d27_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 27,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -11734,6 +12985,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d27_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 27,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -11744,6 +12996,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d27_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 27,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -11754,6 +13007,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d27_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 27,
       "n": "Process Qualified Meeting Bookings",
@@ -11764,6 +13018,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d28_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 28,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11774,6 +13029,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d28_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 28,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11784,6 +13040,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d28_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 28,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -11794,6 +13051,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d28_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 28,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -11804,6 +13062,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d28_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 28,
       "n": "Send LinkedIn Connection Requests",
@@ -11814,6 +13073,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d29_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 29,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11824,6 +13084,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d29_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 29,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -11834,6 +13095,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d29_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 29,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -11844,6 +13106,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d29_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 29,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -11854,6 +13117,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d30_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 30,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11864,6 +13128,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d30_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 30,
       "n": "Omnichannel Social Community Management",
@@ -11874,6 +13139,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 31,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -11884,6 +13150,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -11894,6 +13161,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -11904,6 +13172,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 31,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11914,6 +13183,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 31,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -11924,6 +13194,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 31,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -11934,6 +13205,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d31_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 31,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -11944,6 +13216,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d32_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -11954,6 +13227,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d32_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Morning Omnichannel Inbound Triage",
@@ -11964,6 +13238,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d32_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 32,
       "n": "Evening Omnichannel Inbound Triage",
@@ -11974,6 +13249,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d32_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 32,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -11984,6 +13260,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d32_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 32,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -11994,6 +13271,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d32_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 32,
       "n": "Send LinkedIn Connection Requests",
@@ -12004,6 +13282,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d33_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 33,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12014,6 +13293,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d33_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 33,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -12024,6 +13304,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d33_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 33,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -12034,6 +13315,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d33_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 33,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -12044,6 +13326,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d33_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 33,
       "n": "Process Qualified Meeting Bookings",
@@ -12054,6 +13337,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d34_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 34,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12064,6 +13348,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d34_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 34,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12074,6 +13359,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d34_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 34,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -12084,6 +13370,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d34_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 34,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -12094,6 +13381,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d34_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 34,
       "n": "Send LinkedIn Connection Requests",
@@ -12104,6 +13392,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d35_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 35,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12114,6 +13403,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d35_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 35,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -12124,6 +13414,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d35_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 35,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -12134,6 +13425,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d35_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 35,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -12144,6 +13436,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d36_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 36,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12154,6 +13447,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d36_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 36,
       "n": "Omnichannel Social Community Management",
@@ -12164,6 +13458,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 37,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -12174,6 +13469,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -12184,6 +13480,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -12194,6 +13491,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 37,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12204,6 +13502,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 37,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -12214,6 +13513,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 37,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -12224,6 +13524,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d37_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 37,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -12234,6 +13535,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d38_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12244,6 +13546,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d38_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Morning Omnichannel Inbound Triage",
@@ -12254,6 +13557,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d38_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 38,
       "n": "Evening Omnichannel Inbound Triage",
@@ -12264,6 +13568,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d38_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 38,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12274,6 +13579,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d38_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 38,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -12284,6 +13590,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d38_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 38,
       "n": "Send LinkedIn Connection Requests",
@@ -12294,6 +13601,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d39_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 39,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12304,6 +13612,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d39_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 39,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -12314,6 +13623,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d39_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 39,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -12324,6 +13634,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d39_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 39,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -12334,6 +13645,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d39_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 39,
       "n": "Process Qualified Meeting Bookings",
@@ -12344,6 +13656,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d40_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 40,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12354,6 +13667,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d40_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 40,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12364,6 +13678,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d40_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 40,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -12374,6 +13689,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d40_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 40,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -12384,6 +13700,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d40_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 40,
       "n": "Send LinkedIn Connection Requests",
@@ -12394,6 +13711,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d41_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 41,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12404,6 +13722,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d41_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 41,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -12414,6 +13733,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d41_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 41,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -12424,6 +13744,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d41_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 41,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -12434,6 +13755,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d42_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 42,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12444,6 +13766,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d42_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 42,
       "n": "Omnichannel Social Community Management",
@@ -12454,6 +13777,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 43,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -12464,6 +13788,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -12474,6 +13799,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -12484,6 +13810,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 43,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12494,6 +13821,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 43,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -12504,6 +13832,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 43,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -12514,6 +13843,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d43_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 43,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -12524,6 +13854,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d44_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12534,6 +13865,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d44_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Morning Omnichannel Inbound Triage",
@@ -12544,6 +13876,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d44_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 44,
       "n": "Evening Omnichannel Inbound Triage",
@@ -12554,6 +13887,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d44_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 44,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12564,6 +13898,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d44_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 44,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -12574,6 +13909,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d44_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 44,
       "n": "Send LinkedIn Connection Requests",
@@ -12584,6 +13920,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d45_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 45,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12594,6 +13931,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d45_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 45,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -12604,6 +13942,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d45_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 45,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -12614,6 +13953,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d45_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 45,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -12624,6 +13964,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d45_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 45,
       "n": "Process Qualified Meeting Bookings",
@@ -12634,6 +13975,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d46_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 46,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12644,6 +13986,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d46_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 46,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12654,6 +13997,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d46_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 46,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -12664,6 +14008,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d46_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 46,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -12674,6 +14019,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d46_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 46,
       "n": "Send LinkedIn Connection Requests",
@@ -12684,6 +14030,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d47_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 47,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12694,6 +14041,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d47_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 47,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -12704,6 +14052,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d47_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 47,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -12714,6 +14063,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d47_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 47,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -12724,6 +14074,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d48_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 48,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12734,6 +14085,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d48_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 48,
       "n": "Omnichannel Social Community Management",
@@ -12744,6 +14096,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 49,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -12754,6 +14107,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -12764,6 +14118,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -12774,6 +14129,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 49,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12784,6 +14140,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 49,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -12794,6 +14151,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 49,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -12804,6 +14162,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d49_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 49,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -12814,6 +14173,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d50_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12824,6 +14184,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d50_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Morning Omnichannel Inbound Triage",
@@ -12834,6 +14195,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d50_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 50,
       "n": "Evening Omnichannel Inbound Triage",
@@ -12844,6 +14206,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d50_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 50,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12854,6 +14217,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d50_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 50,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -12864,6 +14228,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d50_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 50,
       "n": "Send LinkedIn Connection Requests",
@@ -12874,6 +14239,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d51_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 51,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12884,6 +14250,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d51_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 51,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -12894,6 +14261,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d51_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 51,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -12904,6 +14272,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d51_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 51,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -12914,6 +14283,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d51_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 51,
       "n": "Process Qualified Meeting Bookings",
@@ -12924,6 +14294,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d52_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 52,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12934,6 +14305,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d52_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 52,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -12944,6 +14316,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d52_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 52,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -12954,6 +14327,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d52_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 52,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -12964,6 +14338,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d52_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 52,
       "n": "Send LinkedIn Connection Requests",
@@ -12974,6 +14349,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d53_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 53,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -12984,6 +14360,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d53_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 53,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -12994,6 +14371,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d53_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 53,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -13004,6 +14382,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d53_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 53,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -13014,6 +14393,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d54_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 54,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13024,6 +14404,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d54_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 54,
       "n": "Omnichannel Social Community Management",
@@ -13034,6 +14415,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 55,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -13044,6 +14426,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -13054,6 +14437,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -13064,6 +14448,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 55,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13074,6 +14459,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 55,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -13084,6 +14470,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 55,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -13094,6 +14481,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d55_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 55,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -13104,6 +14492,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m55_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 55,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -13114,6 +14503,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d56_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13124,6 +14514,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d56_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Morning Omnichannel Inbound Triage",
@@ -13134,6 +14525,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d56_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 56,
       "n": "Evening Omnichannel Inbound Triage",
@@ -13144,6 +14536,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d56_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 56,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13154,6 +14547,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d56_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 56,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -13164,6 +14558,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d56_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 56,
       "n": "Send LinkedIn Connection Requests",
@@ -13174,6 +14569,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d57_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 57,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13184,6 +14580,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d57_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 57,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -13194,6 +14591,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d57_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 57,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -13204,6 +14602,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d57_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 57,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -13214,6 +14613,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d57_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 57,
       "n": "Process Qualified Meeting Bookings",
@@ -13224,6 +14624,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d58_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 58,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13234,6 +14635,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d58_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 58,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13244,6 +14646,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d58_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 58,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -13254,6 +14657,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d58_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 58,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -13264,6 +14668,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d58_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 58,
       "n": "Send LinkedIn Connection Requests",
@@ -13274,6 +14679,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d59_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 59,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13284,6 +14690,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d59_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 59,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -13294,6 +14701,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d59_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 59,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -13304,6 +14712,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d59_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 59,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -13314,6 +14723,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d60_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 60,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13324,6 +14734,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d60_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 60,
       "n": "Omnichannel Social Community Management",
@@ -13334,6 +14745,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 61,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -13344,6 +14756,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -13354,6 +14767,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -13364,6 +14778,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 61,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13374,6 +14789,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 61,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -13384,6 +14800,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 61,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -13394,6 +14811,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d61_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 61,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -13404,6 +14822,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d62_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13414,6 +14833,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d62_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Morning Omnichannel Inbound Triage",
@@ -13424,6 +14844,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d62_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 62,
       "n": "Evening Omnichannel Inbound Triage",
@@ -13434,6 +14855,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d62_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 62,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13444,6 +14866,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d62_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 62,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -13454,6 +14877,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d62_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 62,
       "n": "Send LinkedIn Connection Requests",
@@ -13464,6 +14888,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d63_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 63,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13474,6 +14899,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d63_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 63,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -13484,6 +14910,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d63_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 63,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -13494,6 +14921,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d63_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 63,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -13504,6 +14932,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d63_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 63,
       "n": "Process Qualified Meeting Bookings",
@@ -13514,6 +14943,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d64_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 64,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13524,6 +14954,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d64_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 64,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13534,6 +14965,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d64_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 64,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -13544,6 +14976,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d64_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 64,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -13554,6 +14987,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d64_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 64,
       "n": "Send LinkedIn Connection Requests",
@@ -13564,6 +14998,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d65_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 65,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13574,6 +15009,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d65_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 65,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -13584,6 +15020,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d65_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 65,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -13594,6 +15031,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d65_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 65,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -13604,6 +15042,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d66_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 66,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13614,6 +15053,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d66_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 66,
       "n": "Omnichannel Social Community Management",
@@ -13624,6 +15064,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 67,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -13634,6 +15075,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -13644,6 +15086,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -13654,6 +15097,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 67,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13664,6 +15108,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 67,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -13674,6 +15119,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 67,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -13684,6 +15130,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d67_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 67,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -13694,6 +15141,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d68_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13704,6 +15152,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d68_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Morning Omnichannel Inbound Triage",
@@ -13714,6 +15163,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d68_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 68,
       "n": "Evening Omnichannel Inbound Triage",
@@ -13724,6 +15174,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d68_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 68,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13734,6 +15185,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d68_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 68,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -13744,6 +15196,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d68_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 68,
       "n": "Send LinkedIn Connection Requests",
@@ -13754,6 +15207,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d69_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 69,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13764,6 +15218,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d69_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 69,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -13774,6 +15229,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d69_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 69,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -13784,6 +15240,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d69_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 69,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -13794,6 +15251,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d69_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 69,
       "n": "Process Qualified Meeting Bookings",
@@ -13804,6 +15262,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d70_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 70,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13814,6 +15273,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d70_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 70,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13824,6 +15284,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d70_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 70,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -13834,6 +15295,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d70_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 70,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -13844,6 +15306,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d70_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 70,
       "n": "Send LinkedIn Connection Requests",
@@ -13854,6 +15317,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d71_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 71,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13864,6 +15328,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d71_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 71,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -13874,6 +15339,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d71_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 71,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -13884,6 +15350,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d71_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 71,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -13894,6 +15361,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d72_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 72,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -13904,6 +15372,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d72_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 72,
       "n": "Omnichannel Social Community Management",
@@ -13914,6 +15383,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 73,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -13924,6 +15394,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -13934,6 +15405,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -13944,6 +15416,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 73,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13954,6 +15427,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 73,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -13964,6 +15438,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 73,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -13974,6 +15449,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d73_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 73,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -13984,6 +15460,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d74_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -13994,6 +15471,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d74_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Morning Omnichannel Inbound Triage",
@@ -14004,6 +15482,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d74_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 74,
       "n": "Evening Omnichannel Inbound Triage",
@@ -14014,6 +15493,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d74_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 74,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14024,6 +15504,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d74_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 74,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -14034,6 +15515,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d74_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 74,
       "n": "Send LinkedIn Connection Requests",
@@ -14044,6 +15526,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d75_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 75,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14054,6 +15537,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d75_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 75,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -14064,6 +15548,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d75_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 75,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -14074,6 +15559,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d75_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 75,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -14084,6 +15570,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d75_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 75,
       "n": "Process Qualified Meeting Bookings",
@@ -14094,6 +15581,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d76_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 76,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14104,6 +15592,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d76_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 76,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14114,6 +15603,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d76_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 76,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -14124,6 +15614,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d76_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 76,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -14134,6 +15625,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d76_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 76,
       "n": "Send LinkedIn Connection Requests",
@@ -14144,6 +15636,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d77_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 77,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14154,6 +15647,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d77_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 77,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -14164,6 +15658,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d77_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 77,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -14174,6 +15669,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d77_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 77,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -14184,6 +15680,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d78_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 78,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14194,6 +15691,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d78_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 78,
       "n": "Omnichannel Social Community Management",
@@ -14204,6 +15702,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 79,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -14214,6 +15713,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -14224,6 +15724,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -14234,6 +15735,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 79,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14244,6 +15746,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 79,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -14254,6 +15757,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 79,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -14264,6 +15768,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d79_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 79,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -14274,6 +15779,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d80_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14284,6 +15790,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d80_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Morning Omnichannel Inbound Triage",
@@ -14294,6 +15801,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d80_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 80,
       "n": "Evening Omnichannel Inbound Triage",
@@ -14304,6 +15812,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d80_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 80,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14314,6 +15823,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d80_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 80,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -14324,6 +15834,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d80_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 80,
       "n": "Send LinkedIn Connection Requests",
@@ -14334,6 +15845,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d81_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 81,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14344,6 +15856,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d81_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 81,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -14354,6 +15867,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d81_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 81,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -14364,6 +15878,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d81_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 81,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -14374,6 +15889,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d81_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 81,
       "n": "Process Qualified Meeting Bookings",
@@ -14384,6 +15900,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d82_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 82,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14394,6 +15911,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d82_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 82,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14404,6 +15922,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d82_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 82,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -14414,6 +15933,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d82_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 82,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -14424,6 +15944,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d82_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 82,
       "n": "Send LinkedIn Connection Requests",
@@ -14434,6 +15955,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d83_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 83,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14444,6 +15966,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d83_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 83,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -14454,6 +15977,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d83_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 83,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -14464,6 +15988,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d83_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 83,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -14474,6 +15999,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d84_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 84,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14484,6 +16010,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d84_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 84,
       "n": "Omnichannel Social Community Management",
@@ -14494,6 +16021,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_kpi",
+      "service": "core",
       "phase": "ongoing",
       "day": 85,
       "n": "Review Omnichannel Executive KPI Dashboard",
@@ -14504,6 +16032,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_box",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Check Mailbox Health (30 Boxes)",
@@ -14514,6 +16043,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_list",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Build Weekly Verified Lead List (1,125 Contacts)",
@@ -14524,6 +16054,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 85,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14534,6 +16065,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 85,
       "n": "Send LinkedIn Connection Requests across 3 Profiles",
@@ -14544,6 +16076,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 85,
       "n": "Publish Founder Ghostwriting Post (Mon)",
@@ -14554,6 +16087,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d85_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 85,
       "n": "Audit Meta, Google, and LinkedIn Ad Spend",
@@ -14564,6 +16098,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m85_cal",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 85,
       "n": "Submit Next Month Content Calendar for Client Approval",
@@ -14574,6 +16109,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d86_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14584,6 +16120,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d86_reply_m",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Morning Omnichannel Inbound Triage",
@@ -14594,6 +16131,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d86_reply_e",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 86,
       "n": "Evening Omnichannel Inbound Triage",
@@ -14604,6 +16142,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d86_reel",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 86,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14614,6 +16153,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d86_blog1",
+      "service": "seo",
       "phase": "ongoing",
       "day": 86,
       "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
@@ -14624,6 +16164,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d86_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 86,
       "n": "Send LinkedIn Connection Requests",
@@ -14634,6 +16175,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d87_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 87,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14644,6 +16186,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d87_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 87,
       "n": "Publish Founder Ghostwriting Post (Wed)",
@@ -14654,6 +16197,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d87_opt_ads",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 87,
       "n": "Scale Winning Ads across 3 Ad Platforms",
@@ -14664,6 +16208,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d87_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 87,
       "n": "Send Targeted LinkedIn Outbound DMs",
@@ -14674,6 +16219,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d87_reply",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 87,
       "n": "Process Qualified Meeting Bookings",
@@ -14684,6 +16230,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d88_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 88,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14694,6 +16241,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d88_reel2",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 88,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14704,6 +16252,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d88_blog2",
+      "service": "seo",
       "phase": "ongoing",
       "day": 88,
       "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
@@ -14714,6 +16263,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d88_backlink",
+      "service": "seo",
       "phase": "ongoing",
       "day": 88,
       "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
@@ -14724,6 +16274,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d88_li",
+      "service": "linkedin_outreach",
       "phase": "ongoing",
       "day": 88,
       "n": "Send LinkedIn Connection Requests",
@@ -14734,6 +16285,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d89_send",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 89,
       "n": "Send Cold Email Batch (750 Sends)",
@@ -14744,6 +16296,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d89_ghost",
+      "service": "ghostwriting",
       "phase": "ongoing",
       "day": 89,
       "n": "Publish Founder Ghostwriting Post (Fri)",
@@ -14754,6 +16307,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d89_seo_audit",
+      "service": "seo",
       "phase": "ongoing",
       "day": 89,
       "n": "Audit 30 Tracked SEO Keywords Performance",
@@ -14764,6 +16318,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d89_ai_opt",
+      "service": "ai_crm",
       "phase": "ongoing",
       "day": 89,
       "n": "Optimize AI Chatbot Conversation & CRM Routing",
@@ -14774,6 +16329,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d90_reel3",
+      "service": "video_reels",
       "phase": "ongoing",
       "day": 90,
       "n": "Produce Video Reel Creative (12/mo Cadence)",
@@ -14784,6 +16340,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_d90_comm",
+      "service": "social_media",
       "phase": "ongoing",
       "day": 90,
       "n": "Omnichannel Social Community Management",
@@ -14794,6 +16351,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m25",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 25,
       "n": "Kill Weakest Email Angle and Reallocate Its Volume",
@@ -14804,6 +16362,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m30",
+      "service": "core",
       "phase": "ongoing",
       "day": 30,
       "n": "Conduct Month 1 Performance Review",
@@ -14814,6 +16373,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m45",
+      "service": "meta_ads",
       "phase": "ongoing",
       "day": 45,
       "n": "Launch Omnichannel Retargeting Across Meta, Google, and LinkedIn",
@@ -14824,6 +16384,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m52",
+      "service": "cold_email",
       "phase": "ongoing",
       "day": 52,
       "n": "Rotate Burnt Domains and Start Warmup on 2 Replacements",
@@ -14834,6 +16395,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m60",
+      "service": "core",
       "phase": "ongoing",
       "day": 60,
       "n": "Conduct Month 2 Pricing Check and Performance Review",
@@ -14844,6 +16406,7 @@ export const PACKAGE_TASKS = {
     },
     {
       "id": "gd_m90",
+      "service": "core",
       "phase": "ongoing",
       "day": 90,
       "n": "Conduct Quarter Review and Renewal Conversation",
@@ -14855,8 +16418,26 @@ export const PACKAGE_TASKS = {
   ]
 };
 
-export function getPackageTasks(pkgId) {
-  return PACKAGE_TASKS[pkgId] || PACKAGE_TASKS["growth_engine"] || [];
+export function getPackageTasks(pkgId, selectedServices = null) {
+  // Use the most comprehensive pool (Dominance) if custom services are selected
+  let masterPool = PACKAGE_TASKS["growth_dominance"];
+  if (pkgId && PACKAGE_TASKS[pkgId] && (!selectedServices || selectedServices.length === 0)) {
+    return PACKAGE_TASKS[pkgId];
+  }
+
+  // If specific services are chosen:
+  const allowed = selectedServices || (pkgId ? PACKAGE_SERVICES[pkgId] : null);
+  if (!allowed) {
+    return masterPool;
+  }
+
+  // Filter tasks: include core + tasks whose service is selected
+  const filtered = masterPool.filter(t => {
+    if (!t.service || t.service === 'core') return true;
+    return allowed.includes(t.service);
+  });
+
+  return filtered;
 }
 
 export const DEFAULT_TASKS = PACKAGE_TASKS["growth_engine"];

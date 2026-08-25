@@ -40,7 +40,8 @@ import {
   User,
   Sparkles,
   Pause,
-  Zap
+  Zap,
+  Target
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster, toast } from 'sonner';
@@ -65,6 +66,8 @@ import {
   DC, 
   DEFAULT_TASKS, 
   DEFAULT_SOPS,
+  SERVICES,
+  PACKAGE_SERVICES,
   getPackageTasks
 } from './constants';
 import ReportModal from './ReportModal';
@@ -156,6 +159,7 @@ export default function App() {
   const [addingC, setAddingC] = useState(false);
   const [newName, setNewName] = useState("");
   const [newPkg, setNewPkg] = useState("growth_starter");
+  const [newServices, setNewServices] = useState(PACKAGE_SERVICES['growth_starter'] || []);
   const [newDate, setNewDate] = useState(getKarachiDateStr());
   const [editId, setEditId] = useState(null);
   const [editNm, setEditNm] = useState("");
@@ -803,16 +807,17 @@ export default function App() {
 
   const cTasks = useMemo(() => {
     const defs = sel?.tasks?.__defs;
-    const pkgTasks = getPackageTasks(sel?.package);
+    const selectedServices = sel?.tasks?.__services || (sel?.package ? PACKAGE_SERVICES[sel.package] : null);
+    const baseTasks = getPackageTasks(sel?.package, selectedServices);
     if (!defs) {
-      return [...pkgTasks];
+      return [...baseTasks];
     }
 
     const defsMap = new Map(defs.map(d => [d.id, d]));
-    const pkgIds = new Set(pkgTasks.map(t => t.id));
+    const baseIds = new Set(baseTasks.map(t => t.id));
     const merged = [];
 
-    pkgTasks.forEach(bt => {
+    baseTasks.forEach(bt => {
       if (defsMap.has(bt.id)) {
         const dt = defsMap.get(bt.id);
         merged.push({ ...bt, ...dt, n: dt.n || bt.n, role: dt.role || bt.role, isPost: bt.isPost, deps: bt.deps || dt.deps || [] });
@@ -822,13 +827,13 @@ export default function App() {
     });
 
     defs.forEach(dt => {
-      if (!pkgIds.has(dt.id) && (dt.id?.startsWith('t') || dt.isCustom)) {
+      if (!baseIds.has(dt.id) && (dt.id?.startsWith('t') || dt.isCustom)) {
         merged.push(dt);
       }
     });
 
     return merged;
-  }, [sel?.tasks?.__defs, sel?.package, sel?.startDate]);
+  }, [sel?.tasks?.__defs, sel?.tasks?.__services, sel?.package, sel?.startDate]);
 
   const TMAP = useMemo(() => {
     const map = {};
@@ -1792,6 +1797,7 @@ export default function App() {
     setEditId(c.id);
     setEditNm(c.name);
     setNewPkg(c.package);
+    setNewServices(c.tasks?.__services || PACKAGE_SERVICES[c.package] || PACKAGE_SERVICES['growth_starter']);
     setNewDate(c.startDate);
     setEditWebsite(c.tasks?.__website || "");
     setEditDriveLink(c.tasks?.__drive_link || "");
@@ -1904,8 +1910,9 @@ export default function App() {
   const addClient = async () => {
     if (!newName.trim()) return;
     const tempId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : (`client_${Date.now()}`);
-    const selectedPkgTasks = getPackageTasks(newPkg);
+    const selectedPkgTasks = getPackageTasks(newPkg, newServices);
     const initialTasks = mkState(selectedPkgTasks);
+    initialTasks.__services = newServices;
     initialTasks.__website = newWebsite.trim();
     initialTasks.__drive_link = newDriveLink.trim();
     initialTasks.__client_name = newClientName.trim();
@@ -4302,38 +4309,127 @@ export default function App() {
                        </select>
                     </div>
                     <div style={{ marginBottom: 24 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', tracking: 2, marginBottom: 8, textTransform: 'uppercase' }}>Service Package (Client Tier)</div>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                        <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                          90-Day Deliverable Services
+                        </div>
+                        <div style={{ fontSize: 11, fontWeight: 800, color: '#ea580c', background: '#fff5ed', padding: '2px 8px', borderRadius: 6, border: '1px solid #fed7aa' }}>
+                          {newServices.length} Services Selected • {getPackageTasks(newPkg, newServices).length} Total Tasks
+                        </div>
+                      </div>
+
+                      {/* Quick Presets Strip */}
+                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
                         {PACKAGES.map(p => {
-                          const isSelected = newPkg === p.id;
+                          const pServices = PACKAGE_SERVICES[p.id] || [];
+                          const isFullMatch = pServices.length > 0 && pServices.every(s => newServices.includes(s)) && newServices.length === pServices.length;
                           return (
                             <button
                               key={p.id}
                               type="button"
-                              onClick={() => setNewPkg(p.id)}
+                              onClick={() => {
+                                setNewPkg(p.id);
+                                setNewServices(pServices);
+                              }}
                               style={{
-                                textAlign: 'left',
-                                padding: '12px 14px',
-                                borderRadius: 14,
-                                border: isSelected ? `2px solid ${p.color}` : '1px solid #fed7aa',
-                                background: isSelected ? `${p.color}12` : '#ffffff',
+                                padding: '6px 12px',
+                                borderRadius: 8,
+                                fontSize: 11,
+                                fontWeight: 800,
                                 cursor: 'pointer',
-                                transition: 'all 0.15s ease',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 4
+                                border: isFullMatch ? `2px solid ${p.color}` : '1px solid #fed7aa',
+                                background: isFullMatch ? `${p.color}15` : '#fffbf7',
+                                color: isFullMatch ? p.color : '#0f172a',
+                                transition: 'all 0.15s ease'
                               }}
                             >
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                                <span style={{ fontWeight: 800, fontSize: 12, color: isSelected ? p.color : '#0f172a' }}>{p.label}</span>
-                                <span style={{ fontSize: 10, fontWeight: 900, color: p.color, background: `${p.color}15`, padding: '2px 6px', borderRadius: 6 }}>
-                                  PKR {p.price}
-                                </span>
-                              </div>
-                              <div style={{ fontSize: 10.5, color: '#64748b', lineHeight: 1.3 }}>
-                                {p.kra}
-                              </div>
+                              {p.label} (PKR {p.price})
                             </button>
+                          );
+                        })}
+                        <button
+                          type="button"
+                          onClick={() => setNewServices(SERVICES.map(s => s.id))}
+                          style={{ padding: '6px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, cursor: 'pointer', border: '1px solid #fed7aa', background: '#ffffff', color: '#ea580c' }}
+                        >
+                          Select All
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNewServices([])}
+                          style={{ padding: '6px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, cursor: 'pointer', border: '1px solid #e2e8f0', background: '#ffffff', color: '#94a3b8' }}
+                        >
+                          Clear
+                        </button>
+                      </div>
+
+                      {/* 10 Modular Service Cards Grid */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: 8, maxHeight: 300, overflowY: 'auto', padding: '2px 4px 2px 2px' }} className="custom-scrollbar">
+                        {SERVICES.map(svc => {
+                          const isChecked = newServices.includes(svc.id);
+                          const SvcIcon = {
+                            Mail,
+                            UserCheck,
+                            Sparkles,
+                            Play,
+                            BookOpen,
+                            Target,
+                            Search,
+                            Globe,
+                            TrendingUp,
+                            Bot
+                          }[svc.icon] || Sparkles;
+
+                          return (
+                            <div
+                              key={svc.id}
+                              onClick={() => {
+                                setNewServices(prev => 
+                                  prev.includes(svc.id) ? prev.filter(id => id !== svc.id) : [...prev, svc.id]
+                                );
+                              }}
+                              style={{
+                                padding: '10px 12px',
+                                borderRadius: 12,
+                                border: isChecked ? `1.5px solid ${svc.color}` : '1px solid #fed7aa',
+                                background: isChecked ? `${svc.color}0a` : '#ffffff',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: 10,
+                                transition: 'all 0.15s ease',
+                                boxShadow: isChecked ? `0 2px 8px ${svc.color}15` : 'none'
+                              }}
+                            >
+                              <div style={{
+                                width: 18,
+                                height: 18,
+                                borderRadius: 5,
+                                border: isChecked ? `1.5px solid ${svc.color}` : '1.5px solid #cbd5e1',
+                                background: isChecked ? svc.color : '#ffffff',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#ffffff',
+                                marginTop: 2,
+                                flexShrink: 0,
+                                transition: 'all 0.15s'
+                              }}>
+                                {isChecked && <CheckCircle2 size={13} strokeWidth={3} />}
+                              </div>
+
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                  <SvcIcon size={14} color={isChecked ? svc.color : '#64748b'} />
+                                  <span style={{ fontSize: 12, fontWeight: 800, color: isChecked ? '#0f172a' : '#475569' }}>
+                                    {svc.label}
+                                  </span>
+                                </div>
+                                <p style={{ fontSize: 10, color: '#64748b', margin: '3px 0 0', lineHeight: 1.3 }}>
+                                  {svc.desc}
+                                </p>
+                              </div>
+                            </div>
                           );
                         })}
                       </div>
@@ -4439,6 +4535,7 @@ export default function App() {
                               brand_platform: editBrandPlatform
                             };
 
+                            updatedTasks.__services = newServices;
                             updatedTasks.__updated_at = nowStr;
                             updatedTasks.__meta_updated_at = nowStr;
                             
