@@ -53,7 +53,7 @@ function generateColdOutreachTasks() {
 
     // Day 5
     { id: "co_s05_a", service: "ai_crm", phase: "sprint", day: 5, n: "Configure GHL Calendar Booking Link and Reminders", role: "AUTO", deps: ["co_s04_b"], hours: "1h", priority: "high" },
-    { id: "co_s05_b", service: "ai_crm", phase: "sprint", day: 5, n: "Set Up Slack Lead Notification Webhook", role: "AUTO", deps: ["co_s05_a"], hours: "0.5h", priority: "normal" },
+    { id: "co_s05_b", service: "ai_crm", phase: "sprint", day: 5, n: "Set Up CRM Lead Notification Webhook", role: "AUTO", deps: ["co_s05_a"], hours: "0.5h", priority: "normal" },
 
     // Day 6
     { id: "co_s06_a", service: "linkedin_outreach", phase: "sprint", day: 6, n: "Optimize Client LinkedIn Profile", role: "OBS", deps: ["co_s03_b"], hours: "1h", priority: "normal" },
@@ -307,7 +307,7 @@ function generateGrowthEngineTasks() {
 
     // Day 5
     { id: "ge_s05_a", service: "ai_crm", phase: "sprint", day: 5, n: "Configure Booking Calendar and Routing Automation", role: "AUTO", deps: ["ge_s04_b"], hours: "1h", priority: "high" },
-    { id: "ge_s05_b", service: "ai_crm", phase: "sprint", day: 5, n: "Setup Slack Live Lead Alerts", role: "AUTO", deps: ["ge_s05_a"], hours: "0.5h", priority: "normal" },
+    { id: "ge_s05_b", service: "ai_crm", phase: "sprint", day: 5, n: "Setup Instant CRM Live Lead Alerts", role: "AUTO", deps: ["ge_s05_a"], hours: "0.5h", priority: "normal" },
 
     // Day 6
     { id: "ge_s06_a", service: "meta_ads", phase: "sprint", day: 6, n: "Deploy Meta Pixel Conversion Events", role: "DEV", deps: ["ge_s05_a"], hours: "1h", priority: "high" },

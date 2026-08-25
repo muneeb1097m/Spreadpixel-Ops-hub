@@ -207,7 +207,6 @@ export default function TeamManagement({ clients }) {
             <tr>
               <th style={S.th}>Team Member</th>
               <th style={S.th}>Role</th>
-              <th style={S.th}>Slack User ID</th>
               <th style={S.th}>Status</th>
               <th style={S.th}>Clients Assigned</th>
               <th style={S.th}>Actions</th>
@@ -275,37 +274,6 @@ export default function TeamManagement({ clients }) {
                       />
                     </div>
                   )}
-                </td>
-                <td style={S.td}>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. U0B9C5Y2CG4"
-                    value={m.slack_id || ''}
-                    onChange={async (e) => {
-                      const newSlackId = e.target.value;
-                      setMembers(prev => prev.map(u => u.id === m.id ? { ...u, slack_id: newSlackId } : u));
-                      try {
-                        const { error } = await supabase
-                          .from('flc_ops_users')
-                          .update({ slack_id: newSlackId })
-                          .eq('id', m.id);
-                        if (error) throw error;
-                      } catch (err) {
-                        toast.error("Failed to update Slack ID: " + err.message);
-                      }
-                    }}
-                    style={{
-                      width: 140,
-                      padding: '8px 12px',
-                      background: '#f8fafc',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                      borderRadius: 12,
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      outline: 'none',
-                      color: '#0f172a'
-                    }}
-                  />
                 </td>
                 <td style={S.td}>
                   <span style={S.badge('#dcfce7', '#16a34a')}>ACTIVE</span>

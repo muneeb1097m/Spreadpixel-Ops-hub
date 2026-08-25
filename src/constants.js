@@ -365,7 +365,7 @@ export const PACKAGE_TASKS = {
       "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
-      "n": "Set Up Slack Lead Notification Webhook",
+      "n": "Set Up CRM Lead Notification Webhook",
       "role": "AUTO",
       "deps": [
         "co_s05_a"
@@ -7282,7 +7282,7 @@ export const PACKAGE_TASKS = {
       "service": "ai_crm",
       "phase": "sprint",
       "day": 5,
-      "n": "Setup Slack Live Lead Alerts",
+      "n": "Setup Instant CRM Live Lead Alerts",
       "role": "AUTO",
       "deps": [
         "ge_s05_a"

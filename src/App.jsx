@@ -169,8 +169,6 @@ export default function App() {
   const [editDriveLink, setEditDriveLink] = useState("");
   const [newClientName, setNewClientName] = useState("");
   const [editClientName, setEditClientName] = useState("");
-  const [newSlackId, setNewSlackId] = useState("");
-  const [editSlackId, setEditSlackId] = useState("");
   const [newBD, setNewBD] = useState("");
   const [editBD, setEditBD] = useState("");
   const [clientFilterText, setClientFilterText] = useState("");
@@ -1074,25 +1072,6 @@ export default function App() {
     setClients(next);
     
     sync(updatedClient);
-
-    // Notify Slack if assignee changed
-    if (newAssignee && newAssignee !== oldAssignee) {
-      const member = teamMembers.find(m => m.name === newAssignee);
-      if (member) {
-        fetch('/api/notify-assignment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            client_name: currentLatest.name,
-            task_name: taskData.n,
-            member_name: member.name,
-            slack_id: member.slack_id || "",
-            slack_channel_id: currentLatest.tasks?.__slack_id || ""
-          })
-        }).catch(err => console.error("Slack assignment notification failed:", err));
-      }
-    }
-
     setTaskModal(null);
   };
 
@@ -1140,10 +1119,6 @@ export default function App() {
 
     const taskObj = TMAP[taskId] || { id: taskId, n: taskId, role: "AM" };
     const assigneeName = ROLE_TO_NAME[taskObj.role] || taskObj.role || "Unassigned";
-    
-    const member = teamMembers.find(m => m.name.toLowerCase().trim() === assigneeName.toLowerCase().trim());
-    const slackId = member ? (member.slack_id || "") : "";
-    const slackChannelId = currentLatest.tasks?.__slack_id || "";
 
     const updatedTasks = {
       ...(currentLatest.tasks || {}),
@@ -1163,29 +1138,7 @@ export default function App() {
     setClients(next);
     sync(updatedClient);
 
-    toast.promise(
-      fetch('/api/notify-assignment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          client_name: currentLatest.name,
-          task_name: taskObj.n,
-          member_name: assigneeName,
-          slack_id: slackId,
-          slack_channel_id: slackChannelId
-        })
-      }).then(async (res) => {
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || 'Failed to send notification');
-        }
-      }),
-      {
-        loading: 'Assigning task and notifying Slack...',
-        success: `Task assigned to ${assigneeName} & notification sent!`,
-        error: (err) => `Assigned, but Slack notification failed: ${err.message}`
-      }
-    );
+    toast.success(`Task assigned to ${assigneeName}!`);
   };
 
   const startTimer = (taskId) => {
@@ -1711,19 +1664,6 @@ export default function App() {
           totalDuration,
           activeSessionStart
         });
-
-        fetch('/api/notify-slack', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            member_name: user.name,
-            task_name: displayName,
-            client_name: currentLatest.name,
-            notes: currentLatest.tasks[id]?.notes || "",
-            slack_channel_id: currentLatest.tasks?.__slack_id || "",
-            duration: formattedDuration
-          })
-        }).catch(err => console.error("Slack notification trigger failed:", err));
       }
     }
   };
@@ -1802,7 +1742,6 @@ export default function App() {
     setEditWebsite(c.tasks?.__website || "");
     setEditDriveLink(c.tasks?.__drive_link || "");
     setEditClientName(c.tasks?.__client_name || "");
-    setEditSlackId(c.tasks?.__slack_id || "");
     setEditBD(c.tasks?.__assigned_bd || "");
     
     setEditIcp(c.tasks?.__bd_outreach_icp || '');
@@ -1916,7 +1855,6 @@ export default function App() {
     initialTasks.__website = newWebsite.trim();
     initialTasks.__drive_link = newDriveLink.trim();
     initialTasks.__client_name = newClientName.trim();
-    initialTasks.__slack_id = newSlackId.trim();
     initialTasks.__assigned_bd = newBD.trim();
     
     // Outreach fields
@@ -3275,7 +3213,7 @@ export default function App() {
 
           {isAdmin && (
             <button 
-              onClick={() => { setAddingC(true); setNewName(""); setNewWebsite(""); setNewDriveLink(""); setNewClientName(""); setNewSlackId(""); setNewBD(""); }} 
+              onClick={() => { setAddingC(true); setNewName(""); setNewWebsite(""); setNewDriveLink(""); setNewClientName(""); setNewBD(""); }} 
               style={{ width: '100%', padding: '12px', border: '1px dashed rgba(234,88,12,0.25)', background: '#fffaf5', borderRadius: 14, color: '#ea580c', margin: '8px 0', cursor: 'pointer', flexShrink: 0, fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
             >
               <Plus size={14} /> Add New Client
@@ -4292,10 +4230,6 @@ export default function App() {
                     </div>
 
                     <div style={{ marginBottom: 24 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', tracking: 2, marginBottom: 8, textTransform: 'uppercase' }}>Slack Channel ID</div>
-                      <input placeholder="e.g. C01234567" value={editId ? editSlackId : newSlackId} onChange={e => editId ? setEditSlackId(e.target.value) : setNewSlackId(e.target.value)} style={S.input} />
-                    </div>
-                    <div style={{ marginBottom: 24 }}>
                       <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', tracking: 2, marginBottom: 8, textTransform: 'uppercase' }}>Business Developer (BD)</div>
                       <select 
                          style={{ ...S.input, appearance: 'none', background: '#f8fafc', backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center', backgroundSize: '16px' }}
@@ -4551,7 +4485,6 @@ export default function App() {
                         }
                         setEditId(null);
                         setEditClientName("");
-                        setEditSlackId("");
                         setEditBD("");
                         setEditRawProfile("");
                         setEditLeadScore("");
