@@ -25,7 +25,6 @@ import {
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { upsertClient } from './supabase';
-import { extractDominantColors } from './logoColorExtractor';
 import { getApiUrl } from './config.js';
 
 const AWARENESS_LEVELS = [

@@ -1,434 +1,14876 @@
-
 export const ROLES = {
-  AM:  { label:"Account Manager",  color:"#f59e0b", short:"AM" },
-  CW:  { label:"Content Writer",   color:"#10b981", short:"CW" },
-  GD:  { label:"Graphic Designer", color:"#ec4899", short:"GD" },
-  VE:  { label:"Video Editor",     color:"#a78bfa", short:"VE" },
-  ADS: { label:"Ads Manager",      color:"#f43f5e", short:"ADS" },
-  CRM: { label:"CRM Executive",    color:"#3b82f6", short:"CRM" },
-  OPS: { label:"Ops Manager",      color:"#6366f1", short:"OPS" },
-  SMM: { label:"Social Media Manager", color:"#0ea5e9", short:"SMM" },
-  BD:  { label:"Business Developer", color:"#fb923c", short:"BD" },
-  TECH: { label:"Tech Team",          color:"#a855f7", short:"TECH" },
+  AM:       { label: "Account Manager",          color: "#f59e0b", short: "AM" },
+  STRAT:    { label: "Strategist",               color: "#8b5cf6", short: "STRAT" },
+  SR_STRAT: { label: "Senior Strategist",        color: "#6d28d9", short: "SR STRAT" },
+  OBS:      { label: "Outbound Specialist",      color: "#0284c7", short: "OBS" },
+  SDR:      { label: "SDR",                      color: "#06b6d4", short: "SDR" },
+  DATA:     { label: "Data Specialist",          color: "#14b8a6", short: "DATA" },
+  ADS:      { label: "Ads Specialist",           color: "#f43f5e", short: "ADS" },
+  SEO:      { label: "SEO Specialist",           color: "#10b981", short: "SEO" },
+  SEO_LEAD: { label: "SEO Lead",                 color: "#059669", short: "SEO LEAD" },
+  SMM:      { label: "Social Media Manager",     color: "#0ea5e9", short: "SMM" },
+  GD:       { label: "Graphic Designer",         color: "#ec4899", short: "GD" },
+  CW:       { label: "Copywriter",               color: "#84cc16", short: "CW" },
+  GHOST:    { label: "Founder Ghostwriter",      color: "#a855f7", short: "GHOST" },
+  VE:       { label: "Video Editor",             color: "#a78bfa", short: "VE" },
+  DEV:      { label: "Web Developer",            color: "#3b82f6", short: "DEV" },
+  AUTO:     { label: "Automation Specialist",    color: "#6366f1", short: "AUTO" },
+  AC:       { label: "Account Coordinator",      color: "#f97316", short: "AC" },
+  OPS:      { label: "Ops Manager",              color: "#e11d48", short: "OPS" },
+  BD:       { label: "Business Developer",       color: "#fb923c", short: "BD" },
+  TECH:     { label: "Tech Team",                color: "#a855f7", short: "TECH" },
+  CRM:      { label: "CRM Executive",            color: "#3b82f6", short: "CRM" },
 };
 
 export const PACKAGES = [
-  { id:"basic",        label:"Basic",        price:"200,000", color:"#10b981", kra:"50-75 Raw Leads" },
-  { id:"intermediate", label:"Intermediate", price:"280,000", color:"#6366f1", kra:"30-45 SQLs" },
-  { id:"advanced",     label:"Advanced",     price:"435,000", color:"#f59e0b", kra:"60-80 SQLs" },
+  {
+    id: "cold_outreach",
+    label: "Cold Outreach Standalone",
+    price: "100,000",
+    color: "#3b82f6",
+    kra: "5 Domains, 15 Mailboxes, 1 LinkedIn (Booked Calls)",
+    desc: "15 Mailboxes, 375 sends/day, 1 LinkedIn Profile, 3 Copy Angles, GHL Pipeline."
+  },
+  {
+    id: "growth_starter",
+    label: "Growth Starter",
+    price: "175,000",
+    color: "#10b981",
+    kra: "1 LinkedIn, 12 Static Posts, 2 Meta Ads, 1 LP, 500 Leads",
+    desc: "LinkedIn Outreach (15/day), 2 Social Platforms (12 Posts/mo), Meta Ads (100K spend), 1 LP."
+  },
+  {
+    id: "growth_engine",
+    label: "Growth Engine",
+    price: "300,000",
+    color: "#ea580c",
+    kra: "18 Mailboxes, 2 LIs, Meta/Google Ads, SEO (15 KW), 2 LPs",
+    desc: "Cold Email (450/day), 2 LinkedIn Profiles (40/day), Meta & Google Ads, 20 Posts + 6 Reels, SEO."
+  },
+  {
+    id: "growth_dominance",
+    label: "Growth Dominance",
+    price: "500,000",
+    color: "#8b5cf6",
+    kra: "30 Mailboxes, Ghostwriting, 3 Ads Platforms, SEO (30 KW), AI Chatbot",
+    desc: "Full Omnichannel: 750 sends/day, 3 LIs + Ghostwriting, Meta/Google/LI Ads (1M), Unlimited LPs, AI."
+  }
 ];
 
-export const DC = ["#6366f1","#818cf8","#a78bfa","#ec4899","#f59e0b","#10b981","#3b82f6","#f43f5e","#6366f1","#818cf8","#a78bfa","#ec4899","#f59e0b","#10b981","#3b82f6"];
-
-export const DEFAULT_TASKS = [
-  { id:"s01", phase:"sprint", day:1, n:"Client Onboarding",        role:"AM",  deps:[] },
-  { id:"s02", phase:"sprint", day:1, n:"Client Drive Setup",        role:"AM",  deps:[] },
-  { id:"s03", phase:"sprint", day:1, n:"Client Competitors List",   role:"AM",  deps:[] },
-  { id:"s04", phase:"sprint", day:1, n:"Client Offer & ICP",        role:"AM",  deps:[] },
-  { id:"s05", phase:"sprint", day:1, n:"Access Collection",         role:"AM",  deps:[] },
-  { id:"s06", phase:"sprint", day:1, n:"CRM Setup",                 role:"CRM", deps:[] },
-  { id:"s07", phase:"sprint", day:1, n:"Reference Creatives",       role:"GD",  deps:[] },
-  { id:"s08", phase:"sprint", day:2, n:"Brand Identity",            role:"GD",  deps:["s04","s05","s07"] },
-  { id:"s09", phase:"sprint", day:2, n:"NotebookLM Setup",          role:"CW",  deps:["s02","s03","s04"] },
-  { id:"s10", phase:"sprint", day:2, n:"Prompts",                   role:"CW",  deps:["s09"] },
-  { id:"s11", phase:"sprint", day:3, n:"Scripts",                   role:"CW",  deps:["s10"] },
-  { id:"s12", phase:"sprint", day:3, n:"Workflow Documentation",    role:"OPS", deps:["s04"] },
-  { id:"s13", phase:"sprint", day:3, n:"Offer Content on Profile",  role:"AM",  deps:["s04","s08"] },
-  { id:"s14", phase:"sprint", day:4, n:"Ad Copies",                 role:"CW",  deps:["s11"] },
-  { id:"s15", phase:"sprint", day:4, n:"Social Media Posts",        role:"CW",  deps:["s11","s08"] },
-  { id:"s16", phase:"sprint", day:4, n:"Banners on Profiles",       role:"GD",  deps:["s08"] },
-  { id:"s17", phase:"sprint", day:4, n:"Banners on Pages",          role:"GD",  deps:["s08"] },
-  { id:"s18", phase:"sprint", day:4, n:"Company Profile",           role:"CW",  deps:["s04","s08"] },
-  { id:"s19", phase:"sprint", day:4, n:"Case Studies",              role:"CW",  deps:["s04"] },
-  { id:"s20", phase:"sprint", day:5, n:"CEO Videos",                role:"VE",  deps:["s11"] },
-  { id:"s21", phase:"sprint", day:5, n:"Testimonials",              role:"VE",  deps:["s11"] },
-  { id:"s22", phase:"sprint", day:5, n:"Landing Page",              role:"TECH", deps:["s08","s14"] },
-  { id:"s23", phase:"sprint", day:6, n:"Form with Custom Values",   role:"CRM", deps:["s06","s22"] },
-  { id:"s24", phase:"sprint", day:6, n:"Email Sequences",           role:"CRM", deps:["s06","s14"] },
-  { id:"s25", phase:"sprint", day:6, n:"WhatsApp Sequences",        role:"CRM", deps:["s06","s11"] },
-  { id:"s26", phase:"sprint", day:6, n:"CRM Domain Integration",    role:"CRM", deps:["s06","s22"] },
-  { id:"s27", phase:"sprint", day:6, n:"GMB Profile",               role:"CRM", deps:["s05","s08"] },
-  { id:"s28", phase:"sprint", day:6, n:"WhatsApp Integration",      role:"CRM", deps:["s06"] },
-  { id:"s29", phase:"sprint", day:6, n:"Ads Account Card Added",    role:"ADS", deps:["s06"] },
-  { id:"s30", phase:"sprint", day:6, n:"CRM Social Integration",    role:"CRM", deps:["s06","s05"] },
-  { id:"s31", phase:"sprint", day:6, n:"CRM Calendar Setup",        role:"CRM", deps:["s06"] },
-  { id:"s32", phase:"sprint", day:7, n:"WhatsApp Verification",     role:"CRM", deps:["s28"] },
-  { id:"s33", phase:"sprint", day:7, n:"CRM Training",              role:"CRM", deps:["s31"] },
-  { id:"s34", phase:"sprint", day:7, n:"Initial Posts",             role:"CW",  deps:["s15","s08"] },
-  // 41 Post Outreach Boxes (Day 8-90) - Alternating Static/Video
-  { id:"p8s", phase:"ongoing", day:8, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p8g", phase:"ongoing", day:8, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p8s"] },
-  { id:"p8p", phase:"ongoing", day:8, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p8g"] },
-  { id:"p8t", phase:"ongoing", day:8, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p8o", phase:"ongoing", day:8, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p8m", phase:"ongoing", day:8, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p10s", phase:"ongoing", day:10, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p10r", phase:"ongoing", day:10, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p10s"] },
-  { id:"p10e", phase:"ongoing", day:10, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p10r"] },
-  { id:"p10p", phase:"ongoing", day:10, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p10e"] },
-  { id:"p10t", phase:"ongoing", day:10, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p10o", phase:"ongoing", day:10, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p10m", phase:"ongoing", day:10, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p12s", phase:"ongoing", day:12, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p12g", phase:"ongoing", day:12, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p12s"] },
-  { id:"p12p", phase:"ongoing", day:12, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p12g"] },
-  { id:"p12t", phase:"ongoing", day:12, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p12o", phase:"ongoing", day:12, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p12m", phase:"ongoing", day:12, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p14s", phase:"ongoing", day:14, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p14r", phase:"ongoing", day:14, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p14s"] },
-  { id:"p14e", phase:"ongoing", day:14, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p14r"] },
-  { id:"p14p", phase:"ongoing", day:14, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p14e"] },
-  { id:"p14t", phase:"ongoing", day:14, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p14o", phase:"ongoing", day:14, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p14m", phase:"ongoing", day:14, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p16s", phase:"ongoing", day:16, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p16g", phase:"ongoing", day:16, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p16s"] },
-  { id:"p16p", phase:"ongoing", day:16, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p16g"] },
-  { id:"p16t", phase:"ongoing", day:16, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p16o", phase:"ongoing", day:16, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p16m", phase:"ongoing", day:16, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p18s", phase:"ongoing", day:18, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p18r", phase:"ongoing", day:18, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p18s"] },
-  { id:"p18e", phase:"ongoing", day:18, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p18r"] },
-  { id:"p18p", phase:"ongoing", day:18, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p18e"] },
-  { id:"p18t", phase:"ongoing", day:18, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p18o", phase:"ongoing", day:18, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p18m", phase:"ongoing", day:18, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p20s", phase:"ongoing", day:20, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p20g", phase:"ongoing", day:20, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p20s"] },
-  { id:"p20p", phase:"ongoing", day:20, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p20g"] },
-  { id:"p20t", phase:"ongoing", day:20, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p20o", phase:"ongoing", day:20, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p20m", phase:"ongoing", day:20, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p22s", phase:"ongoing", day:22, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p22r", phase:"ongoing", day:22, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p22s"] },
-  { id:"p22e", phase:"ongoing", day:22, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p22r"] },
-  { id:"p22p", phase:"ongoing", day:22, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p22e"] },
-  { id:"p22t", phase:"ongoing", day:22, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p22o", phase:"ongoing", day:22, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p22m", phase:"ongoing", day:22, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p24s", phase:"ongoing", day:24, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p24g", phase:"ongoing", day:24, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p24s"] },
-  { id:"p24p", phase:"ongoing", day:24, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p24g"] },
-  { id:"p24t", phase:"ongoing", day:24, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p24o", phase:"ongoing", day:24, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p24m", phase:"ongoing", day:24, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p26s", phase:"ongoing", day:26, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p26r", phase:"ongoing", day:26, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p26s"] },
-  { id:"p26e", phase:"ongoing", day:26, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p26r"] },
-  { id:"p26p", phase:"ongoing", day:26, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p26e"] },
-  { id:"p26t", phase:"ongoing", day:26, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p26o", phase:"ongoing", day:26, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p26m", phase:"ongoing", day:26, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p28s", phase:"ongoing", day:28, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p28g", phase:"ongoing", day:28, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p28s"] },
-  { id:"p28p", phase:"ongoing", day:28, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p28g"] },
-  { id:"p28t", phase:"ongoing", day:28, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p28o", phase:"ongoing", day:28, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p28m", phase:"ongoing", day:28, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p30s", phase:"ongoing", day:30, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p30r", phase:"ongoing", day:30, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p30s"] },
-  { id:"p30e", phase:"ongoing", day:30, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p30r"] },
-  { id:"p30p", phase:"ongoing", day:30, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p30e"] },
-  { id:"p30t", phase:"ongoing", day:30, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p30o", phase:"ongoing", day:30, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p30m", phase:"ongoing", day:30, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p32s", phase:"ongoing", day:32, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p32g", phase:"ongoing", day:32, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p32s"] },
-  { id:"p32p", phase:"ongoing", day:32, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p32g"] },
-  { id:"p32t", phase:"ongoing", day:32, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p32o", phase:"ongoing", day:32, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p32m", phase:"ongoing", day:32, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p34s", phase:"ongoing", day:34, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p34r", phase:"ongoing", day:34, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p34s"] },
-  { id:"p34e", phase:"ongoing", day:34, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p34r"] },
-  { id:"p34p", phase:"ongoing", day:34, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p34e"] },
-  { id:"p34t", phase:"ongoing", day:34, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p34o", phase:"ongoing", day:34, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p34m", phase:"ongoing", day:34, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p36s", phase:"ongoing", day:36, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p36g", phase:"ongoing", day:36, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p36s"] },
-  { id:"p36p", phase:"ongoing", day:36, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p36g"] },
-  { id:"p36t", phase:"ongoing", day:36, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p36o", phase:"ongoing", day:36, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p36m", phase:"ongoing", day:36, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p38s", phase:"ongoing", day:38, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p38r", phase:"ongoing", day:38, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p38s"] },
-  { id:"p38e", phase:"ongoing", day:38, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p38r"] },
-  { id:"p38p", phase:"ongoing", day:38, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p38e"] },
-  { id:"p38t", phase:"ongoing", day:38, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p38o", phase:"ongoing", day:38, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p38m", phase:"ongoing", day:38, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p40s", phase:"ongoing", day:40, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p40g", phase:"ongoing", day:40, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p40s"] },
-  { id:"p40p", phase:"ongoing", day:40, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p40g"] },
-  { id:"p40t", phase:"ongoing", day:40, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p40o", phase:"ongoing", day:40, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p40m", phase:"ongoing", day:40, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p42s", phase:"ongoing", day:42, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p42r", phase:"ongoing", day:42, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p42s"] },
-  { id:"p42e", phase:"ongoing", day:42, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p42r"] },
-  { id:"p42p", phase:"ongoing", day:42, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p42e"] },
-  { id:"p42t", phase:"ongoing", day:42, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p42o", phase:"ongoing", day:42, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p42m", phase:"ongoing", day:42, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p44s", phase:"ongoing", day:44, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p44g", phase:"ongoing", day:44, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p44s"] },
-  { id:"p44p", phase:"ongoing", day:44, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p44g"] },
-  { id:"p44t", phase:"ongoing", day:44, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p44o", phase:"ongoing", day:44, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p44m", phase:"ongoing", day:44, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p46s", phase:"ongoing", day:46, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p46r", phase:"ongoing", day:46, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p46s"] },
-  { id:"p46e", phase:"ongoing", day:46, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p46r"] },
-  { id:"p46p", phase:"ongoing", day:46, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p46e"] },
-  { id:"p46t", phase:"ongoing", day:46, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p46o", phase:"ongoing", day:46, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p46m", phase:"ongoing", day:46, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p48s", phase:"ongoing", day:48, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p48g", phase:"ongoing", day:48, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p48s"] },
-  { id:"p48p", phase:"ongoing", day:48, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p48g"] },
-  { id:"p48t", phase:"ongoing", day:48, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p48o", phase:"ongoing", day:48, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p48m", phase:"ongoing", day:48, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p50s", phase:"ongoing", day:50, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p50r", phase:"ongoing", day:50, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p50s"] },
-  { id:"p50e", phase:"ongoing", day:50, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p50r"] },
-  { id:"p50p", phase:"ongoing", day:50, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p50e"] },
-  { id:"p50t", phase:"ongoing", day:50, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p50o", phase:"ongoing", day:50, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p50m", phase:"ongoing", day:50, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p52s", phase:"ongoing", day:52, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p52g", phase:"ongoing", day:52, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p52s"] },
-  { id:"p52p", phase:"ongoing", day:52, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p52g"] },
-  { id:"p52t", phase:"ongoing", day:52, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p52o", phase:"ongoing", day:52, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p52m", phase:"ongoing", day:52, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p54s", phase:"ongoing", day:54, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p54r", phase:"ongoing", day:54, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p54s"] },
-  { id:"p54e", phase:"ongoing", day:54, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p54r"] },
-  { id:"p54p", phase:"ongoing", day:54, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p54e"] },
-  { id:"p54t", phase:"ongoing", day:54, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p54o", phase:"ongoing", day:54, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p54m", phase:"ongoing", day:54, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p56s", phase:"ongoing", day:56, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p56g", phase:"ongoing", day:56, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p56s"] },
-  { id:"p56p", phase:"ongoing", day:56, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p56g"] },
-  { id:"p56t", phase:"ongoing", day:56, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p56o", phase:"ongoing", day:56, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p56m", phase:"ongoing", day:56, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p58s", phase:"ongoing", day:58, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p58r", phase:"ongoing", day:58, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p58s"] },
-  { id:"p58e", phase:"ongoing", day:58, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p58r"] },
-  { id:"p58p", phase:"ongoing", day:58, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p58e"] },
-  { id:"p58t", phase:"ongoing", day:58, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p58o", phase:"ongoing", day:58, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p58m", phase:"ongoing", day:58, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p60s", phase:"ongoing", day:60, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p60g", phase:"ongoing", day:60, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p60s"] },
-  { id:"p60p", phase:"ongoing", day:60, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p60g"] },
-  { id:"p60t", phase:"ongoing", day:60, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p60o", phase:"ongoing", day:60, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p60m", phase:"ongoing", day:60, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p62s", phase:"ongoing", day:62, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p62r", phase:"ongoing", day:62, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p62s"] },
-  { id:"p62e", phase:"ongoing", day:62, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p62r"] },
-  { id:"p62p", phase:"ongoing", day:62, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p62e"] },
-  { id:"p62t", phase:"ongoing", day:62, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p62o", phase:"ongoing", day:62, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p62m", phase:"ongoing", day:62, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p64s", phase:"ongoing", day:64, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p64g", phase:"ongoing", day:64, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p64s"] },
-  { id:"p64p", phase:"ongoing", day:64, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p64g"] },
-  { id:"p64t", phase:"ongoing", day:64, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p64o", phase:"ongoing", day:64, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p64m", phase:"ongoing", day:64, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p66s", phase:"ongoing", day:66, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p66r", phase:"ongoing", day:66, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p66s"] },
-  { id:"p66e", phase:"ongoing", day:66, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p66r"] },
-  { id:"p66p", phase:"ongoing", day:66, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p66e"] },
-  { id:"p66t", phase:"ongoing", day:66, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p66o", phase:"ongoing", day:66, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p66m", phase:"ongoing", day:66, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p68s", phase:"ongoing", day:68, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p68g", phase:"ongoing", day:68, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p68s"] },
-  { id:"p68p", phase:"ongoing", day:68, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p68g"] },
-  { id:"p68t", phase:"ongoing", day:68, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p68o", phase:"ongoing", day:68, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p68m", phase:"ongoing", day:68, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p70s", phase:"ongoing", day:70, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p70r", phase:"ongoing", day:70, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p70s"] },
-  { id:"p70e", phase:"ongoing", day:70, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, VS:true, deps: ["p70r"] },
-  { id:"p70p", phase:"ongoing", day:70, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p70e"] },
-  { id:"p70t", phase:"ongoing", day:70, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p70o", phase:"ongoing", day:70, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p70m", phase:"ongoing", day:70, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p72s", phase:"ongoing", day:72, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p72g", phase:"ongoing", day:72, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p72s"] },
-  { id:"p72p", phase:"ongoing", day:72, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p72g"] },
-  { id:"p72t", phase:"ongoing", day:72, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p72o", phase:"ongoing", day:72, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p72m", phase:"ongoing", day:72, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p74s", phase:"ongoing", day:74, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p74r", phase:"ongoing", day:74, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p74s"] },
-  { id:"p74e", phase:"ongoing", day:74, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p74r"] },
-  { id:"p74p", phase:"ongoing", day:74, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p74e"] },
-  { id:"p74t", phase:"ongoing", day:74, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p74o", phase:"ongoing", day:74, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p74m", phase:"ongoing", day:74, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p76s", phase:"ongoing", day:76, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p76g", phase:"ongoing", day:76, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p76s"] },
-  { id:"p76p", phase:"ongoing", day:76, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p76g"] },
-  { id:"p76t", phase:"ongoing", day:76, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p76o", phase:"ongoing", day:76, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p76m", phase:"ongoing", day:76, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p78s", phase:"ongoing", day:78, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p78r", phase:"ongoing", day:78, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p78s"] },
-  { id:"p78e", phase:"ongoing", day:78, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p78r"] },
-  { id:"p78p", phase:"ongoing", day:78, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p78e"] },
-  { id:"p78t", phase:"ongoing", day:78, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p78o", phase:"ongoing", day:78, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p78m", phase:"ongoing", day:78, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p80s", phase:"ongoing", day:80, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p80g", phase:"ongoing", day:80, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p80s"] },
-  { id:"p80p", phase:"ongoing", day:80, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p80g"] },
-  { id:"p80t", phase:"ongoing", day:80, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p80o", phase:"ongoing", day:80, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p80m", phase:"ongoing", day:80, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p82s", phase:"ongoing", day:82, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p82r", phase:"ongoing", day:82, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p82s"] },
-  { id:"p82e", phase:"ongoing", day:82, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p82r"] },
-  { id:"p82p", phase:"ongoing", day:82, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p82e"] },
-  { id:"p82t", phase:"ongoing", day:82, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p82o", phase:"ongoing", day:82, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p82m", phase:"ongoing", day:82, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p84s", phase:"ongoing", day:84, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p84g", phase:"ongoing", day:84, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p84s"] },
-  { id:"p84p", phase:"ongoing", day:84, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p84g"] },
-  { id:"p84t", phase:"ongoing", day:84, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p84o", phase:"ongoing", day:84, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p84m", phase:"ongoing", day:84, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p86s", phase:"ongoing", day:86, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p86r", phase:"ongoing", day:86, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p86s"] },
-  { id:"p86e", phase:"ongoing", day:86, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p86r"] },
-  { id:"p86p", phase:"ongoing", day:86, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p86e"] },
-  { id:"p86t", phase:"ongoing", day:86, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p86o", phase:"ongoing", day:86, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p86m", phase:"ongoing", day:86, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p88s", phase:"ongoing", day:88, n:"Content", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p88g", phase:"ongoing", day:88, n:"Create Graphic", role:"GD", freq:"Outreach", isPost:true, deps: ["p88s"] },
-  { id:"p88p", phase:"ongoing", day:88, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p88g"] },
-  { id:"p88t", phase:"ongoing", day:88, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p88o", phase:"ongoing", day:88, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p88m", phase:"ongoing", day:88, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-
-  { id:"p90s", phase:"ongoing", day:90, n:"Write Script (Video)", role:"CW", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p90r", phase:"ongoing", day:90, n:"Video Production", role:"AM", freq:"Outreach", isPost:true, deps: ["p90s"] },
-  { id:"p90e", phase:"ongoing", day:90, n:"Video Editing", role:"VE", freq:"Outreach", isPost:true, deps: ["p90r"] },
-  { id:"p90p", phase:"ongoing", day:90, n:"Post to Platforms", role:"SMM", freq:"Outreach", isPost:true, deps: ["p90e"] },
-  { id:"p90t", phase:"ongoing", day:90, n:"CRM & Automation Test", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p90o", phase:"ongoing", day:90, n:"Organic Marketing Report", role:"BD", freq:"Outreach", isPost:true, deps: [] },
-  { id:"p90m", phase:"ongoing", day:90, n:"Paid Marketing Report", role:"ADS", freq:"Outreach", isPost:true, deps: [] },
+export const DC = [
+  "#6366f1","#818cf8","#a78bfa","#ec4899","#f59e0b",
+  "#10b981","#3b82f6","#f43f5e","#6366f1","#818cf8",
+  "#a78bfa","#ec4899","#f59e0b","#10b981","#3b82f6"
 ];
+
+export const PACKAGE_TASKS = {
+  "cold_outreach": [
+    {
+      "id": "co_s01_a",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Conduct Kickoff Meeting with Client",
+      "role": "AM",
+      "deps": [],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s01_b",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Collect Platform Credentials",
+      "role": "AM",
+      "deps": [
+        "co_s01_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s01_c",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Purchase 5 Cold Email Domains",
+      "role": "AUTO",
+      "deps": [
+        "co_s01_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s01_d",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Configure SPF, DKIM, DMARC DNS Records",
+      "role": "AUTO",
+      "deps": [
+        "co_s01_c"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s02_a",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Audit Client Offer",
+      "role": "AM",
+      "deps": [
+        "co_s01_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s02_b",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Audit Client Proof Materials",
+      "role": "AM",
+      "deps": [
+        "co_s02_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s02_c",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Create 15 Mailboxes across Domains",
+      "role": "AUTO",
+      "deps": [
+        "co_s01_d"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s03_a",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Draft Target ICP Definition Document",
+      "role": "STRAT",
+      "deps": [
+        "co_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s03_b",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Submit ICP Scorecard for Client Approval",
+      "role": "STRAT",
+      "deps": [
+        "co_s03_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s03_c",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Connect 15 Mailboxes to Warmup Pool",
+      "role": "AUTO",
+      "deps": [
+        "co_s02_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s03_d",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Set Automated Warmup Schedule",
+      "role": "AUTO",
+      "deps": [
+        "co_s03_c"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s04_a",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Benchmark Competitor Outbound Campaigns",
+      "role": "STRAT",
+      "deps": [
+        "co_s03_a"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s04_b",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Setup GHL Sub-Account Pipeline Stages",
+      "role": "AUTO",
+      "deps": [
+        "co_s01_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s05_a",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Configure GHL Calendar Booking Link and Reminders",
+      "role": "AUTO",
+      "deps": [
+        "co_s04_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s05_b",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Set Up Slack Lead Notification Webhook",
+      "role": "AUTO",
+      "deps": [
+        "co_s05_a"
+      ],
+      "hours": "0.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s06_a",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Optimize Client LinkedIn Profile",
+      "role": "OBS",
+      "deps": [
+        "co_s03_b"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s06_b",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Activate Sales Navigator Search Filters",
+      "role": "OBS",
+      "deps": [
+        "co_s06_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s07_a",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Draft Email Sequence Angle 1 Direct Pitch",
+      "role": "CW",
+      "deps": [
+        "co_s03_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s07_b",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Draft Email Sequence Angle 2 Pain Point",
+      "role": "CW",
+      "deps": [
+        "co_s07_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s07_c",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Source First 1,250 Verified ICP Contacts",
+      "role": "DATA",
+      "deps": [
+        "co_s03_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s08_a",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Draft Email Sequence Angle 3 Case Study and Social Proof",
+      "role": "CW",
+      "deps": [
+        "co_s07_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s08_b",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Write 4 Follow Up Variations Per Angle",
+      "role": "CW",
+      "deps": [
+        "co_s08_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s09_a",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Write LinkedIn Connection Note and 3 Step DM Sequence",
+      "role": "CW",
+      "deps": [
+        "co_s07_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s09_b",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Design LinkedIn Banner and Optimize Headline",
+      "role": "GD",
+      "deps": [
+        "co_s06_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s10_a",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Messaging Approval Call with Client on Angles and Content Pillars",
+      "role": "AM",
+      "deps": [
+        "co_s08_b",
+        "co_s09_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s10_b",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Upload Approved Sequences to Sending Platform",
+      "role": "AUTO",
+      "deps": [
+        "co_s10_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s11_a",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Build Intent Trigger Contact List",
+      "role": "DATA",
+      "deps": [
+        "co_s07_c"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s11_b",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Clean and Verify Email Deliverability on All Leads",
+      "role": "DATA",
+      "deps": [
+        "co_s11_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s12_a",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Write Discovery Call Script and Objection Handling Document",
+      "role": "CW",
+      "deps": [
+        "co_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s12_b",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Prepare Proposal Template for Client Use",
+      "role": "AM",
+      "deps": [
+        "co_s02_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "co_s13_a",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
+      "role": "AM",
+      "deps": [
+        "co_s04_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s13_b",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Source Additional 1,250 Verified ICP Contacts",
+      "role": "DATA",
+      "deps": [
+        "co_s07_c"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s14_a",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Execute Seed List Test Send to 10 Inboxes",
+      "role": "OBS",
+      "deps": [
+        "co_s03_c",
+        "co_s10_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s14_b",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Verify 0% Spam Placement across Seed Accounts",
+      "role": "OBS",
+      "deps": [
+        "co_s14_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s15_a",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Final Deliverability QA and Inbox Placement Check",
+      "role": "OBS",
+      "deps": [
+        "co_s14_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_s15_b",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Compile Day 15 Go Live Report and Conduct Milestone Review",
+      "role": "AM",
+      "deps": [
+        "co_s15_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "co_d16_li",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d16_confirm",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d16_noshow",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d17_ramp",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Start Cold Email Sending at 20 Percent Volume",
+      "role": "OBS",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d17_send",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Send Cold Email Ramp-Up Batch",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d17_seq",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d17_hyg",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d18_clean",
+      "phase": "ongoing",
+      "day": 18,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d18_bounce",
+      "phase": "ongoing",
+      "day": 18,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d19_kpi",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d19_box",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d19_list",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d19_send",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send Cold Email Ramp-Up Batch",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d19_li",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d20_scale",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Scale Cold Email to Full Daily Volume",
+      "role": "OBS",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d20_send",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d20_reply_m",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d20_reply_e",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d20_li",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d21_send",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d21_wave",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d21_li",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d21_reply",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d22_send",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d22_li",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d22_confirm",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d22_noshow",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d23_send",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d23_seq",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d23_hyg",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d24_clean",
+      "phase": "ongoing",
+      "day": 24,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d24_bounce",
+      "phase": "ongoing",
+      "day": 24,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d25_kpi",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d25_box",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d25_list",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d25_send",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d25_li",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d26_send",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d26_reply_m",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d26_reply_e",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d26_li",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d27_send",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d27_wave",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d27_li",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d27_reply",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d28_send",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d28_li",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d28_confirm",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d28_noshow",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d29_send",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d29_seq",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d29_hyg",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d30_clean",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d30_bounce",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d31_kpi",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d31_box",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d31_list",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d31_send",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d31_li",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d32_send",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d32_reply_m",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d32_reply_e",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d32_li",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d33_send",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d33_wave",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d33_li",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d33_reply",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d34_send",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d34_li",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d34_confirm",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d34_noshow",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d35_send",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d35_seq",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d35_hyg",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d36_clean",
+      "phase": "ongoing",
+      "day": 36,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d36_bounce",
+      "phase": "ongoing",
+      "day": 36,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d37_kpi",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d37_box",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d37_list",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d37_send",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d37_li",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d38_send",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d38_reply_m",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d38_reply_e",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d38_li",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d39_send",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d39_wave",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d39_li",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d39_reply",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d40_send",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d40_li",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d40_confirm",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d40_noshow",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d41_send",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d41_seq",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d41_hyg",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d42_clean",
+      "phase": "ongoing",
+      "day": 42,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d42_bounce",
+      "phase": "ongoing",
+      "day": 42,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d43_kpi",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d43_box",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d43_list",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d43_send",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d43_li",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d44_send",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d44_reply_m",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d44_reply_e",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d44_li",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d45_send",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d45_wave",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d45_li",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d45_reply",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d46_send",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d46_li",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d46_confirm",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d46_noshow",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d47_send",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d47_seq",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d47_hyg",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d48_clean",
+      "phase": "ongoing",
+      "day": 48,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d48_bounce",
+      "phase": "ongoing",
+      "day": 48,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d49_kpi",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d49_box",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d49_list",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d49_send",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d49_li",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d50_send",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d50_reply_m",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d50_reply_e",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d50_li",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d51_send",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d51_wave",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d51_li",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d51_reply",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d52_send",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d52_li",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d52_confirm",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d52_noshow",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d53_send",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d53_seq",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d53_hyg",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d54_clean",
+      "phase": "ongoing",
+      "day": 54,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d54_bounce",
+      "phase": "ongoing",
+      "day": 54,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d55_kpi",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d55_box",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d55_list",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d55_send",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d55_li",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d56_send",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d56_reply_m",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d56_reply_e",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d56_li",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d57_send",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d57_wave",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d57_li",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d57_reply",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d58_send",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d58_li",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d58_confirm",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d58_noshow",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d59_send",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d59_seq",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d59_hyg",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d60_clean",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d60_bounce",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d61_kpi",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d61_box",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d61_list",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d61_send",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d61_li",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d62_send",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d62_reply_m",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d62_reply_e",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d62_li",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d63_send",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d63_wave",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d63_li",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d63_reply",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d64_send",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d64_li",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d64_confirm",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d64_noshow",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d65_send",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d65_seq",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d65_hyg",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d66_clean",
+      "phase": "ongoing",
+      "day": 66,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d66_bounce",
+      "phase": "ongoing",
+      "day": 66,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d67_kpi",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d67_box",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d67_list",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d67_send",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d67_li",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d68_send",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d68_reply_m",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d68_reply_e",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d68_li",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d69_send",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d69_wave",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d69_li",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d69_reply",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d70_send",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d70_li",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d70_confirm",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d70_noshow",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d71_send",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d71_seq",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d71_hyg",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d72_clean",
+      "phase": "ongoing",
+      "day": 72,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d72_bounce",
+      "phase": "ongoing",
+      "day": 72,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d73_kpi",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d73_box",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d73_list",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d73_send",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d73_li",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d74_send",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d74_reply_m",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d74_reply_e",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d74_li",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d75_send",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d75_wave",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d75_li",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d75_reply",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d76_send",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d76_li",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d76_confirm",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d76_noshow",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d77_send",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d77_seq",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d77_hyg",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d78_clean",
+      "phase": "ongoing",
+      "day": 78,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d78_bounce",
+      "phase": "ongoing",
+      "day": 78,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d79_kpi",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d79_box",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d79_list",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d79_send",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d79_li",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d80_send",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d80_reply_m",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d80_reply_e",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d80_li",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d81_send",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d81_wave",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d81_li",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d81_reply",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d82_send",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d82_li",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d82_confirm",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d82_noshow",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d83_send",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d83_seq",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d83_hyg",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d84_clean",
+      "phase": "ongoing",
+      "day": 84,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d84_bounce",
+      "phase": "ongoing",
+      "day": 84,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d85_kpi",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Review Weekly KPI Metrics",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d85_box",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Mailbox Health Check on 15 Boxes",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d85_list",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Build Weekly Verified Lead List (625 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d85_send",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d85_li",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d86_send",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d86_reply_m",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Morning Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d86_reply_e",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Evening Inbound Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d86_li",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d87_send",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d87_wave",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Launch Automated Follow-up Wave",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d87_li",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d87_reply",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Process Meeting Bookings from Replies",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d88_send",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d88_li",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d88_confirm",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send Booked Call Confirmations",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d88_noshow",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Follow-up Missed Call No-Shows",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d89_send",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Send Cold Email Batch (375 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d89_seq",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Sequence Performance Review by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d89_hyg",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "GHL Pipeline Hygiene and Lead Routing Check",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_d90_clean",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Clean Inactive Lead Database Contacts",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_d90_bounce",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Remove Hard Bounced Email Addresses",
+      "role": "DATA",
+      "freq": "Saturday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "co_m25",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Kill Weakest Email Angle and Reallocate Its Volume",
+      "role": "STRAT",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "co_m30",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Conduct Month 1 Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "co_m40",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Rewrite Offer Language Using Real Objections Collected",
+      "role": "CW",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "co_m52",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Rotate Burnt Domains and Start Warmup on 2 Replacements",
+      "role": "AUTO",
+      "priority": "high",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "co_m60",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Conduct Month 2 Pricing Check and Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "co_m90",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Conduct Quarter Review and Renewal Conversation",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    }
+  ],
+  "growth_starter": [
+    {
+      "id": "gs_s01_a",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Conduct Kickoff Meeting with Client",
+      "role": "AM",
+      "deps": [],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s01_b",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Collect Social Account Access Logins",
+      "role": "AM",
+      "deps": [
+        "gs_s01_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s02_a",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Audit Client Business Model",
+      "role": "STRAT",
+      "deps": [
+        "gs_s01_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s02_b",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Scan Competitor Funnels and Positioning",
+      "role": "STRAT",
+      "deps": [
+        "gs_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s03_a",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Draft Target ICP Profile",
+      "role": "STRAT",
+      "deps": [
+        "gs_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s03_b",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Submit ICP Scorecard for Client Approval",
+      "role": "STRAT",
+      "deps": [
+        "gs_s03_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s04_a",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Collect Client Brand Assets",
+      "role": "GD",
+      "deps": [
+        "gs_s03_b"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s04_b",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Lock Brand Color Palette and Typography Guidelines",
+      "role": "GD",
+      "deps": [
+        "gs_s04_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s05_a",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Create Dedicated GoHighLevel Sub Account and Grant Client Access",
+      "role": "AUTO",
+      "deps": [
+        "gs_s01_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s05_b",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Build GHL Pipeline Stages and Booking Calendar",
+      "role": "AUTO",
+      "deps": [
+        "gs_s05_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s06_a",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Install Meta Pixel Conversion Events",
+      "role": "DEV",
+      "deps": [
+        "gs_s05_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s06_b",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Setup Google Analytics 4 Tracking",
+      "role": "DEV",
+      "deps": [
+        "gs_s06_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s07_a",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Source First 500 Verified Target Contacts",
+      "role": "DATA",
+      "deps": [
+        "gs_s03_b"
+      ],
+      "hours": "2h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s07_b",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Verify Contact Data Deliverability",
+      "role": "DATA",
+      "deps": [
+        "gs_s07_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s08_a",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Audit Meta Ad Account Settings",
+      "role": "ADS",
+      "deps": [
+        "gs_s06_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s08_b",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Build Custom Target Audiences for Meta Lead Gen",
+      "role": "ADS",
+      "deps": [
+        "gs_s08_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s09_a",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Conduct Messaging Review Call with Client",
+      "role": "STRAT",
+      "deps": [
+        "gs_s03_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s09_b",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Finalize Social Content Pillars for 2 Platforms",
+      "role": "STRAT",
+      "deps": [
+        "gs_s09_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s09_c",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Connect Landing Page Form and Ads Lead Forms to GHL Pipeline",
+      "role": "AUTO",
+      "deps": [
+        "gs_s05_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s10_a",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Design Landing Page Structure Wireframe",
+      "role": "DEV",
+      "deps": [
+        "gs_s04_b",
+        "gs_s09_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s10_b",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Build Landing Page Visual Elements",
+      "role": "DEV",
+      "deps": [
+        "gs_s10_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s11_a",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Optimize LinkedIn Profile Banner and Headline",
+      "role": "GD",
+      "deps": [
+        "gs_s09_b"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s11_b",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Write First Content Batch (12 Static Social Posts)",
+      "role": "CW",
+      "deps": [
+        "gs_s09_b"
+      ],
+      "hours": "2h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s12_a",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Deploy Landing Page Live and Verify Functionality",
+      "role": "DEV",
+      "deps": [
+        "gs_s10_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s12_b",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Test GHL Lead Capture and Booking Form",
+      "role": "DEV",
+      "deps": [
+        "gs_s12_a",
+        "gs_s09_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s13_a",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
+      "role": "AM",
+      "deps": [
+        "gs_s05_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s13_b",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Issue Client Login Portal Walkthrough",
+      "role": "AM",
+      "deps": [
+        "gs_s13_a"
+      ],
+      "hours": "0.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "gs_s14_a",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Build 2 Meta Lead Generation Ad Campaigns in Paused Drafts",
+      "role": "ADS",
+      "deps": [
+        "gs_s08_b",
+        "gs_s12_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s14_b",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Confirm Monthly Ad Spend Budget and Billing Method in Writing",
+      "role": "AM",
+      "deps": [
+        "gs_s14_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s15_a",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Deliver Go Live Audit Report",
+      "role": "AM",
+      "deps": [
+        "gs_s14_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s15_b",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Conduct Go/No-Go Launch Sign-Off",
+      "role": "AM",
+      "deps": [
+        "gs_s15_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_s15_c",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Set Client Expectation That Month 1 Produces No Cold Email Booked Calls Since Outbound Is Not Included",
+      "role": "AM",
+      "deps": [
+        "gs_s15_b"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gs_d16_post2",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d16_li",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d16_book",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d16_ads",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d17_hyg",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d17_li",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d17_wrap",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d18_comm",
+      "phase": "ongoing",
+      "day": 18,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d19_kpi",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d19_sched",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d19_list",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d19_li",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d19_ads",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d20_design",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d20_copy",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d20_li",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d20_reply",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d20_ads",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d21_opt",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d21_li",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d21_comm",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d22_post2",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d22_li",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d22_book",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d22_ads",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d23_hyg",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d23_li",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d23_wrap",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d24_comm",
+      "phase": "ongoing",
+      "day": 24,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d25_kpi",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d25_sched",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d25_list",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d25_li",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d25_ads",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_m25_cal",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d26_design",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d26_copy",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d26_li",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d26_reply",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d26_ads",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d27_opt",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d27_li",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d27_comm",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d28_post2",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d28_li",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d28_book",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d28_ads",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d29_hyg",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d29_li",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d29_wrap",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d30_comm",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d31_kpi",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d31_sched",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d31_list",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d31_li",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d31_ads",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d32_design",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d32_copy",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d32_li",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d32_reply",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d32_ads",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d33_opt",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d33_li",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d33_comm",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d34_post2",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d34_li",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d34_book",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d34_ads",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d35_hyg",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d35_li",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d35_wrap",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d36_comm",
+      "phase": "ongoing",
+      "day": 36,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d37_kpi",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d37_sched",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d37_list",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d37_li",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d37_ads",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d38_design",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d38_copy",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d38_li",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d38_reply",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d38_ads",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d39_opt",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d39_li",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d39_comm",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d40_post2",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d40_li",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d40_book",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d40_ads",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d41_hyg",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d41_li",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d41_wrap",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d42_comm",
+      "phase": "ongoing",
+      "day": 42,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d43_kpi",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d43_sched",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d43_list",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d43_li",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d43_ads",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d44_design",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d44_copy",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d44_li",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d44_reply",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d44_ads",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d45_opt",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d45_li",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d45_comm",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d46_post2",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d46_li",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d46_book",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d46_ads",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d47_hyg",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d47_li",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d47_wrap",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d48_comm",
+      "phase": "ongoing",
+      "day": 48,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d49_kpi",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d49_sched",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d49_list",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d49_li",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d49_ads",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d50_design",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d50_copy",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d50_li",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d50_reply",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d50_ads",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d51_opt",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d51_li",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d51_comm",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d52_post2",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d52_li",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d52_book",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d52_ads",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d53_hyg",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d53_li",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d53_wrap",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d54_comm",
+      "phase": "ongoing",
+      "day": 54,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d55_kpi",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d55_sched",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d55_list",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d55_li",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d55_ads",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_m55_cal",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d56_design",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d56_copy",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d56_li",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d56_reply",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d56_ads",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d57_opt",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d57_li",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d57_comm",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d58_post2",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d58_li",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d58_book",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d58_ads",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d59_hyg",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d59_li",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d59_wrap",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d60_comm",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d61_kpi",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d61_sched",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d61_list",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d61_li",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d61_ads",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d62_design",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d62_copy",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d62_li",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d62_reply",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d62_ads",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d63_opt",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d63_li",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d63_comm",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d64_post2",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d64_li",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d64_book",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d64_ads",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d65_hyg",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d65_li",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d65_wrap",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d66_comm",
+      "phase": "ongoing",
+      "day": 66,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d67_kpi",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d67_sched",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d67_list",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d67_li",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d67_ads",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d68_design",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d68_copy",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d68_li",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d68_reply",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d68_ads",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d69_opt",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d69_li",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d69_comm",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d70_post2",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d70_li",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d70_book",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d70_ads",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d71_hyg",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d71_li",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d71_wrap",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d72_comm",
+      "phase": "ongoing",
+      "day": 72,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d73_kpi",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d73_sched",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d73_list",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d73_li",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d73_ads",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d74_design",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d74_copy",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d74_li",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d74_reply",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d74_ads",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d75_opt",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d75_li",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d75_comm",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d76_post2",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d76_li",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d76_book",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d76_ads",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d77_hyg",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d77_li",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d77_wrap",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d78_comm",
+      "phase": "ongoing",
+      "day": 78,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d79_kpi",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d79_sched",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d79_list",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d79_li",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d79_ads",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d80_design",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d80_copy",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d80_li",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d80_reply",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d80_ads",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d81_opt",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d81_li",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d81_comm",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d82_post2",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d82_li",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d82_book",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d82_ads",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d83_hyg",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d83_li",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d83_wrap",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d84_comm",
+      "phase": "ongoing",
+      "day": 84,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d85_kpi",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Review Weekly KPI Numbers",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d85_sched",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Schedule Weekly Posts on 2 Platforms",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d85_list",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Build Weekly Target Contact List (125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d85_li",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d85_ads",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Check Meta Ads Daily Spend Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_m85_cal",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d86_design",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Design Static Post Visuals",
+      "role": "GD",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d86_copy",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Write Post Captions and Hashtags",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d86_li",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d86_reply",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Process LinkedIn Inbound Replies",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d86_ads",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Audit Meta Ad Performance Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d87_opt",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Optimize Meta Lead Generation Campaign Budgets",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d87_li",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send 15 LinkedIn Outreach DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d87_comm",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Respond to Social Media Comments and Messages",
+      "role": "SMM",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d88_post2",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Produce Second Weekly Post Batch",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d88_li",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d88_book",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Schedule Inbound Discovery Calls in GHL",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d88_ads",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Check Meta Lead Form Conversion Quality",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d89_hyg",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Audit GHL Lead Routing Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d89_li",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Send 15 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_d89_wrap",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Send Weekly Performance Summary to Client",
+      "role": "AM",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_d90_comm",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Engage with Community Followers",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_m30",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Conduct Month 1 Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gs_m40",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Audit Landing Page Conversion Rate",
+      "role": "DEV",
+      "priority": "normal",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gs_m60",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Conduct Month 2 Pricing Check and Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gs_m70",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Audit Mobile Usability on Landing Page",
+      "role": "DEV",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gs_m90",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Conduct Quarter Review and Renewal Conversation",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    }
+  ],
+  "growth_engine": [
+    {
+      "id": "ge_s01_a",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Conduct Kickoff Meeting with Client",
+      "role": "AM",
+      "deps": [],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s01_b",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Collect Platform Credentials",
+      "role": "AM",
+      "deps": [
+        "ge_s01_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s01_c",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Purchase 6 Sending Domains",
+      "role": "AUTO",
+      "deps": [
+        "ge_s01_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s01_d",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Configure SPF, DKIM, DMARC DNS Records",
+      "role": "AUTO",
+      "deps": [
+        "ge_s01_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s02_a",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Audit Client Business Offer",
+      "role": "STRAT",
+      "deps": [
+        "ge_s01_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s02_b",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Benchmark Competitor Market Strategies",
+      "role": "STRAT",
+      "deps": [
+        "ge_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s02_c",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Create 18 Mailboxes across 6 Domains",
+      "role": "AUTO",
+      "deps": [
+        "ge_s01_d"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s03_a",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Draft Target ICP Profile",
+      "role": "STRAT",
+      "deps": [
+        "ge_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s03_b",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Submit ICP Scorecard for Approval",
+      "role": "STRAT",
+      "deps": [
+        "ge_s03_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s03_c",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Connect 18 Mailboxes to Warmup Pool",
+      "role": "AUTO",
+      "deps": [
+        "ge_s02_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s03_d",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Set Automated Warmup Schedule",
+      "role": "AUTO",
+      "deps": [
+        "ge_s03_c"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s04_a",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Collect Brand Identity Assets",
+      "role": "GD",
+      "deps": [
+        "ge_s03_b"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s04_b",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Build GHL Sub-Account Multi-Pipeline Stages",
+      "role": "AUTO",
+      "deps": [
+        "ge_s01_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s05_a",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Configure Booking Calendar and Routing Automation",
+      "role": "AUTO",
+      "deps": [
+        "ge_s04_b"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s05_b",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Setup Slack Live Lead Alerts",
+      "role": "AUTO",
+      "deps": [
+        "ge_s05_a"
+      ],
+      "hours": "0.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s06_a",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Deploy Meta Pixel Conversion Events",
+      "role": "DEV",
+      "deps": [
+        "ge_s05_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s06_b",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Setup Google Analytics 4 and Tag Manager",
+      "role": "DEV",
+      "deps": [
+        "ge_s06_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s07_a",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Draft Email Sequence Angle 1 Direct Pitch",
+      "role": "CW",
+      "deps": [
+        "ge_s03_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s07_b",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Draft Email Sequence Angle 2 Pain Point",
+      "role": "CW",
+      "deps": [
+        "ge_s07_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s07_c",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Source First 1,500 Verified ICP Contacts",
+      "role": "DATA",
+      "deps": [
+        "ge_s03_b"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s08_a",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Draft Email Sequence Angle 3 Case Study and Social Proof",
+      "role": "CW",
+      "deps": [
+        "ge_s07_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s08_b",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Write 4 Follow Up Variations Per Angle",
+      "role": "CW",
+      "deps": [
+        "ge_s08_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s08_c",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Audit Meta and Google Ad Account Settings",
+      "role": "ADS",
+      "deps": [
+        "ge_s06_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s09_a",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Write LinkedIn Connection Note and 3 Step DM Sequence",
+      "role": "CW",
+      "deps": [
+        "ge_s07_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s09_b",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Design LinkedIn Banner and Optimize Headline",
+      "role": "GD",
+      "deps": [
+        "ge_s04_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s09_c",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Execute Technical SEO Audit and Crawl Review",
+      "role": "SEO",
+      "deps": [
+        "ge_s03_a"
+      ],
+      "hours": "2h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s10_a",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Messaging Approval Call with Client on Angles and Content Pillars",
+      "role": "AM",
+      "deps": [
+        "ge_s08_b",
+        "ge_s09_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s10_b",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Design Landing Page 1 Layout Wireframe",
+      "role": "DEV",
+      "deps": [
+        "ge_s10_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s10_c",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Optimize 2 LinkedIn Personal Profiles",
+      "role": "OBS",
+      "deps": [
+        "ge_s09_b"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s11_a",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Map 15 High Intent Primary Keywords",
+      "role": "SEO",
+      "deps": [
+        "ge_s09_c"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s11_b",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Produce Initial Social Content Batch (10 Posts)",
+      "role": "CW",
+      "deps": [
+        "ge_s10_a"
+      ],
+      "hours": "2h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s12_a",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Write Discovery Call Script and Objection Handling Document",
+      "role": "CW",
+      "deps": [
+        "ge_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s12_b",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Prepare Proposal Template for Client Use",
+      "role": "AM",
+      "deps": [
+        "ge_s02_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "ge_s12_c",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Deploy 2 Landing Pages Live on Subdomains",
+      "role": "DEV",
+      "deps": [
+        "ge_s10_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s13_a",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
+      "role": "AM",
+      "deps": [
+        "ge_s04_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s13_b",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Source Additional 1,500 Verified ICP Contacts",
+      "role": "DATA",
+      "deps": [
+        "ge_s07_c"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s14_a",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Build Meta and Google Search Campaigns in Paused Drafts",
+      "role": "ADS",
+      "deps": [
+        "ge_s08_c",
+        "ge_s12_c"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s14_b",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Confirm Monthly Ad Spend Budget and Billing Method in Writing",
+      "role": "AM",
+      "deps": [
+        "ge_s14_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s14_c",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Execute Seed List Test Send to 10 Inboxes",
+      "role": "OBS",
+      "deps": [
+        "ge_s03_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s15_a",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Final Deliverability QA and Inbox Placement Check",
+      "role": "OBS",
+      "deps": [
+        "ge_s14_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_s15_b",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Compile Go Live Performance Report and Conduct Milestone Review",
+      "role": "AM",
+      "deps": [
+        "ge_s15_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "ge_d16_backlink",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d16_posts",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d16_li",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d16_calls",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d16_ads",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d17_ramp",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Start Cold Email Sending at 20 Percent Volume",
+      "role": "OBS",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d17_send",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Send Cold Email Ramp-Up Batch",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d17_seq",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d17_gmb",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d17_hyg",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d18_comm",
+      "phase": "ongoing",
+      "day": 18,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_kpi",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_box",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_list",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_send",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send Cold Email Ramp-Up Batch",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_li",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_kw",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_sched",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d19_ads",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_scale",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Scale Cold Email to Full Daily Volume",
+      "role": "OBS",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_send",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_reply_m",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_reply_e",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_reel",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_li",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d20_ads",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d21_send",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d21_blog",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d21_retarg",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d21_li",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d21_reply",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d22_send",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d22_backlink",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d22_posts",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d22_li",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d22_calls",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d22_ads",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d23_send",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d23_seq",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d23_gmb",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d23_hyg",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d24_comm",
+      "phase": "ongoing",
+      "day": 24,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_kpi",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_box",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_list",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_send",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_li",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_kw",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_sched",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d25_ads",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_m25_cal",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d26_send",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d26_reply_m",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d26_reply_e",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d26_reel",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d26_li",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d26_ads",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d27_send",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d27_blog",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d27_retarg",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d27_li",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d27_reply",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d28_send",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d28_backlink",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d28_posts",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d28_li",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d28_calls",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d28_ads",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d29_send",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d29_seq",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d29_gmb",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d29_hyg",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d30_comm",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_kpi",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_box",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_list",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_send",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_li",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_kw",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_sched",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d31_ads",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d32_send",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d32_reply_m",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d32_reply_e",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d32_reel",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d32_li",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d32_ads",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d33_send",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d33_blog",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d33_retarg",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d33_li",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d33_reply",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d34_send",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d34_backlink",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d34_posts",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d34_li",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d34_calls",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d34_ads",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d35_send",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d35_seq",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d35_gmb",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d35_hyg",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d36_comm",
+      "phase": "ongoing",
+      "day": 36,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_kpi",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_box",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_list",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_send",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_li",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_kw",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_sched",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d37_ads",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d38_send",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d38_reply_m",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d38_reply_e",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d38_reel",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d38_li",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d38_ads",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d39_send",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d39_blog",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d39_retarg",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d39_li",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d39_reply",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d40_send",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d40_backlink",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d40_posts",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d40_li",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d40_calls",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d40_ads",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d41_send",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d41_seq",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d41_gmb",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d41_hyg",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d42_comm",
+      "phase": "ongoing",
+      "day": 42,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_kpi",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_box",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_list",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_send",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_li",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_kw",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_sched",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d43_ads",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d44_send",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d44_reply_m",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d44_reply_e",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d44_reel",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d44_li",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d44_ads",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d45_send",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d45_blog",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d45_retarg",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d45_li",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d45_reply",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d46_send",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d46_backlink",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d46_posts",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d46_li",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d46_calls",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d46_ads",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d47_send",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d47_seq",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d47_gmb",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d47_hyg",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d48_comm",
+      "phase": "ongoing",
+      "day": 48,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_kpi",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_box",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_list",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_send",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_li",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_kw",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_sched",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d49_ads",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d50_send",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d50_reply_m",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d50_reply_e",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d50_reel",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d50_li",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d50_ads",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d51_send",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d51_blog",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d51_retarg",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d51_li",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d51_reply",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d52_send",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d52_backlink",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d52_posts",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d52_li",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d52_calls",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d52_ads",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d53_send",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d53_seq",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d53_gmb",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d53_hyg",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d54_comm",
+      "phase": "ongoing",
+      "day": 54,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_kpi",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_box",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_list",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_send",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_li",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_kw",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_sched",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d55_ads",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_m55_cal",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d56_send",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d56_reply_m",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d56_reply_e",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d56_reel",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d56_li",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d56_ads",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d57_send",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d57_blog",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d57_retarg",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d57_li",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d57_reply",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d58_send",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d58_backlink",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d58_posts",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d58_li",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d58_calls",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d58_ads",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d59_send",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d59_seq",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d59_gmb",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d59_hyg",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d60_comm",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_kpi",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_box",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_list",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_send",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_li",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_kw",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_sched",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d61_ads",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d62_send",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d62_reply_m",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d62_reply_e",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d62_reel",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d62_li",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d62_ads",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d63_send",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d63_blog",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d63_retarg",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d63_li",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d63_reply",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d64_send",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d64_backlink",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d64_posts",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d64_li",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d64_calls",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d64_ads",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d65_send",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d65_seq",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d65_gmb",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d65_hyg",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d66_comm",
+      "phase": "ongoing",
+      "day": 66,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_kpi",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_box",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_list",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_send",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_li",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_kw",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_sched",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d67_ads",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d68_send",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d68_reply_m",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d68_reply_e",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d68_reel",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d68_li",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d68_ads",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d69_send",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d69_blog",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d69_retarg",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d69_li",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d69_reply",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d70_send",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d70_backlink",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d70_posts",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d70_li",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d70_calls",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d70_ads",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d71_send",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d71_seq",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d71_gmb",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d71_hyg",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d72_comm",
+      "phase": "ongoing",
+      "day": 72,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_kpi",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_box",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_list",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_send",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_li",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_kw",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_sched",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d73_ads",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d74_send",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d74_reply_m",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d74_reply_e",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d74_reel",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d74_li",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d74_ads",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d75_send",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d75_blog",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d75_retarg",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d75_li",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d75_reply",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d76_send",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d76_backlink",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d76_posts",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d76_li",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d76_calls",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d76_ads",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d77_send",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d77_seq",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d77_gmb",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d77_hyg",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d78_comm",
+      "phase": "ongoing",
+      "day": 78,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_kpi",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_box",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_list",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_send",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_li",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_kw",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_sched",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d79_ads",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d80_send",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d80_reply_m",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d80_reply_e",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d80_reel",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d80_li",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d80_ads",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d81_send",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d81_blog",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d81_retarg",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d81_li",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d81_reply",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d82_send",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d82_backlink",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d82_posts",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d82_li",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d82_calls",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d82_ads",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d83_send",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d83_seq",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d83_gmb",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d83_hyg",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d84_comm",
+      "phase": "ongoing",
+      "day": 84,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_kpi",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Review Weekly KPI Scorecard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_box",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Check Mailbox Health (18 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_list",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Build Weekly Verified Lead List (750 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_send",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_li",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send 40 LinkedIn Connection Requests (2 Profiles)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_kw",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Track Keyword Ranking Movement",
+      "role": "SEO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_sched",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Schedule Weekly Content across Channels",
+      "role": "SMM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d85_ads",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Check Meta and Google Ads Daily Health",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_m85_cal",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d86_send",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d86_reply_m",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Morning Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d86_reply_e",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Evening Reply Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d86_reel",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Produce Short-Form Video Reel",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d86_li",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d86_ads",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Audit Ad Acquisition Cost Metrics",
+      "role": "ADS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d87_send",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d87_blog",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Publish SEO Optimized Blog Post",
+      "role": "CW",
+      "freq": "Wednesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_d87_retarg",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Refresh Retargeting Ad Creatives",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d87_li",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d87_reply",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Process Meeting Calendar Bookings in GHL",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d88_send",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d88_backlink",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Execute Backlink Outreach Pitching",
+      "role": "SEO",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d88_posts",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Produce Weekly Post Batch Visuals",
+      "role": "GD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d88_li",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send 40 LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d88_calls",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Confirm Scheduled Calls and Send Reminders",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d88_ads",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Optimize Google Search Keywords and Negative Terms",
+      "role": "ADS",
+      "freq": "Thursday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d89_send",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Send Cold Email Batch (450 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d89_seq",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Analyze Sequence Conversion Rates by Angle",
+      "role": "STRAT",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_d89_gmb",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Publish Google Business Profile Update",
+      "role": "SEO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d89_hyg",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Audit GHL CRM Lead Automation",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_d90_comm",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Manage Social Community Engagement",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "ge_m25",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Kill Weakest Email Angle and Reallocate Its Volume",
+      "role": "STRAT",
+      "priority": "high",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "ge_m30",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Conduct Month 1 Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_m45",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Launch Omnichannel Retargeting Campaigns",
+      "role": "ADS",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_m52",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Rotate Burnt Domains and Start Warmup on 2 Replacements",
+      "role": "AUTO",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_m60",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Conduct Month 2 Pricing Check and Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "ge_m90",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Conduct Quarter Review and Renewal Conversation",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    }
+  ],
+  "growth_dominance": [
+    {
+      "id": "gd_s01_a",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Conduct Executive Kickoff Meeting with Client",
+      "role": "AM",
+      "deps": [],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s01_b",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Collect Omnichannel Platform Credentials",
+      "role": "AM",
+      "deps": [
+        "gd_s01_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s01_c",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Purchase 10 Sending Domains",
+      "role": "AUTO",
+      "deps": [
+        "gd_s01_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s01_d",
+      "phase": "sprint",
+      "day": 1,
+      "n": "Configure SPF, DKIM, DMARC DNS Records",
+      "role": "AUTO",
+      "deps": [
+        "gd_s01_c"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s02_a",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Audit Full Funnel Architecture",
+      "role": "SR_STRAT",
+      "deps": [
+        "gd_s01_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s02_b",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Execute Market Intelligence Scan",
+      "role": "SR_STRAT",
+      "deps": [
+        "gd_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s02_c",
+      "phase": "sprint",
+      "day": 2,
+      "n": "Create 30 Mailboxes across 10 Domains",
+      "role": "AUTO",
+      "deps": [
+        "gd_s01_d"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s03_a",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Formulate Enterprise ICP Document",
+      "role": "SR_STRAT",
+      "deps": [
+        "gd_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s03_b",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Build Lead Qualification Scorecard",
+      "role": "SR_STRAT",
+      "deps": [
+        "gd_s03_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s03_c",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Connect 30 Mailboxes to Warmup Pool",
+      "role": "AUTO",
+      "deps": [
+        "gd_s02_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s03_d",
+      "phase": "sprint",
+      "day": 3,
+      "n": "Set Automated Warmup Schedule",
+      "role": "AUTO",
+      "deps": [
+        "gd_s03_c"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s04_a",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Organize Brand Creative Assets",
+      "role": "GD",
+      "deps": [
+        "gd_s03_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "gd_s04_b",
+      "phase": "sprint",
+      "day": 4,
+      "n": "Build Multi-Pipeline Stages in GHL",
+      "role": "AUTO",
+      "deps": [
+        "gd_s01_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s05_a",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Configure Booking Calendar and Intelligent Routing",
+      "role": "AUTO",
+      "deps": [
+        "gd_s04_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s05_b",
+      "phase": "sprint",
+      "day": 5,
+      "n": "Configure Custom AI Chatbot Qualification Logic",
+      "role": "AUTO",
+      "deps": [
+        "gd_s05_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s06_a",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Deploy Omnichannel Tracking Pixels (Meta, Google, LinkedIn)",
+      "role": "DEV",
+      "deps": [
+        "gd_s05_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s06_b",
+      "phase": "sprint",
+      "day": 6,
+      "n": "Setup Call Tracking and Data Streams in GA4",
+      "role": "DEV",
+      "deps": [
+        "gd_s06_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s07_a",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Draft Email Sequence Angle 1 Direct Pitch",
+      "role": "CW",
+      "deps": [
+        "gd_s03_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s07_b",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Draft Email Sequence Angle 2 Pain Point",
+      "role": "CW",
+      "deps": [
+        "gd_s07_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s07_c",
+      "phase": "sprint",
+      "day": 7,
+      "n": "Source First 2,250 Verified ICP Contacts",
+      "role": "DATA",
+      "deps": [
+        "gd_s03_b"
+      ],
+      "hours": "3h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s08_a",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Draft Email Sequence Angle 3 Case Study and Social Proof",
+      "role": "CW",
+      "deps": [
+        "gd_s07_b"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s08_b",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Write 4 Follow Up Variations Per Angle",
+      "role": "CW",
+      "deps": [
+        "gd_s08_a"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s08_c",
+      "phase": "sprint",
+      "day": 8,
+      "n": "Audit Meta, Google, and LinkedIn Ad Accounts",
+      "role": "ADS",
+      "deps": [
+        "gd_s06_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s09_a",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Write LinkedIn Connection Note and 3 Step DM Sequence for 3 Profiles",
+      "role": "CW",
+      "deps": [
+        "gd_s07_a"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s09_b",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Design LinkedIn Banners and Optimize Headlines for 3 Profiles",
+      "role": "GD",
+      "deps": [
+        "gd_s04_a"
+      ],
+      "hours": "2.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "gd_s09_c",
+      "phase": "sprint",
+      "day": 9,
+      "n": "Formulate Enterprise SEO Architecture and 30 Keyword Clusters",
+      "role": "SEO_LEAD",
+      "deps": [
+        "gd_s03_a"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s10_a",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Messaging Approval Call with Client on Angles and Content Pillars",
+      "role": "AM",
+      "deps": [
+        "gd_s08_b",
+        "gd_s09_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s10_b",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Design High Converting Landing Page Layout Wireframe",
+      "role": "DEV",
+      "deps": [
+        "gd_s10_a"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s10_c",
+      "phase": "sprint",
+      "day": 10,
+      "n": "Conduct Founder Ghostwriting Alignment Interview",
+      "role": "GHOST",
+      "deps": [
+        "gd_s10_a"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s11_a",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Deploy 30 Tracked Primary SEO Keywords",
+      "role": "SEO_LEAD",
+      "deps": [
+        "gd_s09_c"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "gd_s11_b",
+      "phase": "sprint",
+      "day": 11,
+      "n": "Draft First Batch of Founder Thought Leadership Posts",
+      "role": "GHOST",
+      "deps": [
+        "gd_s10_c"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s12_a",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Write Discovery Call Script and Objection Handling Document",
+      "role": "CW",
+      "deps": [
+        "gd_s02_a"
+      ],
+      "hours": "1.5h",
+      "priority": "normal"
+    },
+    {
+      "id": "gd_s12_b",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Prepare Proposal Template for Client Use",
+      "role": "AM",
+      "deps": [
+        "gd_s02_a"
+      ],
+      "hours": "1h",
+      "priority": "normal"
+    },
+    {
+      "id": "gd_s12_c",
+      "phase": "sprint",
+      "day": 12,
+      "n": "Deploy Landing Pages Live and Test Integrations",
+      "role": "DEV",
+      "deps": [
+        "gd_s10_b"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s13_a",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Build Reporting Dashboard and KPI Sheet with Client Login",
+      "role": "AM",
+      "deps": [
+        "gd_s04_b"
+      ],
+      "hours": "2h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s13_b",
+      "phase": "sprint",
+      "day": 13,
+      "n": "Source Additional 2,250 Verified ICP Contacts",
+      "role": "DATA",
+      "deps": [
+        "gd_s07_c"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s14_a",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Build Meta, Google, and LinkedIn Ad Campaigns in Paused Drafts",
+      "role": "ADS",
+      "deps": [
+        "gd_s08_c",
+        "gd_s12_c"
+      ],
+      "hours": "2.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s14_b",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Confirm Monthly Ad Spend Budget and Billing Method in Writing",
+      "role": "AM",
+      "deps": [
+        "gd_s14_a"
+      ],
+      "hours": "0.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s14_c",
+      "phase": "sprint",
+      "day": 14,
+      "n": "Execute Seed List Test Send to 15 Inboxes",
+      "role": "OBS",
+      "deps": [
+        "gd_s03_c"
+      ],
+      "hours": "1.5h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s15_a",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Final Deliverability QA and Inbox Placement Check",
+      "role": "OBS",
+      "deps": [
+        "gd_s14_c"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_s15_b",
+      "phase": "sprint",
+      "day": 15,
+      "n": "Compile Enterprise Go Live Audit Report and Sign-Off",
+      "role": "AM",
+      "deps": [
+        "gd_s15_a"
+      ],
+      "hours": "1h",
+      "priority": "high"
+    },
+    {
+      "id": "gd_d16_reel2",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d16_blog2",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d16_backlink",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d16_li",
+      "phase": "ongoing",
+      "day": 16,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d17_ramp",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Start Cold Email Sending at 20 Percent Volume",
+      "role": "OBS",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d17_send",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Send Cold Email Ramp-Up Batch",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d17_ghost",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d17_seo_audit",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d17_ai_opt",
+      "phase": "ongoing",
+      "day": 17,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d18_reel3",
+      "phase": "ongoing",
+      "day": 18,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d18_comm",
+      "phase": "ongoing",
+      "day": 18,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_kpi",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_box",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_list",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_send",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send Cold Email Ramp-Up Batch",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_li",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_ghost",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d19_ads",
+      "phase": "ongoing",
+      "day": 19,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_scale",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Scale Cold Email to Full Daily Volume",
+      "role": "OBS",
+      "priority": "high",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_send",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_reply_m",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_reply_e",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_reel",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_blog1",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d20_li",
+      "phase": "ongoing",
+      "day": 20,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d21_send",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d21_ghost",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d21_opt_ads",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d21_li",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d21_reply",
+      "phase": "ongoing",
+      "day": 21,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d22_send",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d22_reel2",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d22_blog2",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d22_backlink",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d22_li",
+      "phase": "ongoing",
+      "day": 22,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d23_send",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d23_ghost",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d23_seo_audit",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d23_ai_opt",
+      "phase": "ongoing",
+      "day": 23,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d24_reel3",
+      "phase": "ongoing",
+      "day": 24,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d24_comm",
+      "phase": "ongoing",
+      "day": 24,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_kpi",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_box",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_list",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_send",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_li",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_ghost",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d25_ads",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_m25_cal",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d26_send",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d26_reply_m",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d26_reply_e",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d26_reel",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d26_blog1",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d26_li",
+      "phase": "ongoing",
+      "day": 26,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d27_send",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d27_ghost",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d27_opt_ads",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d27_li",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d27_reply",
+      "phase": "ongoing",
+      "day": 27,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d28_send",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d28_reel2",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d28_blog2",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d28_backlink",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d28_li",
+      "phase": "ongoing",
+      "day": 28,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d29_send",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d29_ghost",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d29_seo_audit",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d29_ai_opt",
+      "phase": "ongoing",
+      "day": 29,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d30_reel3",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d30_comm",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_kpi",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_box",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_list",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_send",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_li",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_ghost",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d31_ads",
+      "phase": "ongoing",
+      "day": 31,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d32_send",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d32_reply_m",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d32_reply_e",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d32_reel",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d32_blog1",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d32_li",
+      "phase": "ongoing",
+      "day": 32,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d33_send",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d33_ghost",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d33_opt_ads",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d33_li",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d33_reply",
+      "phase": "ongoing",
+      "day": 33,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d34_send",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d34_reel2",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d34_blog2",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d34_backlink",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d34_li",
+      "phase": "ongoing",
+      "day": 34,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d35_send",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d35_ghost",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d35_seo_audit",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d35_ai_opt",
+      "phase": "ongoing",
+      "day": 35,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d36_reel3",
+      "phase": "ongoing",
+      "day": 36,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d36_comm",
+      "phase": "ongoing",
+      "day": 36,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_kpi",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_box",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_list",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_send",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_li",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_ghost",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d37_ads",
+      "phase": "ongoing",
+      "day": 37,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d38_send",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d38_reply_m",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d38_reply_e",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d38_reel",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d38_blog1",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d38_li",
+      "phase": "ongoing",
+      "day": 38,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d39_send",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d39_ghost",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d39_opt_ads",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d39_li",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d39_reply",
+      "phase": "ongoing",
+      "day": 39,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d40_send",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d40_reel2",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d40_blog2",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d40_backlink",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d40_li",
+      "phase": "ongoing",
+      "day": 40,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d41_send",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d41_ghost",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d41_seo_audit",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d41_ai_opt",
+      "phase": "ongoing",
+      "day": 41,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d42_reel3",
+      "phase": "ongoing",
+      "day": 42,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d42_comm",
+      "phase": "ongoing",
+      "day": 42,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_kpi",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_box",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_list",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_send",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_li",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_ghost",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d43_ads",
+      "phase": "ongoing",
+      "day": 43,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d44_send",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d44_reply_m",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d44_reply_e",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d44_reel",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d44_blog1",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d44_li",
+      "phase": "ongoing",
+      "day": 44,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d45_send",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d45_ghost",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d45_opt_ads",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d45_li",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d45_reply",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d46_send",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d46_reel2",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d46_blog2",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d46_backlink",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d46_li",
+      "phase": "ongoing",
+      "day": 46,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d47_send",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d47_ghost",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d47_seo_audit",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d47_ai_opt",
+      "phase": "ongoing",
+      "day": 47,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d48_reel3",
+      "phase": "ongoing",
+      "day": 48,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d48_comm",
+      "phase": "ongoing",
+      "day": 48,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_kpi",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_box",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_list",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_send",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_li",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_ghost",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d49_ads",
+      "phase": "ongoing",
+      "day": 49,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d50_send",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d50_reply_m",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d50_reply_e",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d50_reel",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d50_blog1",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d50_li",
+      "phase": "ongoing",
+      "day": 50,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d51_send",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d51_ghost",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d51_opt_ads",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d51_li",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d51_reply",
+      "phase": "ongoing",
+      "day": 51,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d52_send",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d52_reel2",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d52_blog2",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d52_backlink",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d52_li",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d53_send",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d53_ghost",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d53_seo_audit",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d53_ai_opt",
+      "phase": "ongoing",
+      "day": 53,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d54_reel3",
+      "phase": "ongoing",
+      "day": 54,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d54_comm",
+      "phase": "ongoing",
+      "day": 54,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_kpi",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_box",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_list",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_send",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_li",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_ghost",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d55_ads",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_m55_cal",
+      "phase": "ongoing",
+      "day": 55,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d56_send",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d56_reply_m",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d56_reply_e",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d56_reel",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d56_blog1",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d56_li",
+      "phase": "ongoing",
+      "day": 56,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d57_send",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d57_ghost",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d57_opt_ads",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d57_li",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d57_reply",
+      "phase": "ongoing",
+      "day": 57,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d58_send",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d58_reel2",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d58_blog2",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d58_backlink",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d58_li",
+      "phase": "ongoing",
+      "day": 58,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d59_send",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d59_ghost",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d59_seo_audit",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d59_ai_opt",
+      "phase": "ongoing",
+      "day": 59,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d60_reel3",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d60_comm",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_kpi",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_box",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_list",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_send",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_li",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_ghost",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d61_ads",
+      "phase": "ongoing",
+      "day": 61,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d62_send",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d62_reply_m",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d62_reply_e",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d62_reel",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d62_blog1",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d62_li",
+      "phase": "ongoing",
+      "day": 62,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d63_send",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d63_ghost",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d63_opt_ads",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d63_li",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d63_reply",
+      "phase": "ongoing",
+      "day": 63,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d64_send",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d64_reel2",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d64_blog2",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d64_backlink",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d64_li",
+      "phase": "ongoing",
+      "day": 64,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d65_send",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d65_ghost",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d65_seo_audit",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d65_ai_opt",
+      "phase": "ongoing",
+      "day": 65,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d66_reel3",
+      "phase": "ongoing",
+      "day": 66,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d66_comm",
+      "phase": "ongoing",
+      "day": 66,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_kpi",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_box",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_list",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_send",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_li",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_ghost",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d67_ads",
+      "phase": "ongoing",
+      "day": 67,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d68_send",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d68_reply_m",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d68_reply_e",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d68_reel",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d68_blog1",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d68_li",
+      "phase": "ongoing",
+      "day": 68,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d69_send",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d69_ghost",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d69_opt_ads",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d69_li",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d69_reply",
+      "phase": "ongoing",
+      "day": 69,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d70_send",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d70_reel2",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d70_blog2",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d70_backlink",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d70_li",
+      "phase": "ongoing",
+      "day": 70,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d71_send",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d71_ghost",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d71_seo_audit",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d71_ai_opt",
+      "phase": "ongoing",
+      "day": 71,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d72_reel3",
+      "phase": "ongoing",
+      "day": 72,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d72_comm",
+      "phase": "ongoing",
+      "day": 72,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_kpi",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_box",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_list",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_send",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_li",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_ghost",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d73_ads",
+      "phase": "ongoing",
+      "day": 73,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d74_send",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d74_reply_m",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d74_reply_e",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d74_reel",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d74_blog1",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d74_li",
+      "phase": "ongoing",
+      "day": 74,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d75_send",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d75_ghost",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d75_opt_ads",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d75_li",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d75_reply",
+      "phase": "ongoing",
+      "day": 75,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d76_send",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d76_reel2",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d76_blog2",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d76_backlink",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d76_li",
+      "phase": "ongoing",
+      "day": 76,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d77_send",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d77_ghost",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d77_seo_audit",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d77_ai_opt",
+      "phase": "ongoing",
+      "day": 77,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d78_reel3",
+      "phase": "ongoing",
+      "day": 78,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d78_comm",
+      "phase": "ongoing",
+      "day": 78,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_kpi",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_box",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_list",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_send",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_li",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_ghost",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d79_ads",
+      "phase": "ongoing",
+      "day": 79,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d80_send",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d80_reply_m",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d80_reply_e",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d80_reel",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d80_blog1",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d80_li",
+      "phase": "ongoing",
+      "day": 80,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d81_send",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d81_ghost",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d81_opt_ads",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d81_li",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d81_reply",
+      "phase": "ongoing",
+      "day": 81,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d82_send",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d82_reel2",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d82_blog2",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d82_backlink",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d82_li",
+      "phase": "ongoing",
+      "day": 82,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d83_send",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d83_ghost",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d83_seo_audit",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d83_ai_opt",
+      "phase": "ongoing",
+      "day": 83,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d84_reel3",
+      "phase": "ongoing",
+      "day": 84,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d84_comm",
+      "phase": "ongoing",
+      "day": 84,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_kpi",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Review Omnichannel Executive KPI Dashboard",
+      "role": "AM",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_box",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Check Mailbox Health (30 Boxes)",
+      "role": "AUTO",
+      "freq": "Monday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_list",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Build Weekly Verified Lead List (1,125 Contacts)",
+      "role": "DATA",
+      "freq": "Monday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_send",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_li",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Send LinkedIn Connection Requests across 3 Profiles",
+      "role": "OBS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_ghost",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Publish Founder Ghostwriting Post (Mon)",
+      "role": "GHOST",
+      "freq": "Monday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d85_ads",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Audit Meta, Google, and LinkedIn Ad Spend",
+      "role": "ADS",
+      "freq": "Monday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_m85_cal",
+      "phase": "ongoing",
+      "day": 85,
+      "n": "Submit Next Month Content Calendar for Client Approval",
+      "role": "SMM",
+      "priority": "normal",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d86_send",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d86_reply_m",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Morning Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d86_reply_e",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Evening Omnichannel Inbound Triage",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d86_reel",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Tuesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d86_blog1",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Publish Authority SEO Blog Article 1 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Tuesday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d86_li",
+      "phase": "ongoing",
+      "day": 86,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Tuesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d87_send",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d87_ghost",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Publish Founder Ghostwriting Post (Wed)",
+      "role": "GHOST",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d87_opt_ads",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Scale Winning Ads across 3 Ad Platforms",
+      "role": "ADS",
+      "freq": "Wednesday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d87_li",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Send Targeted LinkedIn Outbound DMs",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d87_reply",
+      "phase": "ongoing",
+      "day": 87,
+      "n": "Process Qualified Meeting Bookings",
+      "role": "OBS",
+      "freq": "Wednesday",
+      "hours": "0.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d88_send",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d88_reel2",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d88_blog2",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Publish Authority SEO Blog Article 2 (8/mo Cadence)",
+      "role": "CW",
+      "freq": "Thursday",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_d88_backlink",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Execute High DR Backlink Outreach Pitching (15/mo Target)",
+      "role": "SEO_LEAD",
+      "freq": "Thursday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d88_li",
+      "phase": "ongoing",
+      "day": 88,
+      "n": "Send LinkedIn Connection Requests",
+      "role": "OBS",
+      "freq": "Thursday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d89_send",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Send Cold Email Batch (750 Sends)",
+      "role": "OBS",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d89_ghost",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Publish Founder Ghostwriting Post (Fri)",
+      "role": "GHOST",
+      "freq": "Friday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d89_seo_audit",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Audit 30 Tracked SEO Keywords Performance",
+      "role": "SEO_LEAD",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d89_ai_opt",
+      "phase": "ongoing",
+      "day": 89,
+      "n": "Optimize AI Chatbot Conversation & CRM Routing",
+      "role": "AUTO",
+      "freq": "Friday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_d90_reel3",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Produce Video Reel Creative (12/mo Cadence)",
+      "role": "VE",
+      "freq": "Saturday",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_d90_comm",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Omnichannel Social Community Management",
+      "role": "SMM",
+      "freq": "Saturday",
+      "hours": "1h",
+      "deps": []
+    },
+    {
+      "id": "gd_m25",
+      "phase": "ongoing",
+      "day": 25,
+      "n": "Kill Weakest Email Angle and Reallocate Its Volume",
+      "role": "SR_STRAT",
+      "priority": "high",
+      "hours": "1.5h",
+      "deps": []
+    },
+    {
+      "id": "gd_m30",
+      "phase": "ongoing",
+      "day": 30,
+      "n": "Conduct Month 1 Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_m45",
+      "phase": "ongoing",
+      "day": 45,
+      "n": "Launch Omnichannel Retargeting Across Meta, Google, and LinkedIn",
+      "role": "ADS",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_m52",
+      "phase": "ongoing",
+      "day": 52,
+      "n": "Rotate Burnt Domains and Start Warmup on 2 Replacements",
+      "role": "AUTO",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_m60",
+      "phase": "ongoing",
+      "day": 60,
+      "n": "Conduct Month 2 Pricing Check and Performance Review",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    },
+    {
+      "id": "gd_m90",
+      "phase": "ongoing",
+      "day": 90,
+      "n": "Conduct Quarter Review and Renewal Conversation",
+      "role": "AM",
+      "priority": "high",
+      "hours": "2h",
+      "deps": []
+    }
+  ]
+};
+
+export function getPackageTasks(pkgId) {
+  return PACKAGE_TASKS[pkgId] || PACKAGE_TASKS["growth_engine"] || [];
+}
+
+export const DEFAULT_TASKS = PACKAGE_TASKS["growth_engine"];
 
 export const DEFAULT_SOPS = {
-  "Client Onboarding":`**Goal:** Officially onboard the client after payment + contract signing via full GHL automation.\n\n**Steps:**\n1. Record payment in GHL (amount, date, package selected).\n2. System auto-sends invoice via email + WhatsApp (template with client/service/payment variables).\n3. After invoice, automated contract sends — AM reviews and adds custom instructions before it goes.\n4. Client signs via single-click signature.\n5. Welcome email + WhatsApp auto-sends: CRM login, task list link, next steps (Meta/LinkedIn access requests).\n6. AM monitors entire automation flow — reports glitches to tech team immediately.\n\n**Complete When:** Welcome email + WhatsApp delivered after payment record.\n\n**Best Practices:**\n• Double-check custom variables in contract before sending.\n• Welcome message must include CRM login + next steps clearly.\n• If automation fails, manually send within 1 hour.\n\n**Common Mistakes:**\n• Forgetting to add custom instructions before contract goes out.\n• Not monitoring automation — client gets delayed or wrong info.\n\n**AI/Automation Potential:** ✅ Already 90% automated via GHL.`,
-  "Client Drive Setup":`**Goal:** Create a centralized Google Drive folder so team + client can access any file anytime.\n\n**Steps:**\n1. Onboarding form submission triggers automatic Drive folder creation.\n2. Main folder: Client Name.\n3. Sub-folder 1: Important Documents (credentials, scripts, prompts, sequences, contracts, research).\n4. Sub-folder 2: Creatives (graphics, videos, raw files, PSDs, brand assets, b-rolls).\n5. Share with client + all team members (edit access both).\n6. PM verifies structure and sharing.\n\n**Complete When:** Folder created, both sub-folders present, shared with client + team.\n\n**Best Practices:**\n• Exact naming: Client Name → Important Documents / Creatives.\n• Editable access for everyone — no requesting files.\n• All fonts, PSDs, assets in Drive — nothing stored locally.\n\n**Common Mistakes:**\n• Forgetting to share with client.\n• Storing files locally instead of Drive.\n\n**AI/Automation Potential:** ✅ Fully automated via onboarding form trigger.`,
-  "Client Competitors List":`**Goal:** Identify top 5 competitors so team has direction for research, content, and strategy.\n\n**Steps:**\n1. Check onboarding form — client may have hinted at competitors.\n2. Run deep research via Claude: input client service + location + ICP → AI outputs top 5.\n3. For each competitor collect: Name, Website, Facebook, Instagram, Service/Offer, positioning.\n4. Verify: competitors must have similar Average Order Value — no giant brands.\n5. Save in Drive > Important Documents.\n6. PM confirms service match is exact.\n\n**Complete When:** 5 competitors with all fields filled, service match confirmed, saved in Drive.\n\n**Best Practices:**\n• Match competitor size to client — similar AOV is critical.\n• Always verify social links are active.\n• This is the base for everything — be thorough.\n\n**Common Mistakes:**\n• Adding huge brands — unrealistic benchmarks.\n• Missing offer details — team needs HOW they sell, not just who they are.\n\n**AI/Automation Potential:** ✅ AI fully researches — human just verifies.`,
-  "Client Offer & ICP":`**Goal:** Lock client's exact offer + Ideal Customer Profile so every team member targets the same person with the same message.\n\n**Steps:**\n1. Take client onboarding form data.\n2. Run FLC Strategy Prompt in Claude — deep research: industry, competitors, ICP, offer angles.\n3. Auto-runs via system; employee re-runs manually if output quality is below standard.\n4. Extract: Locked ICP (name, location, industry, size, revenue, affordability check) + Single-liner offer.\n5. Sit with client to review and lock ICP + single-liner: "We help X to achieve Y in Z days."\n6. Save locked document in Drive > Important Documents.\n\n**Complete When:** Client has approved and locked ICP + single-liner offer.\n\n**Best Practices:**\n• ICP must afford your service — always check AOV compatibility.\n• Single-liner must be simple — if a 10-year-old doesn't get it, rewrite.\n• Never move forward without client lock — everything depends on this.\n\n**Common Mistakes:**\n• Moving to content before ICP is locked.\n• ICP too complex — keep it simple and specific.\n\n**AI/Automation Potential:** ✅ Prompt automated — human reviews and locks with client.`,
-  "Access Collection":`**Goal:** Get full admin access to all client social accounts so team can manage everything from one place.\n\n**Steps:**\n1. In onboarding meeting, walk client through access — screen share if needed.\n2. Collect access: Facebook Page, Instagram, Business Manager, Ads Manager, LinkedIn Company Page, LinkedIn Personal Profiles (2), WhatsApp Business.\n3. LinkedIn personal: client adds team as admin + Sales Navigator deployed.\n4. All platforms: Full Admin / Owner level — never editor.\n5. Store credentials in Drive > Important Documents > Credentials.\n6. Note: 2FA stays with client — team never holds 2FA.\n7. PM verifies every platform is accessible + editable.\n\n**Complete When:** All platforms accessible, team can edit, credentials in Drive.\n\n**Best Practices:**\n• Always get Full Admin — editor access blocks you later.\n• Record credentials immediately after receiving.\n• If client not tech-savvy, do screen share walkthrough.\n\n**Common Mistakes:**\n• Accepting editor instead of admin access.\n• Not storing credentials in Drive immediately.\n\n**AI/Automation Potential:** 🔶 Access request messages automated; verification is manual.`,
-  "CRM Setup":`**Goal:** Create and configure client's dedicated GHL sub-account — start Day 1, no dependencies.\n\n**Steps:**\n1. Create new sub-account in GHL immediately after onboarding form.\n2. Set up: login credentials, basic business information.\n3. Upload existing client contact data if any.\n4. Configure Closer's calendar: hours, meeting types, buffer time, confirmations, reminders.\n5. Connect social media accounts for unified posting + analytics.\n6. Train client: Google Meet screen share — mobile app, leads view, calendar, conversations, analytics.\n7. Answer follow-up questions for 1-2 days post-training.\n\n**Complete When:** Client can independently view analytics, book meetings, navigate leads. PM confirmed.\n\n**Best Practices:**\n• Start Day 1 — no reason to wait.\n• Record training session for future reference.\n• Test calendar booking before handing to client.\n\n**Common Mistakes:**\n• Delaying CRM setup — holds up sequences and automations.\n• Not testing calendar before training.\n\n**AI/Automation Potential:** ✅ Sub-account creation automatable; training will be video-based.`,
-  "Reference Creatives":`**Goal:** Collect visual inspiration from client so designer understands the look and feel wanted before creating anything.\n\n**Steps:**\n1. Create "Reference Creatives" folder in Drive > Creatives.\n2. Share folder link with client (edit access).\n3. Send client instructions: "Add any creatives you like from Pinterest, Facebook Ad Library, competitors — things that inspire you."\n4. Client independently adds references — no agency involvement in collection.\n5. GD reviews references before starting any design work.\n\n**Complete When:** Client has added references to Drive folder — PM confirmed upload.\n\n**Best Practices:**\n• Give clear examples of what to add: competitor ads, color schemes, typography.\n• GD must review before designing — never design blind.\n• Prevents endless revisions later.\n\n**Common Mistakes:**\n• Skipping this step and designing without direction.\n• Not giving client clear instructions.\n\n**AI/Automation Potential:** 🟢 Instructions message automatable via GHL.`,
-  "Brand Identity":`**Goal:** Create complete visual identity — consistent across every platform and editable by anyone on the team.\n\n**Steps:**\n1. Check onboarding form: existing theme? If YES → client uploads to Drive, build from there. If NO → build from scratch.\n2. Stage 1: Color theme + fonts → Drive > Creatives → client approval.\n3. Stage 2: Logo design (PSD file) → client approval → Drive.\n4. Stage 3: Social media banners (all platforms).\n5. Stage 4: Profile pictures (all personal + business accounts).\n6. Stage 5: First 3 posts in new theme.\n7. Stage 6: Company profile + portfolio.\n8. CRITICAL: All PSD files fully editable — fonts embedded, all assets in Drive.\n\n**Complete When:** Client approves brand identity document (colors + fonts + logo).\n\n**Best Practices:**\n• All PSDs must be fully editable — anyone can open and edit.\n• Get approval at each stage — don't batch everything.\n• Match reference creatives folder to client's taste.\n\n**Common Mistakes:**\n• Non-editable files — next designer can't work with them.\n• Not getting approval at each step — massive revisions later.\n\n**AI/Automation Potential:** 🔶 AI suggests palettes/fonts; Canva AI assists in future.`,
-  "NotebookLM Setup":`**Goal:** Create dedicated NotebookLM workspace so AI has full client context to generate precise, client-specific content.\n\n**Steps:**\n1. Go to notebooklm.google.com — create new project named after client.\n2. Upload all Drive documents: competitors list, offer & ICP, brand identity, workflow doc.\n3. Verify all documents indexed properly.\n4. PM checks: all Drive files present in NotebookLM.\n\n**Complete When:** NotebookLM folder created + all Drive documents uploaded. PM verified.\n\n**Best Practices:**\n• Upload in order: ICP first, then competitors, then brand identity.\n• Re-upload whenever major documents are updated.\n• NotebookLM is single source of truth for AI content generation.\n\n**Common Mistakes:**\n• Missing documents — AI generates generic content without full context.\n• Not updating NotebookLM when Drive docs change.\n\n**AI/Automation Potential:** 🔶 Partially automatable; currently manual upload.`,
-  "Prompts":`**Goal:** Generate 3 master prompts (Ad Copy, Script, Social Media Post) so AI consistently produces on-brand content for this client.\n\n**Steps:**\n1. Take FLC pre-built prompt template.\n2. Feed into NotebookLM with all client documents.\n3. NotebookLM generates 3 customized prompts using: ICP, offer, brand voice, competitor data.\n4. CW tests each prompt — generates sample content to verify quality.\n5. Refine if output is below standard.\n6. Save all 3 prompts in Drive > Important Documents.\n7. PM verifies all 3 prompts produce quality output.\n\n**Complete When:** 3 prompts in Drive (Ad Copy, Script, Social Post). PM verified.\n\n**Best Practices:**\n• Test every prompt before marking complete.\n• Prompts must address ICP pain points + offer.\n• Update prompts whenever offer or ICP changes.\n\n**Common Mistakes:**\n• Not testing prompts — garbage output at content stage.\n• Not saving in Drive — team recreates from scratch.\n\n**AI/Automation Potential:** ✅ Fully AI-driven — human reviews quality only.`,
-  "Scripts":`**Goal:** Create 5 high-quality 15-second video scripts for CEO to shoot — foundation for all ads and social content.\n\n**Steps:**\n1. Use Script Prompt from Drive → run in AI.\n2. Feed through multiple AI tools to refine for best output.\n3. CW reviews: hook in first 2 seconds, 15-sec limit, single CTA, ICP pain point addressed.\n4. Cross-reference with competitor scripts + service best practices.\n5. Select best version as baseline script.\n6. Generate 5 variations from baseline.\n7. Send all 5 to CEO with shoot instructions (mobile, clean background, lighting, dress code).\n8. Save in Drive > Important Documents. PM reviews.\n\n**Complete When:** 5 approved scripts in Drive, CEO received with shoot instructions. PM verified.\n\n**Best Practices:**\n• Strong hook in first 2 seconds — or viewer scrolls.\n• 15 seconds maximum — time it before finalizing.\n• One ICP pain point per script — no more.\n\n**Common Mistakes:**\n• Scripts over 15 seconds.\n• Weak hook — lost in first 2 seconds.\n• Multiple CTAs — confuses viewer.\n\n**AI/Automation Potential:** ✅ AI writes + refines — CW quality checks only.`,
-  "Workflow Documentation":`**Goal:** Document the complete 90-day lead journey so every team member knows their role and client understands the system.\n\n**Steps:**\n1. Map full client journey: Ad → Landing Page → Calendar → Meeting Booking → Form Fill → CRM → 1-Month Follow-up (Email + WhatsApp) → Closing Meeting → Proposal → Close.\n2. Document each step: what happens, who handles it, which tool.\n3. Write in simple language — client must understand it too.\n4. Save in Drive > Important Documents.\n5. Share with marketing team + client.\n\n**Complete When:** Document in Drive. First lead successfully passes through full workflow.\n\n**Best Practices:**\n• Visual flowchart + written explanation both.\n• Include automation details at each step.\n• Update when any step changes during Day 8-15 review.\n\n**Common Mistakes:**\n• Too technical — client can't understand.\n• Not updating after workflow refinements.\n\n**AI/Automation Potential:** ✅ AI drafts initial flow; human verifies accuracy.`,
-  "Offer Content on Profile":`**Goal:** Ensure client's offer is consistently visible across all social profiles so every visitor immediately understands the service.\n\n**Steps:**\n1. Use locked single-liner offer from ICP document.\n2. AI generates copy for: Facebook/Instagram bio, LinkedIn About + Services, WhatsApp Business description, messaging tone guide, post footer templates.\n3. CW reviews all copy — consistency check across platforms.\n4. AM uploads to all profiles using Drive credentials.\n5. PM checks all platforms: offer visible, correct, no typos, mobile view checked.\n\n**Complete When:** PM confirmed offer live and correct on all platforms.\n\n**Best Practices:**\n• Single-liner must be identical everywhere — no variations.\n• Write for the ICP — speak their language.\n• Check mobile — bios get cut off.\n\n**Common Mistakes:**\n• Different messaging on different platforms.\n• Not checking mobile view — offer gets cut off.\n\n**AI/Automation Potential:** ✅ AI writes all copy — human uploads and verifies.`,
-  "Ad Copies":`**Goal:** Create high-converting ad copy for Meta/LinkedIn ads based on competitor research and ICP pain points.\n\n**Steps:**\n1. Use Ad Copy Prompt from Drive → AI generates primary text, headline, description.\n2. Research Fiverr/Upwork + Facebook Ad Library: analyze top competitor ads in same niche.\n3. Feed competitor insights back into AI for refinement.\n4. CW reviews: ICP pain point addressed? Single CTA? Hook strong? Under 150 words?\n5. Create minimum 3 versions for A/B testing.\n6. Save in Drive > Important Documents. PM approves.\n\n**Complete When:** 3 ad copy variations approved by PM and saved in Drive.\n\n**Best Practices:**\n• Always research what's working in the niche first.\n• Lead with pain point — not features.\n• One clear CTA only.\n\n**Common Mistakes:**\n• Generic copy not specific to ICP.\n• Too long for social media.\n• Multiple CTAs — lowers conversion.\n\n**AI/Automation Potential:** ✅ AI writes + refines — CW reviews only.`,
-  "Social Media Posts":`**Goal:** Create 3 initial branded posts + ongoing 2-3/week that function as ads and maintain consistent platform presence.\n\n**Steps:**\n1. Use Social Media Post Prompt from Drive → AI generates 3 captions: Rebrand/Coming Soon, Offer Post, Services Post.\n2. CW reviews: ICP alignment, no spelling mistakes, hashtags included.\n3. GD creates: 2 static graphics + 1 carousel in brand theme.\n4. Client approves all 3 before upload.\n5. SM Manager uploads to all platforms via GHL Social Planner.\n6. PM quality check: copy, graphics, crop on every platform.\n7. Ongoing: 2-3 posts/week same process.\n\n**Complete When:** 3 posts live on all platforms. PM verified — no errors, no crop issues.\n\n**Best Practices:**\n• Every post is an ad — design for conversion, not just aesthetics.\n• Check crop: Instagram square, Facebook feed, LinkedIn feed.\n• Consistency builds algorithm trust.\n\n**Common Mistakes:**\n• Posting without PM check — errors go live.\n• Not checking crop — key visuals get cut off.\n\n**AI/Automation Potential:** ✅ AI writes captions; GHL schedules via Social Planner.`,
-  "Banners on Profiles":`**Goal:** Design professional banners on all personal profiles to reinforce brand and communicate offer.\n\n**Steps:**\n1. Brand Identity must be approved first.\n2. Design: LinkedIn Personal (2 profiles) = 1584x396px, WhatsApp Business cover.\n3. Include: service tagline, photo/visual, CTA, testimonial snippet.\n4. Save editable PSD in Drive > Creatives.\n5. Client approves.\n6. Upload using Access credentials from Drive.\n\n**Complete When:** Client approved + all banners live. PM verified.\n\n**Best Practices:**\n• Minimal text — mobile compresses everything.\n• One strong social proof element.\n• Always save PSD — banners need frequent updates.\n\n**Common Mistakes:**\n• Wrong sizes — banner stretches or crops badly.\n• Too much text — unreadable on mobile.\n• Not saving editable PSD.`,
-  "Banners on Pages":`**Goal:** Design professional banners on all business pages for strong first impressions on visiting ICPs.\n\n**Steps:**\n1. Brand Identity must be approved first.\n2. Design: Facebook Page = 820x312px, LinkedIn Company = 1128x191px, Instagram Highlights = 1080x1920px.\n3. Include: services, tagline, visual, CTA, testimonial.\n4. Save editable PSD in Drive > Creatives.\n5. Client approves.\n6. Upload to all pages.\n\n**Complete When:** Client approved + all banners live. PM verified.\n\n**Best Practices:**\n• Test Facebook cover on mobile AND desktop — displays differently.\n• Instagram highlights: simple icons only — visible at small size.\n• Consistent style with profile banners.\n\n**Common Mistakes:**\n• Not testing mobile Facebook cover.\n• Instagram highlights too detailed — messy at small size.`,
-  "Company Profile":`**Goal:** Create a professional company profile document shareable in meetings and on the landing page to build trust.\n\n**Steps:**\n1. Use FLC Company Profile template.\n2. AI customizes: agency intro, team, services, past results, portfolio highlights, packages overview.\n3. CW adds client-specific context, reviews accuracy.\n4. GD designs in brand theme — PDF format.\n5. PM reviews complete document.\n6. Client locks and approves.\n7. Upload to Drive > Important Documents.\n\n**Complete When:** PM reviewed + client approved + saved in Drive.\n\n**Best Practices:**\n• Lead with results/case studies — social proof first.\n• Keep it concise — decision makers don't read long documents.\n• Design must match brand identity exactly.\n\n**Common Mistakes:**\n• Too long — loses reader attention.\n• Outdated info — update when services or results change.\n\n**AI/Automation Potential:** ✅ AI generates from template — GD designs.`,
-  "Case Studies":`**Goal:** Create detailed case studies proving FLC results — builds trust with prospective ICPs.\n\n**Steps:**\n1. CW contacts existing client: "Send me overview for your case study — your business, problem before FLC, what we proposed, how we solved it, results, screenshots."\n2. Client provides raw data.\n3. AI structures using universal format: Background → Problem → Solution → Implementation → Results → Client Review.\n4. CW refines narrative.\n5. GD creates designed PDF in brand theme.\n6. PM reviews. Client approves.\n7. Save in Drive > Important Documents.\n\n**Complete When:** PM reviewed + client approved + saved in Drive.\n\n**Best Practices:**\n• Always include real numbers: "47 leads in 30 days" beats "great results".\n• Include screenshots as proof.\n• Keep client review authentic — don't over-polish.\n\n**Common Mistakes:**\n• Vague results — no specific numbers.\n• Missing screenshots — looks unverified.\n\n**AI/Automation Potential:** ✅ AI structures and writes — human collects data.`,
-  "CEO Videos":`**Goal:** Build a library of 15-second CEO video ads — daily habit for continuous fresh ad creatives.\n\n**Steps:**\n1. CW uses Script Prompt → AI generates CEO video script.\n2. AI refines to exactly 15 seconds.\n3. CW reviews: hook in 2 sec, clear value, single CTA.\n4. Agency gives CEO shoot instructions: mobile horizontal, clean background, good lighting, professional dress.\n5. CEO shoots and sends raw to VE via Drive/WhatsApp.\n6. VE edits: cut to 15 sec, captions (mandatory), color grade, brand logo, footer.\n7. Ads Manager launches as new ad. Also on landing page + social.\n8. ONGOING DAILY — CEO must develop daily shooting habit.\n\n**Complete When (Initial):** First edited video ready for ads. Ongoing: new video every day.\n\n**Best Practices:**\n• CEO shoots daily — campaign performance depends on fresh creatives.\n• Captions mandatory — 85% watch without sound.\n• Each video = one ICP pain point only.\n\n**Common Mistakes:**\n• CEO shoots inconsistently — ad performance drops.\n• No captions — misses majority of audience.\n• Over 15 seconds — viewers drop off.\n\n**AI/Automation Potential:** 🔶 AI writes scripts; editing tools speed up VE work; CEO shooting is human.`,
-  "Testimonials":`**Goal:** Collect + produce video testimonials from existing clients for social proof on ads, landing page, and social.\n\n**Steps:**\n1. AM asks client: "Can you send a short video review from your customers?"\n2. Client's duty: collect video testimonials from their own customers.\n3. VE edits: cuts unnecessary parts, captions, brand logo, color grade, converts to ad format.\n4. ADS launches as creative. Also on landing page + social.\n5. Day 1-7: minimum 1 testimonial must be ready.\n6. Ongoing: continuously collecting.\n\n**Complete When (Initial):** 1 edited testimonial ready. Ongoing: continuous collection.\n\n**Best Practices:**\n• Short testimonials (30-60 sec) perform better.\n• Specific results = much higher trust than generic praise.\n• Coach client: "Ask customers to mention the specific result they got."\n\n**Common Mistakes:**\n• Generic "great service" with no numbers.\n• Poor client video quality — coach on how to record.\n\n**AI/Automation Potential:** 🔶 Editing partially automatable; collection is relationship-based.`,
-  "Landing Page":`**Goal:** Build a conversion-optimized GHL landing page that turns ad traffic into qualified meeting bookings.\n\n**Steps:**\n1. AI identifies best practices for this service type (sections, CTA placement, social proof).\n2. CW searches GHL templates for closest match.\n3. CW adds AI-generated copy — all sections filled.\n4. GD customizes in brand theme colors + fonts.\n5. VSL: embed CEO video if ready; use strong graphic placeholder if not.\n6. Test mobile + desktop — both must look professional.\n7. Calendar embedded → connects to Closer's GHL calendar.\n8. PM review: no bad impressions, everything loads, mobile-first check.\n9. Educate client: "Priority 1: no bad impressions → Priority 2: optimize → Priority 3: perfect."\n\n**Complete When:** Mobile + desktop professional, no broken elements, PM approved.\n\n**Best Practices:**\n• Mobile-first — most traffic is mobile.\n• Above fold: offer + CTA visible without scrolling.\n• Single goal: book a meeting. Remove all distractions.\n\n**Common Mistakes:**\n• Too many sections — slow load, high bounce.\n• Broken mobile view — biggest source of lost leads.\n\n**AI/Automation Potential:** 🔶 AI writes all copy; GHL templates speed design.`,
-  "Form with Custom Values":`**Goal:** Set up post-calendar form in GHL with custom qualification questions mapped to CRM automations.\n\n**Steps:**\n1. Build form in GHL — appears after calendar booking.\n2. Standard fields: name, email, WhatsApp number.\n3. Add custom qualification questions specific to this client's ICP.\n4. Map all fields to CRM custom values — automations depend on this.\n5. Connect to CRM pipeline — new submission creates contact in correct stage.\n6. Set notification to alert Appointment Setter on new submission.\n7. PM tests: submit test form, verify data in CRM, verify automation triggers.\n\n**Complete When:** Integrated with landing page, test submission verified in CRM. PM confirmed.\n\n**Best Practices:**\n• 5-7 questions max — too many = drop-off.\n• Custom questions must qualify or disqualify lead clearly.\n• Always test with real submission — never assume.\n\n**Common Mistakes:**\n• Too many fields — leads abandon.\n• Custom values not mapped — automations don't trigger.\n• Broken form discovered after ads launch.\n\n**AI/Automation Potential:** 🔶 Form structure AI-suggested; CRM mapping manual.`,
-  "Email Sequences":`**Goal:** Set up 1-month automated email follow-up in GHL triggered by form submission to nurture leads to close.\n\n**Steps:**\n1. AI generates sequence using Ad Copy Prompt (offer + pain points + CTA).\n2. CW reviews: tone, grammar, ICP alignment.\n3. Build in GHL: form submitted → sequence triggers.\n4. 1-month schedule: Day 1, 3, 7, 14, 21, 30.\n5. Each email one goal: value → follow-up → urgency → social proof → final push.\n6. PM tests: send to real email, check delivery, check not spam.\n\n**Complete When:** Full sequence live, PM reviewed all automations and delivery.\n\n**Best Practices:**\n• Avoid spam triggers: no ALL CAPS, no excessive punctuation.\n• One goal per email.\n• Include case study or testimonial in at least one email.\n\n**Common Mistakes:**\n• Not testing — emails go to spam.\n• Too many emails too quickly — leads unsubscribe.\n• Generic copy — not ICP-specific.\n\n**AI/Automation Potential:** ✅ AI writes full sequence; GHL automates delivery.`,
-  "WhatsApp Sequences":`**Goal:** Parallel 1-month WhatsApp follow-up via GHL — reaches leads on their most-used channel.\n\n**Steps:**\n1. Same trigger as email: form submission with WhatsApp number.\n2. AI generates WhatsApp messages — shorter, conversational (not email copy).\n3. CW reviews: personal and direct tone.\n4. Build in GHL WhatsApp: message templates + automation flow.\n5. Mirror email timing but different content.\n6. PM tests: submit test form with real WhatsApp number, verify delivery.\n\n**Complete When:** Sequence live, test WhatsApp messages received. PM verified.\n\n**Best Practices:**\n• WhatsApp must feel personal — never copy email content.\n• 2-4 lines max per message.\n• First message within 5 minutes of form submission.\n\n**Common Mistakes:**\n• Sending email content on WhatsApp — gets ignored.\n• Delayed first message — lead goes cold.\n\n**AI/Automation Potential:** ✅ AI writes; GHL automates; human reviews tone.`,
-  "CRM Domain Integration":`**Goal:** Connect client's custom domain to GHL so landing page runs on client's own domain.\n\n**Steps:**\n1. Check if client has domain. No → purchase on Hostinger on client's behalf.\n2. In GHL: Sites > Domains > Add Domain.\n3. Set up subdomain: leads.clientname.com\n4. Update DNS in Hostinger: add CNAME pointing to GHL.\n5. Set up email authentication: SPF, DKIM, DMARC records.\n6. Wait 24-48 hours for DNS propagation.\n7. Verify in GHL: domain shows "Verified".\n\n**Complete When:** GHL shows domain as Verified.\n\n**Best Practices:**\n• Always set up SPF/DKIM/DMARC — email deliverability depends on it.\n• Use subdomain not root domain.\n• Tell client about 24-48 hour wait — manage expectations.\n\n**Common Mistakes:**\n• Skipping email authentication records — emails go to spam.\n• Not informing client of wait time.\n\n**AI/Automation Potential:** 🔶 Steps documented; DNS work is manual.`,
-  "GMB Profile":`**Goal:** Set up and integrate Google My Business for local trust and digital findability.\n\n**Steps:**\n1. Access GMB via pages credentials already collected.\n2. Integrate GMB with GHL for unified management.\n3. Complete all fields: name, category, description (use offer + ICP language), services, hours, landing page URL.\n4. Upload brand photos + logo.\n5. Verify via Google's method (team handles).\n6. Begin collecting reviews from existing clients.\n\n**Complete When:** Profile visible on Google Maps. (Optional but preferred: verified status.)\n\n**Best Practices:**\n• GMB description must use same ICP language as landing page.\n• Regular GMB posts boost local search ranking.\n• Respond to every review — shows professionalism.\n\n**Common Mistakes:**\n• Incomplete profile — partial profiles rank lower.\n• Not integrating with GHL — managing separately wastes time.\n\n**AI/Automation Potential:** 🔶 GHL integration automates posting; initial setup is manual.`,
-  "WhatsApp Integration":`**Goal:** Connect client's WhatsApp Business to GHL so all conversations, sequences, and broadcasts are managed in one place.\n\n**Steps:**\n1. Purchase WhatsApp number/plan within GHL (LC Phone).\n2. Connect client's existing WhatsApp Business account to GHL.\n3. Test: send message from GHL to a real WhatsApp number.\n4. Verify: receive reply in GHL conversations tab.\n5. Confirm all sequences will use this connected number.\n6. PM tests full message flow.\n\n**Complete When:** Test message sent and received successfully via GHL. PM verified.\n\n**Best Practices:**\n• Use client's existing business number — consistency for their contacts.\n• Test both sending AND receiving.\n• Confirm number is not flagged by WhatsApp.\n\n**Common Mistakes:**\n• Using a new unknown number — low trust from leads.\n• Not testing receive — common issue.\n\n**AI/Automation Potential:** ✅ GHL handles automation; setup is one-time manual.`,
-  "WhatsApp Verification":`**Goal:** Verify WhatsApp Business via Meta Business Suite to unlock advanced broadcast flow features.\n\n**Steps:**\n1. Meta Business Suite > Business Settings > WhatsApp Accounts.\n2. Begin verification: submit official company registration document.\n3. Meta reviews — typically 48 hours.\n4. If rejected: inform client, get different document, resubmit immediately.\n5. During review: all other WhatsApp features work — only Flow is locked.\n6. Once approved: GHL shows "Verified" — Flow unlocked.\n\n**Complete When:** GHL shows Verified status for WhatsApp account.\n\n**Best Practices:**\n• Submit registration document immediately — don't delay.\n• Inform client: 48 hours wait, messaging still works.\n• Keep backup document ready for rejected submissions.\n\n**Common Mistakes:**\n• Wrong document type — automatic rejection.\n• Stopping WhatsApp work while waiting — sequences can still run.\n\n**AI/Automation Potential:** 🟢 Reminder automatable; verification is Meta's process.`,
-  "Ads Account Card Added":`**Goal:** Add payment method to Meta Ads Manager so campaigns can launch on Day 16.\n\n**Steps:**\n1. Access Ads Manager via Business Manager credentials.\n2. Go to Billing & Payments.\n3. Add payment: client's card OR agency card (if client sent budget to agency).\n4. Verify card active.\n5. Set spending limits as agreed with client.\n6. Agency manages daily budget + billing calculations regardless of whose card.\n\n**Complete When:** Payment method visible and active in Meta Ads Manager.\n\n**Best Practices:**\n• Confirm whose card before setup day — no last-minute surprises.\n• Always set daily budget limits — never overspend without approval.\n• Keep billing receipts organized.\n\n**Common Mistakes:**\n• Last-minute setup — delays Day 16 launch.\n• No spending limits set — can accidentally overspend.\n\n**AI/Automation Potential:** 🟢 Billing alerts automatable via Meta.`,
-  "CRM Social Integration":`**Goal:** Connect all social accounts to GHL for unified posting, comment management, and analytics.\n\n**Steps:**\n1. GHL: Marketing > Social Planner > Connect Accounts.\n2. Connect: Facebook Page, Instagram Business, LinkedIn Company, GMB.\n3. Authorize each platform — use Drive credentials.\n4. Test: schedule one post from GHL to all platforms simultaneously.\n5. Verify post appears correctly on all platforms.\n6. Confirm comments visible in GHL conversations.\n7. Confirm analytics showing in GHL social reports.\n\n**Complete When:** Test post published from GHL to all platforms, stats visible, comments accessible. PM verified.\n\n**Best Practices:**\n• Test post on all platforms — each has different requirements.\n• Analytics may need 24 hours to pull.\n• Train SM Manager on GHL Social Planner before going live.\n\n**Common Mistakes:**\n• Not testing — post fails silently on one platform.\n• Not checking comment management — team misses lead inquiries.\n\n**AI/Automation Potential:** ✅ GHL schedules and publishes; AI suggests optimal posting times.`,
-  "CRM Calendar Setup":`**Goal:** Configure Closer's booking calendar in GHL so ICPs self-book meetings from landing page.\n\n**Steps:**\n1. GHL: Calendars > Create Calendar for designated Closer.\n2. Configure: available days/hours, meeting duration (30-45 min), buffer time between meetings.\n3. Set up: instant confirmation (email + WhatsApp) after booking.\n4. Set up: reminders — 24 hours before + 1 hour before meeting.\n5. Set up: no-show follow-up sequence.\n6. Connect calendar to landing page form.\n7. PM tests: book test meeting, confirm all automations fire correctly.\n\n**Complete When:** Full booking flow tested — meeting booked, confirmations received, reminders scheduled. PM verified.\n\n**Best Practices:**\n• Buffer time mandatory — Closer needs prep between calls.\n• Reminders reduce no-shows significantly.\n• No-show sequence is often missed — set up during initial setup.\n\n**Common Mistakes:**\n• No buffer time — back-to-back calls with no prep.\n• Missing reminder automations — no-show rate spikes.\n\n**AI/Automation Potential:** ✅ GHL automates all reminders and confirmations.`,
-  "CRM Training":`**Goal:** Train client on GHL so they can independently monitor leads, meetings, and performance.\n\n**Steps:**\n1. Schedule Google Meet screen share with client.\n2. Cover: mobile app download + login, leads/contacts view, conversations (WhatsApp + email), calendar + bookings, analytics dashboard.\n3. Show: how to view incoming leads, check meetings, read basic reports.\n4. Answer all questions live.\n5. Available for 1-2 days post-session for follow-up questions.\n\n**Complete When:** Client independently navigates analytics, leads, and calendar. PM confirms client is comfortable.\n\n**Best Practices:**\n• Keep session under 60 minutes — information overload kills retention.\n• Focus on daily-use features only.\n• Follow up next day: "Any questions from yesterday's training?"\n\n**Common Mistakes:**\n• Showing too many features — client gets confused.\n• No follow-up — client struggles silently.\n\n**AI/Automation Potential:** 🔶 Video training (being built) will replace live sessions.`,
-  "Initial Posts":`**Goal:** Upload first 3 branded posts to establish presence and signal active business to visiting ICPs.\n\n**Steps:**\n1. 3 posts prepared: Rebrand/Coming Soon, Offer Post, Services Post.\n2. Captions reviewed by CW (hashtags included), graphics done by GD (2 static, 1 carousel).\n3. Client approves all 3.\n4. SM Manager publishes via GHL Social Planner to all platforms.\n5. PM quality check: copy, visuals, crop on every platform — visit each one.\n\n**Complete When:** All 3 posts live on all platforms. PM verified — no typos, no crop issues.\n\n**Best Practices:**\n• Post 1: curiosity + excitement (rebrand).\n• Post 2: directly address ICP's biggest pain point (offer).\n• Post 3: credibility + range (services).\n\n**Common Mistakes:**\n• Uploading without client approval.\n• Not checking all platforms after posting.\n\n**AI/Automation Potential:** ✅ GHL schedules all; AI writes captions.`,
-  "Landing Page Review (Mobile + Desktop)":`**Goal:** Zero bad impressions on mobile + desktop before ads go live.\n\n**Steps:**\n1. Open on real mobile device (not just browser emulator).\n2. Check: text readable, no overflow, CTA visible above fold, images loading.\n3. Desktop browser check — all elements correct.\n4. Complete a full test calendar booking.\n5. Submit test form — verify in CRM.\n6. Check page load speed: must be under 3 seconds.\n7. Fix issues → retest. PM signs off.\n\n**Complete When:** PM signed off, zero broken elements on both views.`,
-  "Scripts & Ad Copies Review":`**Goal:** All content ICP-aligned and ready for Day 16 ad launch.\n\n**Steps:**\n1. Read all 5 scripts: hook, 15-sec limit, CTA, ICP pain point.\n2. Read all ad copies: primary text, headline, description, single CTA.\n3. Compare to competitor research — saying something better?\n4. PM approves or requests revisions. Final versions in Drive.\n\n**Complete When:** PM approved all. Saved in Drive.`,
-  "Social Profiles Review":`**Goal:** All social profiles professional and consistent before ad traffic arrives.\n\n**Steps:**\n1. Visit: Facebook Page, Instagram, LinkedIn Company, LinkedIn Personal (x2), WhatsApp Business.\n2. Check: banner live, profile picture correct, bio/offer accurate, services filled.\n3. Check mobile view of each.\n4. Verify 3 initial posts are live.\n5. Fix any issues → recheck. PM signs off.\n\n**Complete When:** All platforms checked + professional. PM signed off.`,
-  "Brand Identity Review":`**Goal:** 100% visual consistency across all touchpoints before scaling.\n\n**Steps:**\n1. Cross-check: landing page colors = social banners = post graphics = company profile.\n2. Logo correct resolution everywhere — no pixelation.\n3. All PSD files in Drive with embedded fonts.\n4. PM signs off on visual consistency.\n\n**Complete When:** 100% visual consistency confirmed. PM signed off.`,
-  "Full Workflow Test (Ad → LP → CRM)":`**Goal:** Test complete lead journey end-to-end — zero leakage before Day 16.\n\n**Steps:**\n1. Simulate ICP: go to landing page URL.\n2. Fill calendar form with real phone + email.\n3. Verify: confirmation email + WhatsApp received.\n4. Check CRM: contact created, correct pipeline stage.\n5. Verify: email + WhatsApp sequences triggered.\n6. Check: meeting in Closer's GHL calendar.\n7. Simulate no-show: verify no-show sequence triggers.\n8. Document any leakage → fix → retest.\n\n**Complete When:** Full journey tested with zero leakage. PM signed off.`,
-  "CRM Automations Test":`**Goal:** Verify all GHL automations fire correctly before launch.\n\n**Steps:**\n1. Trigger each automation manually via test form.\n2. Verify email sequences: subject lines, content, timing, not spam.\n3. Verify WhatsApp sequences: delivery, timing, personalization.\n4. Check custom values populating in messages.\n5. Fix broken triggers → retest.\n\n**Complete When:** All automations tested and confirmed. PM signed off.`,
-  "Email & WhatsApp Sequences Test":`**Goal:** Ensure all sequences deliver correctly and don't go to spam.\n\n**Steps:**\n1. Trigger full sequences with test email + WhatsApp.\n2. Email: spam folder check, formatting, links working.\n3. WhatsApp: messages delivered, correct timing, personalization working.\n4. Review 30-day calendar — correct content at each interval.\n\n**Complete When:** All sequences delivering to test accounts. PM confirmed.`,
-  "Banners Review":`**Goal:** Final visual check on all banners before launch.\n\n**Steps:**\n1. Check profile banners: LinkedIn personal (x2), WhatsApp.\n2. Check page banners: Facebook, Instagram highlights, LinkedIn company.\n3. Mobile view: no text cut off, key elements visible.\n4. Confirm PSD files in Drive.\n\n**Complete When:** All banners confirmed correct on mobile + desktop. PM signed off.`,
-  "Ad Account Setup Review":`**Goal:** Meta Ads Manager fully ready for Day 16 campaign launch.\n\n**Steps:**\n1. Verify payment method active.\n2. Confirm Business Manager, Ad Account, Facebook Page, Instagram all connected.\n3. Check Meta Pixel installed on landing page.\n4. Verify CAPI setup (90-95% tracking accuracy).\n5. Campaign structure in draft: campaigns, ad sets, ads ready.\n6. PM + Ads Manager sign off.\n\n**Complete When:** All setup verified, drafts ready. Both signed off.`,
-  "Final Pre-Launch Sign-Off":`**Goal:** Everything confirmed ready before Day 16 ads go live.\n\n**Steps:**\n1. PM checklist: landing page ✓, profiles ✓, CRM ✓, sequences ✓, ad account ✓, content ✓.\n2. Brief team: each role confirms their area is ready.\n3. Client informed: "We go live Day 16."\n4. Ads Manager has campaign ready to activate.\n\n**Complete When:** PM + team all green. Client notified. Day 16 ready.`,
-  "Daily Script Writing":`**Goal:** Fresh 15-second scripts daily to maintain ad creative output.\n\n**Frequency:** Daily\n**Steps:**\n1. Script Prompt → AI generates new angle/hook.\n2. CW reviews: 15-sec limit, strong hook, single CTA.\n3. Save in Drive > Scripts with date.\n4. Send to CEO with shoot instructions.\n\n**Best Practices:** Rotate pain points — never repeat same hook 2 days in a row. Track which scripts produce best CTR.`,
-  "CEO Video Shoot (Client)":`**Goal:** CEO shoots daily 15-second video on mobile for fresh daily ad creative.\n\n**Frequency:** Daily\n**Steps:**\n1. CEO receives script from CW.\n2. Shoots on mobile: clean background, good lighting, professional appearance.\n3. Sends raw video to VE via Drive or WhatsApp.\n\n**Note:** AM monitors and motivates client daily. This is the most critical ongoing task — campaign performance directly depends on fresh CEO videos. Batch shooting (3-5 in one session) is acceptable.`,
-  "Video Edit":`**Goal:** Edit raw CEO video into professional 15-second ad ready for launch.\n\n**Frequency:** Daily\n**Steps:**\n1. Receive raw video from CEO.\n2. Cut to exactly 15 sec — remove pauses, tighten cuts.\n3. Add captions (mandatory — 85% watch without sound).\n4. Color grade to brand standard.\n5. Add brand logo + footer.\n6. Export: 1:1 for feed, 9:16 for reels/stories.\n7. Upload to Drive > Creatives > Videos.\n8. Notify ADS: new creative ready.`,
-  "New Video Ad Launch":`**Goal:** Launch each new CEO video as a new Meta ad creative.\n\n**Frequency:** Daily\n**Steps:**\n1. Receive edited video from VE (Drive notification).\n2. Create new ad: upload video, add primary text, headline, CTA button.\n3. Set daily budget cap.\n4. Monitor after 24-48 hours: CTR, CPM, hook rate.\n5. Scale winners, pause poor performers.\n\n**Best Practices:** Never turn off a winning ad — only add new ones alongside it. Track patterns in a spreadsheet.`,
-  "Ad Copy — Primary Text":`**Goal:** Fresh ad copy daily to accompany new video creatives and test different messaging angles.\n\n**Frequency:** Daily\n**Steps:**\n1. Ad Copy Prompt → AI generates new angle.\n2. CW reviews: pain point addressed? CTA clear? Under 150 words?\n3. Pair with day's video creative.\n4. Save in Drive > Ad Copies with date.`,
-  "Graphic / Static Post":`**Goal:** 2-3 weekly static/carousel posts to maintain consistent social presence alongside video.\n\n**Frequency:** 2-3x per week\n**Steps:**\n1. CW writes caption via Social Post Prompt.\n2. GD designs in brand theme.\n3. PM quality check: no errors, correct crop.\n4. SM Manager schedules via GHL.\n5. ADS adds best-performing post as new ad creative.`,
-  "Post Copy Writing":`**Goal:** ICP-targeted captions for all weekly graphics that drive action.\n\n**Frequency:** 2-3x per week\n**Steps:**\n1. CW uses Social Media Post Prompt.\n2. Writes: hook line, value, CTA, hashtags.\n3. PM reviews for errors.\n4. Handed to GD with copy for design.`,
-  "New Graphic Ad Launch":`**Goal:** Launch weekly graphic posts as new ad creatives alongside video ads.\n\n**Frequency:** 2-3x per week\n**Steps:**\n1. Receive approved graphic from GD.\n2. Create new ad in Meta alongside video ads.\n3. Monitor vs video performance.\n4. Scale winners, pause losers.`,
-  "Landing Page Updates":`**Goal:** Continuously improve landing page with new proof and winning creative as data comes in.\n\n**Frequency:** Weekly\n**Steps:**\n1. Add new CEO videos to page.\n2. Add new testimonials.\n3. Update copy with winning hooks from ad data.\n4. Add new case studies when ready.\n5. PM reviews after each update.`,
-  "CRM Lead Management":`**Goal:** Every incoming lead properly tracked and moved toward closing.\n\n**Frequency:** Daily\n**Steps:**\n1. Monitor CRM: new leads from form submissions.\n2. Ensure all leads in correct pipeline stage.\n3. Verify sequences running on each lead.\n4. Flag stuck leads to Appointment Setter for manual follow-up.\n5. Update lead status after each interaction.`,
-  "Sequence Management":`**Goal:** All email + WhatsApp sequences delivering properly and on schedule.\n\n**Frequency:** Daily\n**Steps:**\n1. Check delivery rates daily.\n2. Monitor open rates + reply rates.\n3. Fix delivery failures immediately.\n4. Pause sequences for leads who have booked meetings.\n5. Report weekly metrics to PM.`,
-  "Ad Performance Review":`**Goal:** Weekly analysis of what's working and what needs to change.\n\n**Frequency:** Weekly\n**Steps:**\n1. Pull Meta report: CPM, CTR, CPC, cost per lead, hook rate.\n2. Identify top 3 performing creatives.\n3. Identify bottom 3 — flag for pause.\n4. Share findings with PM + team.\n5. Inform CW which script angles are winning → use for new scripts.`,
-  "Ad Optimization & Refinement":`**Goal:** Continuously reduce cost per lead and improve quality based on weekly data.\n\n**Frequency:** Weekly\n**Steps:**\n1. Pause underperforming ads based on review.\n2. Scale winning ads: increase budget 20-30% at a time — no sudden jumps.\n3. Test new audiences if CTR high but volume low.\n4. Update landing page with winning hooks.\n5. Brief CW on new angles to test.`,
-  "Monthly Client Report":`**Goal:** Clear monthly performance report for client showing leads, CPL, meetings, and ROI progress.\n\n**Frequency:** Monthly\n**Steps:**\n1. Pull data: total leads, cost per lead, meetings booked, closing rate, revenue generated.\n2. OPS compiles report in GHL + Google Sheets.\n3. Include: ad spend, results, what worked, what's being improved.\n4. PM reviews before sending.\n5. Share via email + WhatsApp.`,
-  "Monthly Client Meeting":`**Goal:** Monthly strategy call to review results, retain client, and align on next month.\n\n**Frequency:** Monthly\n**Steps:**\n1. AM schedules 60-min Google Meet.\n2. Present monthly report: wins, challenges, next month plan.\n3. Discuss offer or ICP updates needed.\n4. Address client concerns — retention is priority.\n5. Confirm next month's budget and strategy.\n6. Document action items in CRM.`,
+  "Conduct Kickoff Meeting with Client": {
+    trigger: "New client contract signed and first invoice confirmed.",
+    steps: [
+      "Review onboarding questionnaire and sales handoff notes.",
+      "Join Zoom link 5 minutes prior, record session locally and to cloud.",
+      "Confirm primary goal, ICP boundaries, and target offer.",
+      "Verify access permissions for all required channels.",
+      "Publish kickoff call summary in client portal."
+    ],
+    doneCriteria: "Meeting recording uploaded to Drive and kickoff notes published."
+  }
 };

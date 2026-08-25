@@ -20,8 +20,12 @@ CREATE TABLE IF NOT EXISTS public.flc_ops_users (
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'member',
-    assigned_clients JSONB DEFAULT '[]'::jsonb
+    assigned_clients JSONB DEFAULT '[]'::jsonb,
+    slack_id TEXT
 );
+
+-- Backfill for databases created before slack_id existed
+ALTER TABLE public.flc_ops_users ADD COLUMN IF NOT EXISTS slack_id TEXT;
 
 -- 3. OTPs Table
 CREATE TABLE IF NOT EXISTS public.flc_ops_otps (
@@ -29,7 +33,8 @@ CREATE TABLE IF NOT EXISTS public.flc_ops_otps (
     created_at TIMESTAMPTZ DEFAULT NOW(),
     email TEXT NOT NULL,
     code TEXT NOT NULL,
-    expires_at TIMESTAMPTZ NOT NULL
+    expires_at TIMESTAMPTZ NOT NULL,
+    verified BOOLEAN DEFAULT FALSE
 );
 
 -- 4. Attendance Table
@@ -73,6 +78,20 @@ CREATE TABLE IF NOT EXISTS public.flc_ops_notifications (
     type TEXT DEFAULT 'info'
 );
 
+-- 8. Task Logs Table (Performance & Audit Trail)
+CREATE TABLE IF NOT EXISTS public.flc_ops_task_logs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    completed_at TIMESTAMPTZ DEFAULT NOW(),
+    member_name TEXT,
+    member_email TEXT,
+    task_id TEXT,
+    task_name TEXT,
+    client_id TEXT,
+    client_name TEXT,
+    action_type TEXT DEFAULT 'COMPLETED'
+);
+
 -- Enable RLS & Add Public Policies
 ALTER TABLE public.flc_ops_clients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.flc_ops_users ENABLE ROW LEVEL SECURITY;
@@ -81,6 +100,7 @@ ALTER TABLE public.flc_ops_attendance ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.flc_ops_invites ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.flc_ops_meeting_notes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.flc_ops_notifications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.flc_ops_task_logs ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Allow All Clients" ON public.flc_ops_clients;
 CREATE POLICY "Allow All Clients" ON public.flc_ops_clients FOR ALL USING (true);
@@ -102,3 +122,7 @@ CREATE POLICY "Allow All Meeting Notes" ON public.flc_ops_meeting_notes FOR ALL 
 
 DROP POLICY IF EXISTS "Allow All Notifications" ON public.flc_ops_notifications;
 CREATE POLICY "Allow All Notifications" ON public.flc_ops_notifications FOR ALL USING (true);
+
+DROP POLICY IF EXISTS "Allow All Task Logs" ON public.flc_ops_task_logs;
+CREATE POLICY "Allow All Task Logs" ON public.flc_ops_task_logs FOR ALL USING (true);
+

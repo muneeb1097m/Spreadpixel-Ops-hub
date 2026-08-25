@@ -77,8 +77,8 @@ Output strictly in raw valid JSON format matching this schema (no markdown code 
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${openRouterKey}`,
-            'HTTP-Referer': 'https://flc-dashboard.vercel.app',
-            'X-Title': 'FLC Dashboard'
+            'HTTP-Referer': 'https://spreadpixel.com',
+            'X-Title': 'SpreadPixel OpsHub'
           },
           body: JSON.stringify({
             model: model.id,

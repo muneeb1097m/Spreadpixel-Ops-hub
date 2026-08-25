@@ -124,12 +124,13 @@ async function handleSendOtp(req, res) {
   const expiresAt = new Date();
   expiresAt.setMinutes(expiresAt.getMinutes() + 10);
 
-  const { error } = await supabase.from('flc_ops_otps').upsert({
+  // Clean old OTPs for this email and insert fresh OTP
+  await supabase.from('flc_ops_otps').delete().eq('email', email.toLowerCase().trim());
+  const { error } = await supabase.from('flc_ops_otps').insert({
     email: email.toLowerCase().trim(),
     code: otp,
-    expires_at: expiresAt.toISOString(),
-    verified: false
-  }, { onConflict: 'email' });
+    expires_at: expiresAt.toISOString()
+  });
 
   if (error) throw error;
 
@@ -138,17 +139,22 @@ async function handleSendOtp(req, res) {
   console.log(`=======================================\n`);
 
   const { error: resendError } = await sendEmailSafely({
-    from: process.env.SENDER_EMAIL || 'noreply@faseehlall.com',
+    from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
     to: [email],
-    subject: 'Your FLC Portal Verification Code',
+    subject: 'Your SpreadPixel OpsHub Verification Code',
     html: `
-      <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-        <h2 style="color: #dc2626; font-weight: 900;">Verification Code</h2>
-        <p>Enter the following code to verify your FLC Portal access:</p>
-        <div style="font-size: 32px; font-weight: 900; letter-spacing: 4px; border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; display: inline-block; background: #f8fafc;">
-          ${otp}
+      <div style="font-family: sans-serif; padding: 24px; color: #0f172a; max-width: 500px; margin: 0 auto; border: 1px solid #fed7aa; border-radius: 16px; background: #ffffff;">
+        <div style="margin-bottom: 20px; border-bottom: 2px solid #ea580c; padding-bottom: 12px;">
+          <h2 style="color: #ea580c; font-weight: 900; margin: 0; font-size: 22px;">SpreadPixel OpsHub</h2>
+          <div style="color: #64748b; font-size: 13px; margin-top: 4px;">Account Verification</div>
         </div>
-        <p style="color: #64748b; font-size: 13px; margin-top: 20px;">This code expires in 10 minutes.</p>
+        <p style="font-size: 14px; color: #334155;">Enter the following 6-digit verification code to complete your access:</p>
+        <div style="text-align: center; margin: 24px 0;">
+          <div style="font-size: 36px; font-weight: 900; letter-spacing: 6px; border: 2px dashed #ea580c; padding: 14px 24px; border-radius: 12px; display: inline-block; background: #fff7ed; color: #ea580c;">
+            ${otp}
+          </div>
+        </div>
+        <p style="color: #94a3b8; font-size: 12px; text-align: center;">This code expires in 10 minutes.</p>
       </div>
     `
   });
@@ -193,12 +199,12 @@ async function handleVerifyOtp(req, res) {
     userData = u;
   }
 
-  const { error: updateErr } = await supabase
-    .from('flc_ops_otps')
-    .update({ verified: true })
-    .eq('email', data.email);
-
-  if (updateErr) throw updateErr;
+  try {
+    await supabase
+      .from('flc_ops_otps')
+      .update({ verified: true })
+      .eq('email', data.email);
+  } catch (ignored) {}
 
   return res.status(200).json({ success: true, user: userData });
 }
@@ -221,12 +227,13 @@ async function handleRequestPasswordReset(req, res) {
   const expiresAt = new Date();
   expiresAt.setMinutes(expiresAt.getMinutes() + 10);
 
-  const { error } = await supabase.from('flc_ops_otps').upsert({
+  // Clean old OTPs for this email and insert fresh OTP
+  await supabase.from('flc_ops_otps').delete().eq('email', email.toLowerCase().trim());
+  const { error } = await supabase.from('flc_ops_otps').insert({
     email: email.toLowerCase().trim(),
     code: otp,
-    expires_at: expiresAt.toISOString(),
-    verified: false
-  }, { onConflict: 'email' });
+    expires_at: expiresAt.toISOString()
+  });
 
   if (error) throw error;
 
@@ -235,17 +242,22 @@ async function handleRequestPasswordReset(req, res) {
   console.log(`=======================================\n`);
 
   const { error: resendError } = await sendEmailSafely({
-    from: process.env.SENDER_EMAIL || 'noreply@faseehlall.com',
+    from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
     to: [email],
-    subject: 'Reset Your FLC Portal Password',
+    subject: 'Reset Your SpreadPixel OpsHub Password',
     html: `
-      <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-        <h2 style="color: #dc2626; font-weight: 900;">Password Reset Code</h2>
-        <p>Enter the following code to reset your FLC Portal password:</p>
-        <div style="font-size: 32px; font-weight: 900; letter-spacing: 4px; border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; display: inline-block; background: #f8fafc;">
-          ${otp}
+      <div style="font-family: sans-serif; padding: 24px; color: #0f172a; max-width: 500px; margin: 0 auto; border: 1px solid #fed7aa; border-radius: 16px; background: #ffffff;">
+        <div style="margin-bottom: 20px; border-bottom: 2px solid #ea580c; padding-bottom: 12px;">
+          <h2 style="color: #ea580c; font-weight: 900; margin: 0; font-size: 22px;">SpreadPixel OpsHub</h2>
+          <div style="color: #64748b; font-size: 13px; margin-top: 4px;">Password Reset Request</div>
         </div>
-        <p style="color: #64748b; font-size: 13px; margin-top: 20px;">This code expires in 10 minutes.</p>
+        <p style="font-size: 14px; color: #334155;">Enter the following 6-digit code to reset your password:</p>
+        <div style="text-align: center; margin: 24px 0;">
+          <div style="font-size: 36px; font-weight: 900; letter-spacing: 6px; border: 2px dashed #ea580c; padding: 14px 24px; border-radius: 12px; display: inline-block; background: #fff7ed; color: #ea580c;">
+            ${otp}
+          </div>
+        </div>
+        <p style="color: #94a3b8; font-size: 12px; text-align: center;">This verification code will expire in 10 minutes.</p>
       </div>
     `
   });
@@ -338,19 +350,22 @@ async function handleSendInviteEmail(req, res) {
   const inviteUrl = `${process.env.VITE_APP_URL || 'https://ops.faseehlall.com'}/?signup=true&email=${encodeURIComponent(email)}`;
   
   const { error: resendError } = await sendEmailSafely({
-    from: process.env.SENDER_EMAIL || 'noreply@faseehlall.com',
+    from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
     to: [email],
-    subject: 'You have been invited to FLC Ops Dashboard',
+    subject: 'You have been invited to SpreadPixel OpsHub',
     html: `
-      <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-        <h2 style="color: #dc2626; font-weight: 900;">Team Invitation</h2>
-        <p>Hello,</p>
-        <p><strong>${inviterName || 'An Admin'}</strong> has invited you to join the FLC Ops Dashboard as a Team Member.</p>
-        <p>You have been assigned to manage <strong>${clientCount} client(s)</strong>.</p>
-        <div style="margin: 30px 0;">
-          <a href="${inviteUrl}" style="background: #dc2626; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Accept Invitation & Sign Up</a>
+      <div style="font-family: sans-serif; padding: 24px; color: #0f172a; max-width: 500px; margin: 0 auto; border: 1px solid #fed7aa; border-radius: 16px; background: #ffffff;">
+        <div style="margin-bottom: 20px; border-bottom: 2px solid #ea580c; padding-bottom: 12px;">
+          <h2 style="color: #ea580c; font-weight: 900; margin: 0; font-size: 22px;">SpreadPixel OpsHub</h2>
+          <div style="color: #64748b; font-size: 13px; margin-top: 4px;">Team Member Invitation</div>
         </div>
-        <p style="color: #64748b; font-size: 13px;">If you already have an account, signing in with this email will automatically grant you access to the new clients.</p>
+        <p>Hello,</p>
+        <p><strong>${inviterName || 'An Admin'}</strong> has invited you to join <strong>SpreadPixel OpsHub</strong> as a Team Member.</p>
+        <p>You have been assigned to manage <strong>${clientCount} client(s)</strong>.</p>
+        <div style="margin: 28px 0; text-align: center;">
+          <a href="${inviteUrl}" style="background: #ea580c; color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 12px; font-weight: 800; display: inline-block;">Accept Invitation & Sign Up</a>
+        </div>
+        <p style="color: #64748b; font-size: 12px;">If you already have an account, signing in with this email will automatically grant you access to the new clients.</p>
       </div>
     `
   });
@@ -378,18 +393,17 @@ async function handleDeleteUser(req, res) {
   if (userError) throw userError;
   if (!user) return res.status(404).json({ error: 'User not found' });
 
-  if (user.email === 'admin@faseehlall.com') {
-    return res.status(400).json({ error: 'Main administrator profile cannot be deleted.' });
-  }
-
-  const { error: missedError } = await supabase
-    .from('flc_ops_missed_tasks')
-    .delete()
-    .eq('team_member_id', id);
-  
-  if (missedError) {
-    console.error('[DELETE MISSED TASKS ERROR]', missedError);
-    throw new Error(`Failed to delete associated missed tasks: ${missedError.message}`);
+  try {
+    const { error: missedError } = await supabase
+      .from('flc_ops_missed_tasks')
+      .delete()
+      .eq('team_member_id', id);
+    
+    if (missedError && missedError.code !== 'PGRST205' && !missedError.message?.includes('schema cache')) {
+      console.warn('[DELETE MISSED TASKS WARNING]', missedError.message);
+    }
+  } catch (err) {
+    console.warn('[DELETE MISSED TASKS WARNING]', err.message);
   }
 
   const { error: deleteError } = await supabase

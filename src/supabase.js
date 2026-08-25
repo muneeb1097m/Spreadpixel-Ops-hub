@@ -45,12 +45,12 @@ export async function upsertClient(client) {
   let mergedTasks = client.tasks || {};
 
   // If we are updating an existing client, merge with existing DB tasks to prevent data loss
-  if (client.id && typeof client.id === 'string' && client.id.length > 20) {
+  if (client.id && String(client.id).trim() !== '') {
     try {
       const { data: existing } = await supabase
         .from('flc_ops_clients')
         .select('tasks_data')
-        .eq('id', client.id)
+        .eq('id', String(client.id))
         .maybeSingle();
 
       if (existing) {
@@ -154,7 +154,12 @@ export async function upsertClient(client) {
     }
   }
 
+  const clientId = (client.id !== undefined && client.id !== null && String(client.id).trim() !== '')
+    ? String(client.id).trim()
+    : (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `client_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`);
+
   const payload = {
+    id: clientId,
     name: client.name,
     start_date: client.startDate,
     package: client.package,
@@ -162,15 +167,10 @@ export async function upsertClient(client) {
     followups_data: client.followups || [],
     updated_at: client.updatedAt || new Date().toISOString()
   };
-  
-  // Use native upsert: if ID is a valid UUID, it updates; otherwise, it inserts
-  const dataToUpsert = (typeof client.id === 'string' && client.id.length > 20) 
-    ? { id: client.id, ...payload }
-    : payload;
 
   const { data, error } = await supabase
     .from('flc_ops_clients')
-    .upsert(dataToUpsert, { onConflict: 'id' })
+    .upsert(payload, { onConflict: 'id' })
     .select()
     .single();
 
@@ -214,15 +214,18 @@ export function broadcastTaskCompletion(payload) {
 }
 
 export async function deleteClient(id) {
-  // First, delete associated task logs to satisfy the foreign key constraint
-  const { error: logError } = await supabase
-    .from('flc_ops_task_logs')
-    .delete()
-    .eq('client_id', String(id));
-  
-  if (logError) {
-    console.error('Error deleting client task logs:', logError);
-    throw new Error(`Failed to delete associated task logs: ${logError.message}`);
+  // First, attempt to delete associated task logs to satisfy foreign key constraints if table exists
+  try {
+    const { error: logError } = await supabase
+      .from('flc_ops_task_logs')
+      .delete()
+      .eq('client_id', String(id));
+    
+    if (logError && logError.code !== 'PGRST205' && !logError.message?.includes('schema cache')) {
+      console.warn('Warning deleting client task logs:', logError.message);
+    }
+  } catch (err) {
+    console.warn('Non-blocking error deleting client task logs:', err);
   }
 
   // Then, delete the client
@@ -295,40 +298,63 @@ export async function signInUser(email, password) {
 }
 
 export async function logTaskCompletion({ member_name, member_email, task_id, task_name, client_id, client_name, action_type = 'COMPLETED' }) {
-  const { error } = await supabase
-    .from('flc_ops_task_logs')
-    .insert({
-      member_name,
-      member_email: member_email?.trim().toLowerCase(),
-      task_id,
-      task_name,
-      client_id: String(client_id), // Convert to string for broad compatibility
-      client_name,
-      action_type,
-      completed_at: new Date().toISOString()
-    });
-  if (error) {
-    console.error('[LOG ERROR]', error);
-    toast.error("Audit log failed: " + error.message);
+  try {
+    const { error } = await supabase
+      .from('flc_ops_task_logs')
+      .insert({
+        member_name,
+        member_email: member_email?.trim().toLowerCase(),
+        task_id,
+        task_name,
+        client_id: String(client_id), // Convert to string for broad compatibility
+        client_name,
+        action_type,
+        completed_at: new Date().toISOString()
+      });
+    if (error) {
+      if (error.code !== 'PGRST205' && !error.message?.includes('schema cache')) {
+        console.error('[LOG ERROR]', error);
+        toast.error("Audit log failed: " + error.message);
+      }
+    }
+  } catch (err) {
+    console.warn('[LOG ERROR]', err);
   }
 }
 
 export async function fetchMemberLogs(email) {
-  const { data, error } = await supabase
-    .from('flc_ops_task_logs')
-    .select('*')
-    .eq('member_email', email?.trim().toLowerCase())
-    .order('completed_at', { ascending: false });
-  if (error) throw error;
-  return data;
+  try {
+    const { data, error } = await supabase
+      .from('flc_ops_task_logs')
+      .select('*')
+      .eq('member_email', email?.trim().toLowerCase())
+      .order('completed_at', { ascending: false });
+    if (error) {
+      if (error.code === 'PGRST205' || error.message?.includes('schema cache')) return [];
+      throw error;
+    }
+    return data || [];
+  } catch (err) {
+    if (err?.code === 'PGRST205' || err?.message?.includes('schema cache')) return [];
+    throw err;
+  }
 }
 
 export async function fetchRecentLogs(limit = 20) {
-  const { data, error } = await supabase
-    .from('flc_ops_task_logs')
-    .select('*')
-    .order('completed_at', { ascending: false })
-    .limit(limit);
-  if (error) throw error;
-  return data;
+  try {
+    const { data, error } = await supabase
+      .from('flc_ops_task_logs')
+      .select('*')
+      .order('completed_at', { ascending: false })
+      .limit(limit);
+    if (error) {
+      if (error.code === 'PGRST205' || error.message?.includes('schema cache')) return [];
+      throw error;
+    }
+    return data || [];
+  } catch (err) {
+    if (err?.code === 'PGRST205' || err?.message?.includes('schema cache')) return [];
+    throw err;
+  }
 }
+

@@ -91,7 +91,7 @@ export default function TeamManagement({ clients }) {
     try {
       const data = await fetchMemberLogs(email);
       setLogs(data);
-    } catch (e) { toast.error("Failed to load audit logs. Please ensure the 'flc_ops_task_logs' table is created."); }
+    } catch (e) { toast.error("Audit logs are currently unavailable."); }
     setLogsLoading(false);
   };
 
@@ -109,8 +109,8 @@ export default function TeamManagement({ clients }) {
         toast.success("Invitation cancelled successfully");
       } else {
         const userToDelete = members.find(m => m.id === id);
-        if (userToDelete?.email === 'admin@faseehlall.com') {
-          toast.error("Main administrator profile (admin@faseehlall.com) cannot be deleted!");
+        if (userToDelete?.email === currentUser?.email) {
+          toast.error("You cannot delete your own account while logged in!");
           return;
         }
 
@@ -327,7 +327,7 @@ export default function TeamManagement({ clients }) {
                 </td>
                 <td style={S.td}>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    {m.email !== 'admin@faseehlall.com' && (
+                    {m.email !== currentUser?.email && (
                       <button onClick={() => removeMember(m.id, false)} style={S.iconBtn('#ef4444')} title="Remove Member"><Trash2 size={16} /></button>
                     )}
                   </div>

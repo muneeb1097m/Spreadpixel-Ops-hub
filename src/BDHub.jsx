@@ -16,7 +16,8 @@ import {
   Trash2,
   Plus,
   Layers,
-  UserCheck
+  UserCheck,
+  Zap
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { upsertClient, deleteClient } from './supabase';
@@ -99,6 +100,7 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
       setActiveProfileId('');
     }
   }, [linkedinProfiles, sel?.id]);
+
 
   // Lead detail modal state
   const [selectedLead, setSelectedLead] = useState(null); // null | client | { isNew: true }
@@ -430,6 +432,7 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
                 <span>Add Lead</span>
               </button>
 
+
               <button
                 onClick={() => onOpenAiScorer?.(sel || null)}
                 style={{
@@ -597,37 +600,41 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
                 }
               }}
               style={{
-                width: 310,
-                minWidth: 290,
-                background: dragOverCol === col.id ? col.color : '#f8fafc',
-                borderRadius: 14,
-                border: dragOverCol === col.id ? `2px dashed ${col.borderColor}` : `1px solid ${col.borderColor || '#e2e8f0'}`,
+                width: 300,
+                minWidth: 280,
+                background: dragOverCol === col.id ? col.color : '#ffffff',
+                borderRadius: 16,
+                border: dragOverCol === col.id ? `2px dashed ${col.borderColor}` : '1px solid #eef1f5',
                 display: 'flex',
                 flexDirection: 'column',
                 maxHeight: 'calc(100vh - 210px)',
-                transition: 'background 0.15s, border 0.15s'
+                transition: 'background 0.15s, border 0.15s',
+                overflow: 'hidden'
               }}
             >
               {/* Column Header */}
               <div style={{
-                padding: '12px 16px',
-                borderBottom: `2px solid ${col.borderColor || '#e2e8f0'}`,
+                padding: '11px 14px',
+                borderBottom: '1px solid #f1f5f9',
+                borderLeft: `4px solid ${col.textColor}`,
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: col.color,
-                borderTopLeftRadius: 13,
-                borderTopRightRadius: 13
+                background: '#ffffff'
               }}>
-                <span style={{ fontWeight: 800, fontSize: 13, color: col.textColor }}>{col.label}</span>
-                <span style={{ 
-                  background: '#fff', 
-                  color: col.textColor, 
-                  padding: '2px 8px', 
-                  borderRadius: 20, 
-                  fontSize: 11, 
-                  fontWeight: 900,
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                <span style={{ fontWeight: 800, fontSize: 12, color: col.textColor, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{col.label}</span>
+                <span style={{
+                  width: 22,
+                  height: 22,
+                  borderRadius: '50%',
+                  background: col.color,
+                  color: col.textColor,
+                  border: `1px solid ${col.borderColor}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 11,
+                  fontWeight: 900
                 }}>
                   {colClients.length}
                 </span>
@@ -665,6 +672,8 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
                     const parentName = parentId ? clientMap[parentId] : null;
                     const scoreColor = getScoreColor(score);
 
+                    const initials = (client.name || '?').trim().slice(0, 2).toUpperCase();
+
                     return (
                       <div
                         key={client.id}
@@ -673,43 +682,46 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
                           e.dataTransfer.setData('text/plain', client.id);
                           e.dataTransfer.effectAllowed = 'move';
                         }}
-                        style={{ 
-                          background: '#fff', 
-                          borderRadius: 10, 
-                          border: '1px solid #e2e8f0', 
-                          padding: 12, 
-                          boxShadow: '0 1px 4px rgba(0,0,0,0.04)', 
-                          display: 'flex', 
-                          flexDirection: 'column', 
-                          gap: 7, 
-                          cursor: 'grab', 
-                          transition: 'all 0.15s' 
+                        style={{
+                          background: '#fff',
+                          borderRadius: 14,
+                          border: '1px solid #eef1f5',
+                          borderTop: `3px solid ${col.textColor}`,
+                          padding: 13,
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 8,
+                          cursor: 'grab',
+                          transition: 'all 0.15s'
                         }}
                         onClick={() => openLead(client)}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.08)'; e.currentTarget.style.borderColor = col.borderColor; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
+                        onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)'; e.currentTarget.style.borderColor = col.borderColor; }}
+                        onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)'; e.currentTarget.style.borderColor = '#eef1f5'; }}
                       >
-                        {/* Name + Score badge */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 6 }}>
-                          <span style={{ fontWeight: 800, fontSize: 13, color: '#0f172a', lineHeight: 1.3 }}>{client.name}</span>
-                          {(score !== undefined && score !== null && score !== '') && (
-                            <span style={{ fontSize: 10, fontWeight: 900, color: scoreColor, background: scoreColor + '18', padding: '2px 7px', borderRadius: 20, whiteSpace: 'nowrap', flexShrink: 0 }}>
-                              {Math.round(Number(score) / 10)}/10
-                            </span>
-                          )}
+                        {/* Avatar + Name */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                          <div style={{
+                            width: 28, height: 28, borderRadius: 8, flexShrink: 0,
+                            background: col.color, color: col.textColor, border: `1px solid ${col.borderColor}`,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 900
+                          }}>
+                            {initials}
+                          </div>
+                          <span style={{ fontWeight: 800, fontSize: 13, color: '#0f172a', lineHeight: 1.3, flex: 1 }}>{client.name}</span>
                         </div>
 
-                        {/* Company & Headline Details */}
+                        {/* Company & Headline Chips */}
                         {(headline || company) && (
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: 2, borderLeft: `2px solid ${col.borderColor}`, paddingLeft: 8 }}>
-                            {headline && <span style={{ fontSize: 11, color: '#475569', lineHeight: 1.3 }}>💼 {headline}</span>}
-                            {company && <span style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>🏢 {company}</span>}
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                            {headline && <span style={{ fontSize: 10, fontWeight: 700, color: '#475569', background: '#f8fafc', border: '1px solid #eef1f5', padding: '3px 8px', borderRadius: 20 }}>💼 {headline}</span>}
+                            {company && <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b', background: '#f8fafc', border: '1px solid #eef1f5', padding: '3px 8px', borderRadius: 20 }}>🏢 {company}</span>}
                           </div>
                         )}
 
                         {/* Assigned BD Badge */}
                         {assignedBd && (
-                          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 2 }}>
+                          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                             <span style={{ fontSize: 10, fontWeight: 700, color: '#3b82f6', background: '#eff6ff', padding: '2px 7px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
                               <UserCheck size={10} /> BD: {assignedBd}
                             </span>
@@ -765,11 +777,17 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
                           }}
                         >
                           <span style={{ fontSize: 10, color: '#94a3b8' }}>
-                            {client.tasks?.__bd_outreach_date 
+                            {client.tasks?.__bd_outreach_date
                               ? new Date(client.tasks.__bd_outreach_date).toLocaleDateString()
                               : 'No date'}
                           </span>
-                          <span style={{ fontSize: 10, color: '#cbd5e1', fontWeight: 600 }}>Edit →</span>
+                          {(score !== undefined && score !== null && score !== '') ? (
+                            <span style={{ fontSize: 10, fontWeight: 900, color: scoreColor, background: scoreColor + '18', padding: '2px 7px', borderRadius: 20, whiteSpace: 'nowrap', flexShrink: 0 }}>
+                              {Math.round(Number(score) / 10)}/10
+                            </span>
+                          ) : (
+                            <span style={{ fontSize: 10, color: '#cbd5e1', fontWeight: 600 }}>Edit →</span>
+                          )}
                         </div>
                       </div>
                     );
@@ -1114,6 +1132,8 @@ export default function BDHub({ clients = [], setClients, user, isAdmin, isBDOrA
           </div>
         </div>
       )}
+
+
     </div>
   );
 }

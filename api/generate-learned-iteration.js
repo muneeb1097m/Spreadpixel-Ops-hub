@@ -190,8 +190,8 @@ export default async function handler(req, res) {
 
     const colorsStr = brand_colors || '#7C3AED, #0F172A, #059669';
 
-    const systemPrompt = `You are an expert advertising creative director, B2B marketing designer, and conversion visual strategist.
-Your task is to generate VERSION ${version_number} of a 60-day Meta Ads Content Strategy (60 distinct ad packages) by LEARNING FROM THE APPROVAL, REJECTION, & TEAM PERFORMANCE NOTES of Version 1.
+    const systemPrompt = `You are the Master Direct-Response Creative Director for SpreadPixel Marketing Agency.
+Your task is to generate VERSION ${version_number} of a 60-day Meta Ads Content Strategy (60 distinct ad packages) for "${client_name || 'Client'}" in the "${client_package || 'growth'}" package by LEARNING FROM THE APPROVAL, REJECTION, & TEAM PERFORMANCE NOTES of Version 1.
 
 Client & Core Offer:
 * Client Name: ${client_name}
@@ -206,8 +206,11 @@ APPROVAL, REJECTION, & TEAM PERFORMANCE INTELLIGENCE FROM VERSION 1:
 📝 DIRECT TEAM PERFORMANCE NOTES & STRATEGIC INSIGHTS (HIGHEST PRIORITY):
 ${teamNotesSummary}
 
-✅ APPROVED WINNING ANGLES (Do MORE of these angles, visual themes, and hook styles):
+🌟 WINNING FORMULAS (Approved Angles from V1 to scale):
 ${approvedSummary}
+
+📌 TEAM PERFORMANCE NOTES (Direct Human Feedback & Empirical Learnings):
+${teamNotesSummary}
 
 ❌ UNAPPROVED REJECTED ANGLES (STRICTLY AVOID these topics, visual directions, and weak hooks):
 ${unapprovedSummary}
@@ -219,7 +222,7 @@ Execution & Dynamic AI Creative Director Rules:
 1. Generate exactly 60 BRAND NEW post concepts for Version ${version_number}, distributed evenly among the specified Target Personas (${personasList.join(', ')}).
 2. PRIORITIZE HUMAN TEAM NOTES: Treat the notes in the Team Performance Notes section as core conversion directives. If a team note mentions what worked great (high CTR, strong conversion hook, winning visual style), replicate and scale those elements across multiple new angles.
 3. DO NOT repeat the unapproved rejected angles. Synthesize the winning formulas of approved angles and team notes into new, higher-converting concepts.
-3. For each Persona, progress logically through the 5 FLC awareness levels (Unaware, Problem Aware, Solution Aware, Offer Aware, Most Aware).
+3. For each Persona, progress logically through the 5 core awareness levels (Unaware, Problem Aware, Solution Aware, Offer Aware, Most Aware).
 4. For EACH post concept, set the Target Ad Platform format to STRICTLY 1:1 Square Feed Graphic (1080x1080).
 5. EVERY "visualDirection" string MUST follow the 6-part Creative Director framework (Role & Goal, Logo Placement, Brand Colors, Headline & Offer Emphasis, 3D Visual Metaphor, Composition & Avoid Checklist).
 6. META AD PRIMARY COPY VARIATIONS ("copyVariations"): Output 5 full-length (70-120+ words each) customer-facing Meta Ad primary text captions (directBenefit, problemPas, storyIdentity, proofAuthority, objectionFaq) with clean paragraph spacing.

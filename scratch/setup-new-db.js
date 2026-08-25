@@ -39,7 +39,8 @@ async function setup() {
       created_at TIMESTAMPTZ DEFAULT NOW(),
       email TEXT NOT NULL,
       code TEXT NOT NULL,
-      expires_at TIMESTAMPTZ NOT NULL
+      expires_at TIMESTAMPTZ NOT NULL,
+      verified BOOLEAN DEFAULT FALSE
     );`,
     `CREATE TABLE IF NOT EXISTS flc_ops_attendance (
       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

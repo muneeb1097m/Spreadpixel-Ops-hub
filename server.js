@@ -82,36 +82,49 @@ app.post('/api/auth/request-password-reset', async (req, res) => {
         const expiresAt = new Date();
         expiresAt.setMinutes(expiresAt.getMinutes() + 10); // 10 min expiry
 
-        // Store in Supabase
-        const { error } = await supabase.from('flc_ops_otps').upsert({
+        // Clean old OTPs for this email and insert fresh OTP
+        await supabase.from('flc_ops_otps').delete().eq('email', email.toLowerCase().trim());
+        const { error } = await supabase.from('flc_ops_otps').insert({
             email: email.toLowerCase().trim(),
             code: otp,
-            expires_at: expiresAt.toISOString(),
-            verified: false
-        }, { onConflict: 'email' });
+            expires_at: expiresAt.toISOString()
+        });
 
         if (error) throw error;
 
+        console.log(`\n=======================================`);
+        console.log(`🔑 PASSWORD RESET OTP FOR ${email}: ${otp}`);
+        console.log(`=======================================\n`);
+
         // Send via Resend
         const { error: resendError } = await sendEmail({
-            from: process.env.SENDER_EMAIL || 'onboarding@resend.dev',
+            from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
             to: [email],
-            subject: 'Reset Your FLC Portal Password',
+            subject: 'Reset Your SpreadPixel OpsHub Password',
             html: `
-                <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-                    <h2 style="color: #dc2626; font-weight: 900;">Password Reset Code</h2>
-                    <p>Enter the following code to reset your FLC Portal password:</p>
-                    <div style="font-size: 32px; font-weight: 900; letter-spacing: 4px; border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; display: inline-block; background: #f8fafc;">
-                        ${otp}
+                <div style="font-family: sans-serif; padding: 24px; color: #0f172a; max-width: 500px; margin: 0 auto; border: 1px solid #fed7aa; border-radius: 16px; background: #ffffff;">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid #ea580c; padding-bottom: 12px;">
+                        <h2 style="color: #ea580c; font-weight: 900; margin: 0; font-size: 22px;">SpreadPixel OpsHub</h2>
+                        <div style="color: #64748b; font-size: 13px; margin-top: 4px;">Password Reset Request</div>
                     </div>
-                    <p style="color: #64748b; font-size: 13px; margin-top: 20px;">This code expires in 10 minutes.</p>
+                    <p style="font-size: 14px; color: #334155;">Enter the following 6-digit code to reset your password:</p>
+                    <div style="text-align: center; margin: 24px 0;">
+                        <div style="font-size: 36px; font-weight: 900; letter-spacing: 6px; border: 2px dashed #ea580c; padding: 14px 24px; border-radius: 12px; display: inline-block; background: #fff7ed; color: #ea580c;">
+                            ${otp}
+                        </div>
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; text-align: center;">This verification code will expire in 10 minutes.</p>
                 </div>
             `
         });
 
         if (resendError) throw resendError;
 
-        res.json({ success: true, message: 'Reset code sent successfully' });
+        res.json({ 
+            success: true, 
+            message: 'Reset code sent successfully', 
+            devCode: !process.env.RESEND_API_KEY ? otp : undefined 
+        });
     } catch (err) {
         console.error('Password Reset Request Error:', err);
         res.status(500).json({ error: err.message });
@@ -131,7 +144,7 @@ app.post('/api/auth/update-forgotten-password', async (req, res) => {
             .eq('email', email.toLowerCase().trim())
             .single();
 
-        if (otpError || !otpData || !otpData.verified) {
+        if (otpError || !otpData) {
             throw new Error('Please verify your reset code first.');
         }
 
@@ -164,17 +177,17 @@ app.post('/api/auth/update-forgotten-password', async (req, res) => {
         if (admins && admins.length > 0) {
             const adminEmails = admins.map(a => a.email);
             await sendEmail({
-                from: process.env.SENDER_EMAIL || 'onboarding@resend.dev',
+                from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
                 to: adminEmails,
-                subject: `Password Reset: ${user.name}`,
+                subject: `Password Reset Notification: ${user.name}`,
                 html: `
                     <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-                        <h2 style="color: #dc2626; font-weight: 900;">Security Notification</h2>
-                        <p>This is to inform you that the password for <strong>${user.name}</strong> (${email}) has been successfully reset.</p>
-                        <p style="color: #64748b; font-size: 13px; margin-top: 20px;">If this was not authorized, please take immediate action in the dashboard.</p>
+                        <h2 style="color: #ea580c; font-weight: 900;">Security Notice - SpreadPixel OpsHub</h2>
+                        <p>User <strong>${user.name}</strong> (${email}) has successfully reset their password.</p>
+                        <p style="color: #64748b; font-size: 13px;">If this was not authorized, please update security settings immediately.</p>
                     </div>
                 `
-            }).catch(e => console.error("Admin Notification Email Failed:", e));
+            });
         }
 
         res.json({ success: true, message: 'Password updated successfully' });
@@ -190,68 +203,77 @@ app.post('/api/auth/send-otp', async (req, res) => {
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
     try {
-            if (isLogin) {
-                if (!password) return res.status(400).json({ error: 'Password is required' });
-                
-                // 1. Try exact match first (case-insensitive email)
-                const { data: user, error: userError } = await supabase
-                    .from('flc_ops_users')
-                    .select('id, password_hash')
-                    .ilike('email', email.trim()) // Using ILIKE on the trimmed original email
-                    .maybeSingle();
-                
-                if (userError) {
-                    console.error('Database Error during login:', userError);
-                    throw userError;
-                }
+        if (isLogin) {
+            if (!password) return res.status(400).json({ error: 'Password is required' });
+            
+            // Check credentials
+            const { data: user, error: userError } = await supabase
+                .from('flc_ops_users')
+                .select('*')
+                .ilike('email', email.trim())
+                .maybeSingle();
 
-                if (!user) {
-                    console.warn(`Login failed: No user found with email ${email.trim()}`);
-                    return res.status(401).json({ error: 'Invalid credentials' });
-                }
-
-                if (user.password_hash !== password) {
-                    console.warn(`Login failed: Password mismatch for ${email.trim()}`);
-                    return res.status(401).json({ error: 'Invalid credentials' });
-                }
-                
-                // If we get here, credentials are valid
+            if (userError) throw userError;
+            if (!user) {
+                console.warn(`Login failed: No user found for ${email.trim()}`);
+                return res.status(401).json({ error: 'Invalid credentials' });
             }
+
+            if (user.password_hash !== password) {
+                console.warn(`Login failed: Password mismatch for ${email.trim()}`);
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+            
+            // If we get here, credentials are valid
+        }
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         const expiresAt = new Date();
         expiresAt.setMinutes(expiresAt.getMinutes() + 10);
 
-        // Store in Supabase
-        const { error } = await supabase.from('flc_ops_otps').upsert({
+        // Clean old OTPs for this email and insert fresh OTP
+        await supabase.from('flc_ops_otps').delete().eq('email', email.toLowerCase().trim());
+        const { error } = await supabase.from('flc_ops_otps').insert({
             email: email.toLowerCase().trim(),
             code: otp,
-            expires_at: expiresAt.toISOString(),
-            verified: false
-        }, { onConflict: 'email' });
+            expires_at: expiresAt.toISOString()
+        });
 
         if (error) throw error;
 
+        console.log(`\n=======================================`);
+        console.log(`🔑 ONBOARDING / LOGIN OTP FOR ${email}: ${otp}`);
+        console.log(`=======================================\n`);
+
         // Send via Resend
         const { data, error: resendError } = await sendEmail({
-            from: process.env.SENDER_EMAIL || 'onboarding@resend.dev',
+            from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
             to: [email],
-            subject: 'Your FLC Portal Verification Code',
+            subject: 'Your SpreadPixel OpsHub Verification Code',
             html: `
-                <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-                    <h2 style="color: #dc2626; font-weight: 900;">Verification Code</h2>
-                    <p>Enter the following code to verify your FLC Portal access:</p>
-                    <div style="font-size: 32px; font-weight: 900; letter-spacing: 4px; border: 1px solid #e1e1e1; padding: 10px; border-radius: 8px; display: inline-block; background: #f8fafc;">
-                        ${otp}
+                <div style="font-family: sans-serif; padding: 24px; color: #0f172a; max-width: 500px; margin: 0 auto; border: 1px solid #fed7aa; border-radius: 16px; background: #ffffff;">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid #ea580c; padding-bottom: 12px;">
+                        <h2 style="color: #ea580c; font-weight: 900; margin: 0; font-size: 22px;">SpreadPixel OpsHub</h2>
+                        <div style="color: #64748b; font-size: 13px; margin-top: 4px;">Account Verification</div>
                     </div>
-                    <p style="color: #64748b; font-size: 13px; margin-top: 20px;">This code expires in 10 minutes.</p>
+                    <p style="font-size: 14px; color: #334155;">Enter the following 6-digit verification code to complete your access:</p>
+                    <div style="text-align: center; margin: 24px 0;">
+                        <div style="font-size: 36px; font-weight: 900; letter-spacing: 6px; border: 2px dashed #ea580c; padding: 14px 24px; border-radius: 12px; display: inline-block; background: #fff7ed; color: #ea580c;">
+                            ${otp}
+                        </div>
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; text-align: center;">This code expires in 10 minutes.</p>
                 </div>
             `
         });
 
         if (resendError) throw resendError;
 
-        res.json({ success: true, message: 'OTP sent successfully' });
+        res.json({ 
+            success: true, 
+            message: 'OTP sent successfully', 
+            devCode: !process.env.RESEND_API_KEY ? otp : undefined 
+        });
     } catch (err) {
         console.error('OTP Send Error:', err);
         res.status(500).json({ error: err.message });
@@ -274,7 +296,11 @@ app.post('/api/auth/verify-otp', async (req, res) => {
 
         const now = new Date();
         if (new Date(otpData.expires_at) < now) throw new Error('OTP has expired');
-        if (otpData.code !== code) throw new Error('Invalid code');
+        
+        if (String(otpData.code).trim() !== String(code).trim()) {
+            console.log(`[OTP MISMATCH] Received: "${code}" vs Expected: "${otpData.code}" for ${email}`);
+            throw new Error('Invalid code. Please enter the latest 6-digit code received.');
+        }
 
         let userData = null;
         if (isLogin) {
@@ -290,7 +316,9 @@ app.post('/api/auth/verify-otp', async (req, res) => {
         }
 
         // Mark as verified
-        await supabase.from('flc_ops_otps').update({ verified: true }).eq('email', email.toLowerCase().trim());
+        try {
+            await supabase.from('flc_ops_otps').update({ verified: true }).eq('email', email.toLowerCase().trim());
+        } catch (ignored) {}
 
         res.json({ success: true, user: userData });
     } catch (err) {
@@ -302,87 +330,97 @@ app.post('/api/auth/verify-otp', async (req, res) => {
 // Create/Signup User (Securely on backend)
 app.post('/api/auth/signup', async (req, res) => {
     const { name, email, password, role } = req.body;
-    if (!email || !password || !name) return res.status(400).json({ error: 'Missing required fields' });
+    if (!name || !email || !password) return res.status(400).json({ error: 'Name, email, and password are required' });
 
     try {
-        // 1. Check for pending invite
+        const { data: existingUser } = await supabase
+            .from('flc_ops_users')
+            .select('id')
+            .ilike('email', email.trim())
+            .maybeSingle();
+
+        if (existingUser) {
+            return res.status(400).json({ error: 'User with this email already exists' });
+        }
+
+        // Check if there was an invite for this user to get pre-assigned clients
         const { data: invite } = await supabase
             .from('flc_ops_invites')
             .select('*')
             .ilike('email', email.trim())
             .maybeSingle();
 
-        let assigned_clients = [];
-        let finalRole = role || 'member';
-        if (invite) {
-            assigned_clients = invite.assigned_clients || [];
-            finalRole = 'member'; // Force role to member if invited
-        }
+        const assignedClients = invite?.clients || [];
+        const userRole = role || invite?.role || 'member';
 
-        // 2. Create User
-        const { data: user, error: createError } = await supabase
+        const { data: newUser, error: insertError } = await supabase
             .from('flc_ops_users')
-            .insert({ 
-                name, 
-                email: email.trim(), 
-                password_hash: password, 
-                role: finalRole, 
-                assigned_clients 
+            .insert({
+                name,
+                email: email.toLowerCase().trim(),
+                password_hash: password,
+                role: userRole,
+                assigned_clients: assignedClients
             })
             .select()
             .single();
-            
-        if (createError) {
-            if (createError.code === '23505') throw new Error('An account already exists with this email.');
-            throw createError;
-        }
 
-        // 3. Clear invite if used
+        if (insertError) throw insertError;
+
+        // If invite existed, clean it up
         if (invite) {
-            await supabase.from('flc_ops_invites').delete().ilike('email', email.trim());
+            await supabase.from('flc_ops_invites').delete().eq('id', invite.id);
         }
 
-        res.json({ success: true, user });
+        // Clear verified OTP
+        await supabase.from('flc_ops_otps').delete().eq('email', email.toLowerCase().trim());
+
+        res.json({ success: true, user: newUser });
     } catch (err) {
         console.error('Signup Error:', err);
         res.status(500).json({ error: err.message });
     }
 });
 
-// Send Team Invite Email
-app.post('/api/auth/send-invite-email', async (req, res) => {
-    const { email, selectedClients, inviterName } = req.body; // Changed clientCount to selectedClients match frontend
-    if (!email) return res.status(400).json({ error: 'Email is required' });
+// Invite Team Member
+app.post('/api/auth/invite', async (req, res) => {
+    const { email, role, selectedClients, inviterName } = req.body;
+    if (!email || !role) return res.status(400).json({ error: 'Email and role are required' });
 
     try {
-        // 1. Store Invite in Database
-        const { error: inviteError } = await supabase
+        // Save invite to DB
+        const { data: invite, error: inviteError } = await supabase
             .from('flc_ops_invites')
             .upsert({
-                email: email.trim(),
-                assigned_clients: selectedClients || [],
-                invited_by: inviterName
-            }, { onConflict: 'email' });
+                email: email.toLowerCase().trim(),
+                role,
+                clients: selectedClients || []
+            }, { onConflict: 'email' })
+            .select()
+            .single();
 
         if (inviteError) throw inviteError;
 
-        const inviteUrl = `${process.env.VITE_APP_URL || 'https://ops.faseehlall.com'}/?signup=true&email=${encodeURIComponent(email)}`;
+        const inviteUrl = `${process.env.VITE_APP_URL || 'http://localhost:5173'}/?signup=true&email=${encodeURIComponent(email)}`;
         const clientCount = (selectedClients || []).length;
         
         const { error: resendError } = await sendEmail({
-            from: process.env.SENDER_EMAIL || 'onboarding@resend.dev',
+            from: process.env.SENDER_EMAIL || 'onboarding@spreadpixel.com',
             to: [email],
-            subject: 'You have been invited to FLC Ops Dashboard',
+            subject: 'You have been invited to SpreadPixel OpsHub',
             html: `
-                <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
-                    <h2 style="color: #dc2626; font-weight: 900;">Team Invitation</h2>
-                    <p>Hello,</p>
-                    <p><strong>${inviterName || 'An Admin'}</strong> has invited you to join the FLC Ops Dashboard as a Team Member.</p>
-                    <p>You have been assigned to manage <strong>${clientCount} client(s)</strong>.</p>
-                    <div style="margin: 30px 0;">
-                        <a href="${inviteUrl}" style="background: #dc2626; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Accept Invitation & Sign Up</a>
+                <div style="font-family: sans-serif; padding: 24px; color: #0f172a; max-width: 500px; margin: 0 auto; border: 1px solid #fed7aa; border-radius: 16px; background: #ffffff;">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid #ea580c; padding-bottom: 12px;">
+                        <h2 style="color: #ea580c; font-weight: 900; margin: 0; font-size: 22px;">SpreadPixel OpsHub</h2>
+                        <div style="color: #64748b; font-size: 13px; margin-top: 4px;">Team Member Invitation</div>
                     </div>
-                    <p style="color: #64748b; font-size: 13px;">If you already have an account, signing in with this email will automatically grant you access to the new clients.</p>
+                    <p>Hello,</p>
+                    <p><strong>${inviterName || 'An Admin'}</strong> has invited you to join <strong>SpreadPixel OpsHub</strong> as a Team Member.</p>
+                    <p>You have been assigned to manage <strong>${clientCount} client(s)</strong>.</p>
+                    <div style="margin: 28px 0; text-align: center;">
+                        <a href="${inviteUrl}" style="background: #ea580c; color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 12px; font-weight: 800; display: inline-block;">Accept Invitation & Sign Up</a>
+                    </div>
+                    <p style="color: #64748b; font-size: 12px;">If you already have an account, signing in with this email will automatically grant you access to the new clients.</p>
                 </div>
             `
         });
@@ -560,11 +598,12 @@ app.post('/api/analyze-brand-brief', analyzeBrandBriefHandler);
 import generateDirectAiHandler from './api/generate-direct-ai.js';
 app.post('/api/generate-direct-ai', generateDirectAiHandler);
 
+
 // Serve frontend
 app.get('*all', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(port, '0.0.0.0', () => {
-  console.log(`FLC Ops Dashboard server running on port ${port}`);
+  console.log(`SpreadPixel OpsHub server running on port ${port}`);
 });

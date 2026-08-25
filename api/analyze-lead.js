@@ -86,8 +86,8 @@ Return ONLY a JSON object with the following schema (no markdown wrapping, no ex
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${openRouterKey}`,
-                            'HTTP-Referer': 'https://flc-dashboard.com',
-                            'X-Title': 'FLC BD Hub Lead Scorer'
+                            'HTTP-Referer': 'https://spreadpixel.com',
+                            'X-Title': 'SpreadPixel BD Hub Lead Scorer'
                         },
                         body: JSON.stringify({
                             model: modelId,

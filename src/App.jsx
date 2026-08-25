@@ -39,7 +39,8 @@ import {
   UserCheck,
   User,
   Sparkles,
-  Pause
+  Pause,
+  Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster, toast } from 'sonner';
@@ -63,15 +64,14 @@ import {
   PACKAGES, 
   DC, 
   DEFAULT_TASKS, 
-  DEFAULT_SOPS 
+  DEFAULT_SOPS,
+  getPackageTasks
 } from './constants';
 import ReportModal from './ReportModal';
 import InviteModal from './InviteModal';
 import TeamManagement from './TeamManagement';
 import AdminLiveDash from './AdminLiveDash';
 import BDHub, { extractOrGenerateLinkedinUrl } from './BDHub';
-import CreativeHub from './CreativeHub';
-import { extractDominantColors } from './logoColorExtractor';
 
 const ROLE_TO_NAME = {
   AM: "Account Manager",
@@ -108,32 +108,35 @@ const storage = {
 
 const S = {
   root: { display: 'flex', height: '100vh', background: '#fffaf5', color: '#0f172a', overflow: 'hidden', fontFamily: 'Inter, sans-serif' },
-  sidebar: { width: 280, background: '#fffbf7', borderRight: '1px solid rgba(234,88,12,0.08)', display: 'flex', flexDirection: 'column', transition: 'width 0.3s ease', overflow: 'hidden' },
-  main: { flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' },
-  header: { minHeight: 80, height: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 40px', borderBottom: '1px solid rgba(234,88,12,0.08)', backdropFilter: 'blur(12px)', sticky: 'top 0', zIndex: 20, background: 'rgba(255,251,247,0.85)' },
-  tabBar: { padding: '24px 40px', borderBottom: '1px solid rgba(234,88,12,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fffbf7' },
-  content: { flex: 1, overflowY: 'auto', padding: 40 },
-  card: { background: '#fffbf7', borderRadius: 24, border: '1px solid rgba(234,88,12,0.08)', padding: 32, boxShadow: '0 4px 6px -1px rgba(0,0,0,0.03), 0 2px 4px -2px rgba(0,0,0,0.03)' },
+  sidebar: { width: 280, background: '#ffffff', borderRight: '1px solid rgba(234,88,12,0.08)', display: 'flex', flexDirection: 'column', transition: 'width 0.3s ease', overflow: 'hidden', boxShadow: '2px 0 16px rgba(15,23,42,0.02)' },
+  main: { flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', background: '#fffaf5' },
+  header: { minHeight: 76, height: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 36px', borderBottom: '1px solid rgba(234,88,12,0.08)', backdropFilter: 'blur(16px)', position: 'sticky', top: 0, zIndex: 20, background: 'rgba(255,255,255,0.85)' },
+  tabBar: { padding: '16px 36px', borderBottom: '1px solid rgba(234,88,12,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)' },
+  content: { flex: 1, overflowY: 'auto', padding: '32px 36px' },
+  card: { background: '#ffffff', borderRadius: 20, border: '1px solid rgba(234,88,12,0.08)', padding: '28px 32px', boxShadow: '0 4px 16px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(234, 88, 12, 0.02)' },
   btn: (active, color = '#ea580c') => ({
-    padding: '12px 20px', borderRadius: 14, fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10,
-    background: active ? color : '#fff5ed', color: active ? '#ffffff' : '#64748b', transition: 'all 0.2s',
-    border: active ? 'none' : '1px solid rgba(234,88,12,0.08)', cursor: 'pointer'
+    padding: '10px 18px', borderRadius: 12, fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8,
+    background: active ? color : '#fff5ed', color: active ? '#ffffff' : '#64748b', transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+    border: active ? '1px solid transparent' : '1px solid rgba(234,88,12,0.08)', cursor: 'pointer',
+    boxShadow: active ? '0 4px 12px rgba(234, 88, 12, 0.2)' : 'none'
   }),
   badge: (color) => ({
-    padding: '2px 8px', borderRadius: 99, fontSize: 10, fontWeight: 800, textTransform: 'uppercase', tracking: '0.05em',
+    padding: '3px 10px', borderRadius: 99, fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em',
     background: `${color}15`, color: color, border: `1px solid ${color}30`, whiteSpace: 'nowrap'
   }),
   input: {
-    width: '100%', padding: '14px 20px', background: '#fff5ed', border: '1px solid rgba(234,88,12,0.12)',
-    borderRadius: 16, color: '#0f172a', fontSize: 14, outline: 'none', transition: 'all 0.2s'
+    width: '100%', padding: '12px 18px', background: '#ffffff', border: '1px solid rgba(234,88,12,0.14)',
+    borderRadius: 14, color: '#0f172a', fontSize: 14, outline: 'none', transition: 'all 0.2s',
+    boxShadow: 'inset 0 1px 2px rgba(15,23,42,0.02)'
   },
-  modalOverlay: { position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(6px)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 },
-  modalBox: { background: '#fffbf7', borderRadius: 24, border: '1px solid #ffedd5', width: 'min(650px, 95vw)', padding: 32, position: 'relative', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)', color: '#0f172a' },
+  modalOverlay: { position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(8px)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 },
+  modalBox: { background: '#ffffff', borderRadius: 24, border: '1px solid rgba(234,88,12,0.12)', width: 'min(650px, 95vw)', padding: 32, position: 'relative', boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.18)', color: '#0f172a' },
   quickBtn: (active) => ({
     padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 700,
     background: active ? '#ffedd5' : '#fff5ed', color: active ? '#ea580c' : '#64748b',
-    border: `1px solid ${active ? '#fed7aa' : 'rgba(234,88,12,0.18)'}`,
-    cursor: 'pointer', transition: 'all 0.15s'
+    border: `1px solid ${active ? '#fed7aa' : 'rgba(234,88,12,0.14)'}`,
+    cursor: 'pointer', transition: 'all 0.15s',
+    boxShadow: active ? '0 2px 6px rgba(234,88,12,0.12)' : 'none'
   }),
 };
 
@@ -152,7 +155,7 @@ export default function App() {
   const [phase, setPhase] = useState("sprint");
   const [addingC, setAddingC] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newPkg, setNewPkg] = useState("intermediate");
+  const [newPkg, setNewPkg] = useState("growth_starter");
   const [newDate, setNewDate] = useState(getKarachiDateStr());
   const [editId, setEditId] = useState(null);
   const [editNm, setEditNm] = useState("");
@@ -166,6 +169,7 @@ export default function App() {
   const [editSlackId, setEditSlackId] = useState("");
   const [newBD, setNewBD] = useState("");
   const [editBD, setEditBD] = useState("");
+  const [clientFilterText, setClientFilterText] = useState("");
   
   // Outreach fields
   const [editIcp, setEditIcp] = useState('');
@@ -458,7 +462,7 @@ export default function App() {
         unread: true
       }));
 
-      const readIds = JSON.parse(localStorage.getItem('flc_read_notifications') || '[]');
+      const readIds = JSON.parse(localStorage.getItem('spreadpixel_read_notifications') || localStorage.getItem('flc_read_notifications') || '[]');
       const withReadStatus = formatted.map(n => ({
         ...n,
         unread: !readIds.includes(String(n.id))
@@ -486,13 +490,13 @@ export default function App() {
   };
 
   const markAllNotificationsAsRead = () => {
-    const readIds = JSON.parse(localStorage.getItem('flc_read_notifications') || '[]');
+    const readIds = JSON.parse(localStorage.getItem('spreadpixel_read_notifications') || '[]');
     notifications.forEach(n => {
       if (!readIds.includes(String(n.id))) {
         readIds.push(String(n.id));
       }
     });
-    localStorage.setItem('flc_read_notifications', JSON.stringify(readIds));
+    localStorage.setItem('spreadpixel_read_notifications', JSON.stringify(readIds));
     setNotifications(prev => prev.map(n => ({ ...n, unread: false })));
     setUnreadCount(0);
   };
@@ -760,14 +764,28 @@ export default function App() {
 
 
   
+  const getEffectiveStartDate = (client) => {
+    if (!client || !client.startDate) return null;
+    let totalOffsetDays = Number(client.tasks?.__total_paused_days || 0);
+    if (client.tasks?.__is_paused && client.tasks?.__paused_at) {
+      const pDate = new Date(client.tasks.__paused_at);
+      const now = new Date();
+      const currentPauseDays = Math.max(0, Math.floor((now.getTime() - pDate.getTime()) / 86400000));
+      totalOffsetDays += currentPauseDays;
+    }
+    const sd = new Date(client.startDate + 'T00:00:00Z');
+    sd.setUTCDate(sd.getUTCDate() + totalOffsetDays);
+    return sd.toISOString().split('T')[0];
+  };
+  
   const workingDayMap = useMemo(() => {
-    const start = sel?.startDate;
+    const effectiveStart = getEffectiveStartDate(sel);
     const map = {};
-    if (!start) {
+    if (!effectiveStart) {
       for (let i = 1; i <= 150; i++) map[i] = i;
       return map;
     }
-    const sd = new Date(start + 'T00:00:00Z');
+    const sd = new Date(effectiveStart + 'T00:00:00Z');
     let actual = 1;
     for (let logical = 1; logical <= 150; logical++) {
       let d = new Date(sd);
@@ -781,37 +799,36 @@ export default function App() {
       actual++;
     }
     return map;
-  }, [sel?.startDate]);
+  }, [sel?.startDate, sel?.tasks?.__is_paused, sel?.tasks?.__paused_at, sel?.tasks?.__total_paused_days]);
 
   const cTasks = useMemo(() => {
     const defs = sel?.tasks?.__defs;
-    const start = sel?.startDate;
-
+    const pkgTasks = getPackageTasks(sel?.package);
     if (!defs) {
-      return [...DEFAULT_TASKS];
+      return [...pkgTasks];
     }
 
     const defsMap = new Map(defs.map(d => [d.id, d]));
-    const defaultIds = new Set(DEFAULT_TASKS.map(t => t.id));
+    const pkgIds = new Set(pkgTasks.map(t => t.id));
     const merged = [];
 
-    DEFAULT_TASKS.forEach(bt => {
+    pkgTasks.forEach(bt => {
       if (defsMap.has(bt.id)) {
         const dt = defsMap.get(bt.id);
-        merged.push({ ...bt, ...dt, n: dt.n || bt.n, role: dt.role || bt.role, isPost: bt.isPost, deps: bt.deps });
+        merged.push({ ...bt, ...dt, n: dt.n || bt.n, role: dt.role || bt.role, isPost: bt.isPost, deps: bt.deps || dt.deps || [] });
+      } else {
+        merged.push(bt);
       }
     });
 
     defs.forEach(dt => {
-      if (!defaultIds.has(dt.id)) {
-        if (dt.isPost && dt.day >= 8 && dt.day % 2 !== 0) return;
-        if (dt.id.match(/^p\d+$/) && dt.day >= 8) return;
+      if (!pkgIds.has(dt.id) && (dt.id?.startsWith('t') || dt.isCustom)) {
         merged.push(dt);
       }
     });
 
     return merged;
-  }, [sel?.tasks?.__defs, sel?.startDate]);
+  }, [sel?.tasks?.__defs, sel?.package, sel?.startDate]);
 
   const TMAP = useMemo(() => {
     const map = {};
@@ -823,7 +840,7 @@ export default function App() {
     if (sel && todayDrawerOpen) {
       const notes = {};
       cTasks.forEach(t => {
-        notes[t.id] = sel.tasks[t.id]?.notes || "";
+        notes[t.id] = sel?.tasks?.[t.id]?.notes || "";
       });
       setLocalTaskNotes(notes);
     }
@@ -866,13 +883,70 @@ export default function App() {
     }
   }, [modal, selId, sel]);
   const isLocked = (id) => false;
+  
   const dayNum = () => {
     if (!sel || !sel.startDate) return 1;
+    const isPaused = sel.tasks?.__is_paused === true;
+    if (isPaused && sel.tasks?.__paused_day_index) {
+      return sel.tasks.__paused_day_index;
+    }
+    const effectiveStart = getEffectiveStartDate(sel);
+    if (!effectiveStart) return 1;
     const tzFormatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi', year: 'numeric', month: '2-digit', day: '2-digit' });
     const todayStr = tzFormatter.format(new Date());
     const dToday = new Date(todayStr + 'T00:00:00Z');
-    const dStart = new Date(sel.startDate + 'T00:00:00Z');
+    const dStart = new Date(effectiveStart + 'T00:00:00Z');
     return Math.max(1, Math.round((dToday - dStart) / 86400000) + 1);
+  };
+
+  const toggleClientPause = () => {
+    if (!sel) return;
+    const isPaused = sel.tasks?.__is_paused === true;
+    const nowIso = new Date().toISOString();
+    const currentLatest = clientsRef.current.find(c => c.id === selId) || sel;
+
+    let updatedTasks = { ...(currentLatest.tasks || {}), __updated_at: nowIso };
+
+    if (!isPaused) {
+      const activeDay = dayNum();
+      updatedTasks.__is_paused = true;
+      updatedTasks.__paused_at = nowIso;
+      updatedTasks.__paused_day_index = activeDay;
+
+      toast.info(`Work PAUSED for ${sel.name}. Schedule & active tracking frozen on Day ${activeDay}.`, {
+        icon: '⏸️',
+        duration: 5000
+      });
+    } else {
+      const pausedAtDate = updatedTasks.__paused_at ? new Date(updatedTasks.__paused_at) : new Date();
+      const resumeDate = new Date();
+      const pausedDaysCount = Math.max(0, Math.floor((resumeDate.getTime() - pausedAtDate.getTime()) / 86400000));
+      const prevTotal = Number(updatedTasks.__total_paused_days || 0);
+      const newTotal = prevTotal + pausedDaysCount;
+
+      const pauseRecord = {
+        pausedAt: updatedTasks.__paused_at,
+        resumedAt: nowIso,
+        pausedDays: pausedDaysCount
+      };
+
+      updatedTasks.__is_paused = false;
+      updatedTasks.__paused_at = null;
+      updatedTasks.__paused_day_index = null;
+      updatedTasks.__total_paused_days = newTotal;
+      updatedTasks.__pause_history = [...(updatedTasks.__pause_history || []), pauseRecord];
+
+      toast.success(`Work RESUMED for ${sel.name}! Operational dates adjusted forward by ${pausedDaysCount} day(s).`, {
+        icon: '▶️',
+        duration: 5000
+      });
+    }
+
+    const updatedClient = { ...currentLatest, tasks: updatedTasks, updatedAt: nowIso };
+    const next = clientsRef.current.map(c => c.id === selId ? updatedClient : c);
+    clientsRef.current = next;
+    setClients(next);
+    sync(updatedClient);
   };
 
   const scrollToToday = () => {
@@ -1829,8 +1903,9 @@ export default function App() {
 
   const addClient = async () => {
     if (!newName.trim()) return;
-    const tempId = Date.now();
-    const initialTasks = mkState(DEFAULT_TASKS);
+    const tempId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : (`client_${Date.now()}`);
+    const selectedPkgTasks = getPackageTasks(newPkg);
+    const initialTasks = mkState(selectedPkgTasks);
     initialTasks.__website = newWebsite.trim();
     initialTasks.__drive_link = newDriveLink.trim();
     initialTasks.__client_name = newClientName.trim();
@@ -1946,280 +2021,473 @@ export default function App() {
 
   if (access === 'none') {
     return (
-      <div style={{ ...S.root, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ ...S.root, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', minHeight: '100vh', padding: '24px', overflowY: 'auto' }}>
         <Toaster position="top-center" richColors />
-        <AnimatePresence mode="wait">
-          {authView !== 'landing' && (
-            <motion.div 
-              key="auth" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-              style={{ ...S.modalBox, width: 400 }}
-            >
-              <h3 style={{ fontSize: 24, fontWeight: 900, marginBottom: 8, textAlign: 'center', color: '#0f172a' }}>{authStep === 'otp' ? 'Check Your Email' : (authView === 'login' ? 'Portal Sign In' : 'Account Onboarding')}</h3>
-              <p style={{ color: '#475569', fontSize: 13, textAlign: 'center', marginBottom: 32 }}>
-                {authView === 'forgot' 
-                  ? (authStep === 'otp' ? 'Enter the code we sent to your email.' : (authStep === 'newpassword' ? 'Set your new secure password.' : 'Enter your email to receive a reset code.'))
-                  : (authStep === 'otp' ? `We sent a 6-digit code to ${uEmail}.` : (authView === 'login' ? 'Authorized personnel only.' : 'Create your secure profile.'))
-                }
-              </p>
-              
-              {authError && (
-                <div style={{ background: '#fff7ed', border: '1px solid #ffedd5', borderRadius: 12, padding: '12px 16px', color: '#c2410c', fontSize: 13, marginBottom: 20, textAlign: 'center', fontWeight: 600 }}>
-                  ⚠️ {authError}
-                </div>
-              )}
-              
-              {authStep === 'credentials' ? (
-                <>
-                  {authView === 'signup' && (
-                    <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#ea580c', tracking: 2, marginBottom: 4 }}>NAME</div>
-                      <input style={S.input} value={uName} onChange={e => setUName(e.target.value)} placeholder="Full Name" />
-                    </div>
-                  )}
-                  
-                  <div style={{ marginBottom: 16 }}>
-                    <div style={{ fontSize: 10, fontWeight: 900, color: '#ea580c', tracking: 2, marginBottom: 4 }}>EMAIL ADDRESS</div>
-                    <input style={S.input} value={uEmail} onChange={e => setUEmail(e.target.value)} placeholder="name@spreadpixel.com" />
-                  </div>
+        
+        {/* Subtle Decorative Background Mesh */}
+        <div style={{ position: 'fixed', top: '-15%', left: '-10%', width: '50vw', height: '50vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(234,88,12,0.08) 0%, rgba(255,255,255,0) 70%)', pointerEvents: 'none', filter: 'blur(40px)', zIndex: 0 }} />
+        <div style={{ position: 'fixed', bottom: '-15%', right: '-10%', width: '50vw', height: '50vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(249,115,22,0.06) 0%, rgba(255,255,255,0) 70%)', pointerEvents: 'none', filter: 'blur(50px)', zIndex: 0 }} />
 
-                  {authView !== 'forgot' && (
-                    <div style={{ marginBottom: 24 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#ea580c', tracking: 2, marginBottom: 4 }}>PASSWORD (Secret Token)</div>
-                      <div style={{ position: 'relative' }}>
-                        <input type={showPass ? "text" : "password"} style={S.input} value={uPass} onChange={e => setUPass(e.target.value)} placeholder="••••••••" />
-                        <button 
-                          onClick={() => setShowPass(!showPass)}
-                          style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex' }}
-                        >
-                          {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                      {authView === 'login' && (
-                        <div 
-                          onClick={() => { setAuthView('forgot'); setAuthStep('credentials'); }}
-                          style={{ textAlign: 'right', fontSize: 12, color: '#ea580c', marginTop: 8, cursor: 'pointer', fontWeight: 600 }}
-                        >
-                          Forgot Password?
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {authView === 'signup' && (
-                    <div style={{ marginBottom: 32 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#ea580c', tracking: 2, marginBottom: 8 }}>SELECT YOUR ROLE</div>
-                      <select 
-                        style={{ ...S.input, appearance: 'none', background: '#f8fafc', backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center', backgroundSize: '16px' }} 
-                        value={uRole} 
-                        onChange={e => setURole(e.target.value)}
-                      >
-                        <option value="member">Select Team Position...</option>
-                        {Object.keys(ROLES).map(k => (
-                          <option key={k} value={k}>{ROLES[k].label}</option>
-                        ))}
-                        <option value="admin">Executive Administrator (Admin Only)</option>
-                      </select>
-                    </div>
-                  )}
-
-                  {authView === 'signup' && uRole === 'admin' && (
-                    <div style={{ marginBottom: 32 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#f43f5e', tracking: 2, marginBottom: 4 }}>ADMINISTRATIVE PASSKEY</div>
-                      <input type="password" style={{ ...S.input, border: '1px solid rgba(244,63,94,0.3)' }} value={adminToken} onChange={e => setAdminToken(e.target.value)} placeholder="Secret Token" />
-                    </div>
-                  )}
-
-                  <button 
-                    onClick={async () => {
-                      setAuthError("");
-                      if (!uEmail) return toast.error("Please enter your email");
-                      if (authView !== 'forgot' && !uPass) return toast.error("Please enter password");
-                      
-                      setLoading(true);
-                      try {
-                        if (authView === 'login') {
-                          const u = await signInUser(uEmail, uPass);
-                          if (!u) throw new Error("Authentication failed. Please check your credentials.");
-                          
-                          setUser(u);
-                          setAccess((u.role || uRole || 'member').toLowerCase());
-                          sessionStorage.setItem("flc_user", JSON.stringify(u));
-                          sessionStorage.setItem("flc_access", (u.role || uRole || 'member').toLowerCase());
-                          toast.success("Authentication successful");
-                          setLoading(false);
-                          return;
-                        }
-
-                        if (authView === 'signup') {
-                          if (uRole === 'admin' && adminToken !== ADMIN_SECRET) {
-                            throw new Error("Invalid Administrative Passkey.");
-                          }
-                          const { data: existing } = await supabase.from('flc_ops_users').select('id').ilike('email', uEmail.trim()).maybeSingle();
-                          if (existing) throw new Error("User already exists with this email.");
-                        } else if (authView === 'forgot') {
-                           const { data: userExist } = await supabase.from('flc_ops_users').select('id').ilike('email', uEmail.trim()).maybeSingle();
-                           if (!userExist) throw new Error("No account found with this email.");
-                        }
-
-                        // Send OTP via our backend
-                        const apiPath = authView === 'forgot' ? '/api/auth/request-password-reset' : '/api/auth/send-otp';
-                        const res = await fetch(apiPath, {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ email: uEmail, password: uPass, isLogin: false })
-                        });
-                        const data = await res.json();
-                        if (!res.ok) throw new Error(data.error || 'Failed to send OTP');
-
-                        setAuthStep('otp');
-                        setOtpCode(""); // Reset OTP field
-                        if (authView === 'forgot') setUPass(""); // Only clear for reset flow
-                        toast.success("OTP sent successfully");
-                      } catch (e) {
-                        toast.error("Error: " + e.message);
-                        setAuthError(e.message);
-                      }
-                      setLoading(false);
-                    }}
-                    disabled={loading}
-                    style={{ ...S.btn(true), width: '100%', justifyContent: 'center', marginBottom: 24 }}
-                  >
-                    {loading ? 'Processing...' : (authView === 'login' ? 'Sign In' : (authView === 'forgot' ? 'Send Reset Code' : 'Send Verification Code'))}
-                  </button>
-                </>
-              ) : (
-                <>
-                  {authStep === 'otp' && (
-                    <div style={{ marginBottom: 32 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#ea580c', tracking: 2, marginBottom: 12, textAlign: 'center' }}>ENTER 6-DIGIT CODE</div>
-                      <input 
-                        style={{ ...S.input, fontSize: 32, fontWeight: 900, textAlign: 'center', letterSpacing: 8, height: 64 }} 
-                        value={otpCode} 
-                        onChange={e => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))} 
-                        placeholder="000000" 
-                      />
-                    </div>
-                  )}
-
-                  {authView === 'forgot' && authStep === 'newpassword' && (
-                    <div style={{ marginBottom: 32 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#ea580c', tracking: 2, marginBottom: 4 }}>NEW PASSWORD</div>
-                      <div style={{ position: 'relative' }}>
-                        <input type={showPass ? "text" : "password"} style={S.input} value={uPass} onChange={e => setUPass(e.target.value)} placeholder="••••••••" />
-                        <button 
-                          onClick={() => setShowPass(!showPass)}
-                          style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex' }}
-                        >
-                          {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  <button 
-                    onClick={async () => {
-                      setAuthError("");
-                      if (authStep === 'otp') {
-                        if (otpCode.length !== 6) return toast.error("Please enter 6-digit code");
-                        setOtpLoading(true);
-                        try {
-                          const res = await fetch('/api/auth/verify-otp', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ email: uEmail, code: otpCode, isLogin: false, password: uPass })
-                          });
-                          const data = await res.json();
-                          if (!res.ok) throw new Error(data.error || 'Invalid or expired code');
-
-                          if (authView === 'forgot') {
-                            setAuthStep('newpassword');
-                            setUPass(""); // Clear for new password entry
-                          } else {
-                            let u = data.user;
-                            // Signup flow - calls our backend
-                            const signupRes = await fetch('/api/auth/signup', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({ name: uName, email: uEmail, password: uPass, role: uRole })
-                            });
-                            const signupData = await signupRes.json();
-                            if (!signupRes.ok) throw new Error(signupData.error || 'Account creation failed');
-                            u = signupData.user;
-                            
-                            setUser(u);
-                            setAccess((u.role || uRole || 'member').toLowerCase());
-                            sessionStorage.setItem("flc_user", JSON.stringify(u));
-                            sessionStorage.setItem("flc_access", (u.role || uRole || 'member').toLowerCase());
-                            toast.success("Authentication successful");
-                          }
-                        } catch (e) { 
-                          console.error("Auth Exception:", e);
-                          toast.error("Failed: " + e.message); 
-                          setAuthError(e.message);
-                        }
-                        setOtpLoading(false);
-                      } else if (authStep === 'newpassword') {
-                        if (!uPass) return toast.error("Please enter a new password");
-                        setOtpLoading(true);
-                        try {
-                          const res = await fetch('/api/auth/update-forgotten-password', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ email: uEmail, newPassword: uPass })
-                          });
-                          const data = await res.json();
-                          if (!res.ok) throw new Error(data.error || 'Update failed');
-                          
-                          toast.success("Password updated successfully! Please sign in with your new password.");
-                          setAuthView('login');
-                          setAuthStep('credentials');
-                          setUPass("");
-                          setOtpCode("");
-                        } catch (e) {
-                          toast.error("Update Failed: " + e.message);
-                          setAuthError(e.message);
-                        }
-                        setOtpLoading(false);
-                      }
-                    }}
-                    disabled={otpLoading}
-                    style={{ ...S.btn(true), width: '100%', justifyContent: 'center', marginBottom: 16 }}
-                  >
-                    {otpLoading ? 'Processing...' : (authStep === 'otp' ? 'Verify Code' : 'Update Password & Sign In')}
-                  </button>
-
-                  <div 
-                    onClick={() => {
-                        setAuthStep('credentials');
-                        if (authView === 'forgot') setAuthView('login');
-                    }}
-                    style={{ textAlign: 'center', fontSize: 13, color: '#64748b', cursor: 'pointer', marginBottom: 24 }}
-                  >
-                    ← {authView === 'forgot' ? 'Back to Sign In' : 'Wrong email? Back to login'}
-                  </div>
-                </>
-              )}
-
-              <div style={{ textAlign: 'center', fontSize: 13, color: '#64748b' }}>
-                {authView === 'login' ? (
-                  <>Don't have an account? <span onClick={() => { setAuthView('signup'); setAuthStep('credentials'); }} style={{ color: '#ea580c', cursor: 'pointer', fontWeight: 600 }}>Sign up here</span></>
-                ) : (
-                  <>
-                    {authView === 'forgot' ? 'Remembered your password?' : 'Already registered?'} <span onClick={() => { setAuthView('login'); setAuthStep('credentials'); }} style={{ color: '#ea580c', cursor: 'pointer', fontWeight: 600 }}>Sign in here</span>
-                  </>
-                )}
-                <div style={{ marginTop: 12, cursor: 'pointer' }} onClick={() => { setAuthView('login'); setAuthStep('credentials'); }}>Reset Form</div>
+        <motion.div 
+          key="auth-card" 
+          initial={{ opacity: 0, y: 16, scale: 0.98 }} 
+          animate={{ opacity: 1, y: 0, scale: 1 }} 
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          style={{ 
+            width: 'min(440px, 100%)', 
+            background: '#ffffff', 
+            borderRadius: 24, 
+            border: '1px solid rgba(234, 88, 12, 0.12)', 
+            boxShadow: '0 20px 50px -12px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(234, 88, 12, 0.04)', 
+            padding: '36px 32px',
+            position: 'relative',
+            zIndex: 1
+          }}
+        >
+          {/* Brand Header */}
+          <div style={{ textAlign: 'center', marginBottom: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{
+                width: 44,
+                height: 44,
+                borderRadius: 12,
+                background: 'linear-gradient(135deg, #ea580c, #f97316)',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 900,
+                fontSize: 20,
+                boxShadow: '0 4px 14px rgba(234, 88, 12, 0.28)'
+              }}>
+                SP
               </div>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                  Spread<span style={{ color: '#ea580c' }}>Pixel</span>
+                </div>
+                <div style={{ fontSize: 10.5, fontWeight: 800, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  Operations Hub
+                </div>
+              </div>
+            </div>
+            <h2 style={{ fontSize: 20, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', margin: 0 }}>
+              {authStep === 'otp' ? 'Verification Code' : (authStep === 'newpassword' ? 'Set New Password' : (authView === 'login' ? 'Welcome Back' : (authView === 'forgot' ? 'Reset Password' : 'Create Account')))}
+            </h2>
+            <p style={{ fontSize: 13, color: '#64748b', marginTop: 6, lineHeight: 1.5 }}>
+              {authStep === 'otp' 
+                ? `Enter the 6-digit code sent to ${uEmail}`
+                : authStep === 'newpassword'
+                ? 'Create a strong, secure password for your profile.'
+                : authView === 'forgot' 
+                ? 'Enter your registered email address to receive a recovery code.'
+                : authView === 'login'
+                ? 'Sign in to access your operations dashboard.'
+                : 'Join the SpreadPixel operations management team.'}
+            </p>
+          </div>
+
+          {/* Segmented Tab Switcher (Only on Credentials step for Login / Sign Up) */}
+          {authStep === 'credentials' && authView !== 'forgot' && (
+            <div style={{ display: 'flex', background: '#fff5ed', padding: 4, borderRadius: 14, marginBottom: 24, border: '1px solid rgba(234,88,12,0.08)' }}>
+              <button 
+                onClick={() => { setAuthView('login'); setAuthError(''); }}
+                style={{ 
+                  flex: 1, padding: '9px 0', borderRadius: 11, fontSize: 13, fontWeight: 700,
+                  background: authView === 'login' ? '#ffffff' : 'transparent',
+                  color: authView === 'login' ? '#ea580c' : '#64748b',
+                  boxShadow: authView === 'login' ? '0 2px 8px rgba(15,23,42,0.06)' : 'none',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', cursor: 'pointer'
+                }}
+              >
+                Sign In
+              </button>
+              <button 
+                onClick={() => { setAuthView('signup'); setAuthError(''); }}
+                style={{ 
+                  flex: 1, padding: '9px 0', borderRadius: 11, fontSize: 13, fontWeight: 700,
+                  background: authView === 'signup' ? '#ffffff' : 'transparent',
+                  color: authView === 'signup' ? '#ea580c' : '#64748b',
+                  boxShadow: authView === 'signup' ? '0 2px 8px rgba(15,23,42,0.06)' : 'none',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', cursor: 'pointer'
+                }}
+              >
+                Register
+              </button>
+            </div>
+          )}
+
+          {/* Error Banner */}
+          {authError && (
+            <motion.div 
+              initial={{ opacity: 0, y: -6 }} 
+              animate={{ opacity: 1, y: 0 }}
+              style={{ 
+                background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 12, 
+                padding: '10px 14px', color: '#b91c1c', fontSize: 12, fontWeight: 600, 
+                marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 
+              }}
+            >
+              <AlertTriangle size={15} color="#ef4444" style={{ flexShrink: 0 }} />
+              <span style={{ flex: 1 }}>{authError}</span>
             </motion.div>
           )}
-        </AnimatePresence>
+
+          {/* Step 1: Credentials Form */}
+          {authStep === 'credentials' ? (
+            <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {authView === 'signup' && (
+                <div>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 6 }}>Full Name</label>
+                  <div style={{ position: 'relative' }}>
+                    <User size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                    <input 
+                      style={{ ...S.input, paddingLeft: 40 }} 
+                      value={uName} 
+                      onChange={e => setUName(e.target.value)} 
+                      placeholder="e.g. Muneeb Bhatti" 
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 6 }}>Email Address</label>
+                <div style={{ position: 'relative' }}>
+                  <Mail size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                  <input 
+                    type="email" 
+                    style={{ ...S.input, paddingLeft: 40 }} 
+                    value={uEmail} 
+                    onChange={e => setUEmail(e.target.value)} 
+                    placeholder="name@spreadpixel.com" 
+                  />
+                </div>
+              </div>
+
+              {authView !== 'forgot' && (
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Password</label>
+                    {authView === 'login' && (
+                      <span 
+                        onClick={() => { setAuthView('forgot'); setAuthStep('credentials'); setAuthError(''); }}
+                        style={{ fontSize: 12, color: '#ea580c', cursor: 'pointer', fontWeight: 600 }}
+                      >
+                        Forgot Password?
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ position: 'relative' }}>
+                    <Lock size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                    <input 
+                      type={showPass ? "text" : "password"} 
+                      style={{ ...S.input, paddingLeft: 40, paddingRight: 40 }} 
+                      value={uPass} 
+                      onChange={e => setUPass(e.target.value)} 
+                      placeholder="••••••••" 
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setShowPass(!showPass)}
+                      style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex' }}
+                    >
+                      {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {authView === 'signup' && (
+                <div>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 6 }}>Position / Role</label>
+                  <div style={{ position: 'relative' }}>
+                    <Users size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                    <select 
+                      style={{ 
+                        ...S.input, paddingLeft: 40, appearance: 'none', cursor: 'pointer',
+                        backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ea580c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`, 
+                        backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center', backgroundSize: '15px' 
+                      }} 
+                      value={uRole} 
+                      onChange={e => setURole(e.target.value)}
+                    >
+                      <option value="member">Team Member</option>
+                      {Object.keys(ROLES).map(k => (
+                        <option key={k} value={k}>{ROLES[k].label}</option>
+                      ))}
+                      <option value="admin">Executive Administrator (Admin Only)</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {authView === 'signup' && uRole === 'admin' && (
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} transition={{ duration: 0.2 }}>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: '#ea580c', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 6 }}>Administrative Passkey</label>
+                  <input 
+                    type="password" 
+                    style={{ ...S.input, border: '1px solid rgba(234,88,12,0.35)', background: '#fff7ed' }} 
+                    value={adminToken} 
+                    onChange={e => setAdminToken(e.target.value)} 
+                    placeholder="Enter Secret Passkey" 
+                  />
+                  <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>Required to authorize admin onboarding privileges.</div>
+                </motion.div>
+              )}
+
+              <button 
+                type="submit"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setAuthError("");
+                  if (!uEmail) return toast.error("Please enter your email");
+                  if (authView !== 'forgot' && !uPass) return toast.error("Please enter password");
+                  
+                  setLoading(true);
+                  try {
+                    if (authView === 'login') {
+                      const u = await signInUser(uEmail, uPass);
+                      if (!u) throw new Error("Invalid email or password.");
+                      
+                      setUser(u);
+                      setAccess((u.role || uRole || 'member').toLowerCase());
+                      sessionStorage.setItem("flc_user", JSON.stringify(u));
+                      sessionStorage.setItem("flc_access", (u.role || uRole || 'member').toLowerCase());
+                      toast.success("Welcome back! Signed in successfully.");
+                      setLoading(false);
+                      return;
+                    }
+
+                    if (authView === 'signup') {
+                      if (uRole === 'admin' && adminToken !== ADMIN_SECRET) {
+                        throw new Error("Invalid Administrative Passkey.");
+                      }
+                      const { data: existing } = await supabase.from('flc_ops_users').select('id').ilike('email', uEmail.trim()).maybeSingle();
+                      if (existing) throw new Error("User already exists with this email.");
+                    } else if (authView === 'forgot') {
+                      const { data: userExist } = await supabase.from('flc_ops_users').select('id').ilike('email', uEmail.trim()).maybeSingle();
+                      if (!userExist) throw new Error("No account found with this email.");
+                    }
+
+                    const apiPath = authView === 'forgot' ? '/api/auth/request-password-reset' : '/api/auth/send-otp';
+                    const res = await fetch(apiPath, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email: uEmail, password: uPass, isLogin: false })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || 'Failed to send verification code');
+
+                    setAuthStep('otp');
+                    setOtpCode(data.devCode || ""); 
+                    if (authView === 'forgot') setUPass(""); 
+                    if (data.devCode) {
+                      toast.success(`Verification Code: ${data.devCode}`, { duration: 15000 });
+                    } else {
+                      toast.success("Verification code sent to your email!");
+                    }
+                  } catch (err) {
+                    toast.error(err.message);
+                    setAuthError(err.message);
+                  }
+                  setLoading(false);
+                }}
+                disabled={loading}
+                style={{ 
+                  marginTop: 8, padding: '14px 20px', borderRadius: 14, fontSize: 14, fontWeight: 800,
+                  background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', color: '#ffffff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  cursor: loading ? 'not-allowed' : 'pointer', border: 'none',
+                  boxShadow: '0 8px 20px -4px rgba(234, 88, 12, 0.35)', transition: 'all 0.2s ease'
+                }}
+              >
+                {loading ? 'Processing...' : (authView === 'login' ? 'Sign In to OpsHub' : (authView === 'forgot' ? 'Send Recovery Code' : 'Continue to Verification'))}
+                {!loading && <ArrowRight size={16} />}
+              </button>
+
+              {authView === 'forgot' && (
+                <div 
+                  onClick={() => { setAuthView('login'); setAuthStep('credentials'); setAuthError(''); }}
+                  style={{ textAlign: 'center', fontSize: 13, color: '#64748b', cursor: 'pointer', fontWeight: 600, marginTop: 4 }}
+                >
+                  ← Back to Sign In
+                </div>
+              )}
+            </form>
+          ) : (
+            /* Step 2: OTP Verification & New Password Step */
+            <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {authStep === 'otp' && (
+                <div>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: '#ea580c', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center', marginBottom: 12 }}>Enter 6-Digit Code</label>
+                  <input 
+                    style={{ 
+                      ...S.input, fontSize: 32, fontWeight: 900, textAlign: 'center', letterSpacing: 10, height: 60,
+                      background: '#fffaf5', border: '2px solid rgba(234,88,12,0.25)', color: '#ea580c'
+                    }} 
+                    value={otpCode} 
+                    onChange={e => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))} 
+                    placeholder="000000" 
+                    autoFocus
+                  />
+                  <div style={{ textAlign: 'center', marginTop: 12 }}>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          const apiPath = authView === 'forgot' ? '/api/auth/request-password-reset' : '/api/auth/send-otp';
+                          const res = await fetch(apiPath, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: uEmail, password: uPass, isLogin: false })
+                          });
+                          const data = await res.json();
+                          if (data.devCode) setOtpCode(data.devCode);
+                          toast.success("New code sent to your email!");
+                        } catch (e) {
+                          toast.error("Failed to resend code");
+                        }
+                      }}
+                      style={{ fontSize: 12, color: '#ea580c', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700 }}
+                    >
+                      Didn't get the code? Resend
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {authView === 'forgot' && authStep === 'newpassword' && (
+                <div>
+                  <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 6 }}>Create New Password</label>
+                  <div style={{ position: 'relative' }}>
+                    <Lock size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                    <input 
+                      type={showPass ? "text" : "password"} 
+                      style={{ ...S.input, paddingLeft: 40, paddingRight: 40 }} 
+                      value={uPass} 
+                      onChange={e => setUPass(e.target.value)} 
+                      placeholder="Enter new password" 
+                      autoFocus
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setShowPass(!showPass)}
+                      style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex' }}
+                    >
+                      {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <button 
+                type="submit"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setAuthError("");
+                  if (authStep === 'otp') {
+                    if (otpCode.length !== 6) return toast.error("Please enter 6-digit code");
+                    setOtpLoading(true);
+                    try {
+                      const res = await fetch('/api/auth/verify-otp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: uEmail, code: otpCode, isLogin: false, password: uPass })
+                      });
+                      const data = await res.json();
+                      if (!res.ok) throw new Error(data.error || 'Invalid or expired verification code');
+
+                      if (authView === 'forgot') {
+                        setAuthStep('newpassword');
+                        setUPass(""); 
+                      } else {
+                        let u = data.user;
+                        const signupRes = await fetch('/api/auth/signup', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ name: uName, email: uEmail, password: uPass, role: uRole })
+                        });
+                        const signupData = await signupRes.json();
+                        if (!signupRes.ok) throw new Error(signupData.error || 'Account creation failed');
+                        u = signupData.user;
+                        
+                        setUser(u);
+                        setAccess((u.role || uRole || 'member').toLowerCase());
+                        sessionStorage.setItem("flc_user", JSON.stringify(u));
+                        sessionStorage.setItem("flc_access", (u.role || uRole || 'member').toLowerCase());
+                        toast.success("Account created! Signed in successfully.");
+                      }
+                    } catch (err) { 
+                      toast.error(err.message); 
+                      setAuthError(err.message);
+                    }
+                    setOtpLoading(false);
+                  } else if (authStep === 'newpassword') {
+                    if (!uPass) return toast.error("Please enter a new password");
+                    setOtpLoading(true);
+                    try {
+                      const res = await fetch('/api/auth/update-forgotten-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: uEmail, newPassword: uPass })
+                      });
+                      const data = await res.json();
+                      if (!res.ok) throw new Error(data.error || 'Password update failed');
+                      
+                      toast.success("Password updated successfully! Please sign in with your new password.");
+                      setAuthView('login');
+                      setAuthStep('credentials');
+                      setUPass("");
+                      setOtpCode("");
+                    } catch (err) {
+                      toast.error(err.message);
+                      setAuthError(err.message);
+                    }
+                    setOtpLoading(false);
+                  }
+                }}
+                disabled={otpLoading}
+                style={{ 
+                  padding: '14px 20px', borderRadius: 14, fontSize: 14, fontWeight: 800,
+                  background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', color: '#ffffff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  cursor: otpLoading ? 'not-allowed' : 'pointer', border: 'none',
+                  boxShadow: '0 8px 20px -4px rgba(234, 88, 12, 0.35)', transition: 'all 0.2s ease'
+                }}
+              >
+                {otpLoading ? 'Verifying...' : (authStep === 'otp' ? 'Confirm Verification Code' : 'Save New Password & Sign In')}
+                {!otpLoading && <CheckCircle2 size={16} />}
+              </button>
+
+              <div 
+                onClick={() => {
+                  setAuthStep('credentials');
+                  if (authView === 'forgot') setAuthView('login');
+                }}
+                style={{ textAlign: 'center', fontSize: 13, color: '#64748b', cursor: 'pointer', fontWeight: 600 }}
+              >
+                ← {authView === 'forgot' ? 'Back to Sign In' : 'Change Email or Details'}
+              </div>
+            </form>
+          )}
+
+          {/* Trust & Security Footer */}
+          <div style={{ borderTop: '1px solid rgba(15,23,42,0.06)', marginTop: 24, paddingTop: 16, textAlign: 'center' }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+              <span>🔒 256-bit Encrypted Session</span>
+              <span>•</span>
+              <span>SpreadPixel Network</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     );
   }
 
   const cDay = dayNum();
   const pkg = PACKAGES.find(p => p.id === sel?.package) || PACKAGES[1];
-  const totalDone = sel ? cTasks.filter(t => sel.tasks[t.id]?.done).length : 0;
+  const totalDone = sel && sel.tasks ? cTasks.filter(t => sel.tasks[t.id]?.done).length : 0;
   const totalPct = cTasks.length ? Math.round(totalDone / cTasks.length * 100) : 0;
 
   const EvidenceInput = ({ taskId, initialValue, onSave }) => {
@@ -2322,7 +2590,7 @@ export default function App() {
           <div>
             <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0f172a', margin: 0 }}>My Daily Tasks</h2>
             <p style={{ fontSize: 14, color: '#64748b', marginTop: 4, fontWeight: 500 }}>
-              Showing your tasks for <strong style={{ color: '#0f172a' }}>{sel.name}</strong> • Day {cDay} {isSpecificRole && `(${ROLES[userRole]?.label})`}
+              Showing your tasks for <strong style={{ color: '#0f172a' }}>{sel?.name || 'Assigned Client'}</strong> • Day {cDay} {isSpecificRole && `(${ROLES[userRole]?.label})`}
             </p>
           </div>
         </div>
@@ -2413,132 +2681,185 @@ export default function App() {
     const badgeColor = isRoleKey ? (ROLES[task.role]?.color || '#ea580c') : '#ea580c';
     const ready = !locked && !st.done && task.deps && task.deps.length > 0 && task.deps.every(d => sel.tasks[d]?.done);
 
-    // Calculate Weekday for outreach tasks
-    let weekday = "";
-    if (task.isPost && sel?.startDate) {
-      const d = new Date(sel.startDate + 'T00:00:00Z');
-      d.setUTCDate(d.getUTCDate() + (task.day - 1));
-      weekday = d.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short' });
-    }
-
     return (
       <motion.div 
         layout
         className="task-item-card"
         style={{ 
-          display: 'flex', alignItems: 'center', gap: 16, padding: '12px 16px', borderRadius: 16, marginBottom: 8,
-          background: ready ? '#ecfdf5' : '#fffbf7', border: `1px solid ${ready ? '#a7f3d0' : 'rgba(234,88,12,0.06)'}`,
-          opacity: locked ? 0.5 : 1, boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          gap: 12, 
+          padding: '12px 14px', 
+          borderRadius: 12, 
+          marginBottom: 6,
+          background: st.done ? '#f8fafc' : (ready ? '#ecfdf5' : '#ffffff'), 
+          border: `1px solid ${st.done ? '#e2e8f0' : (ready ? '#a7f3d0' : 'rgba(234,88,12,0.12)')}`,
+          opacity: locked ? 0.5 : 1, 
+          boxShadow: st.done ? 'none' : '0 1px 4px rgba(15,23,42,0.03)',
+          transition: 'all 0.15s ease'
         }}
       >
-        <div className="task-item-main" style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 1, minWidth: 0 }}>
+        {/* Left Area: Checkbox & Info */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1, minWidth: 0 }}>
           <div 
             onClick={() => isMember && toggleTask(task.id)}
             style={{ 
-              width: 22, height: 22, borderRadius: 6, border: `2px solid ${st.done ? '#ea580c' : '#cbd5e1'}`,
-              background: st.done ? '#ea580c' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: (locked || !isMember) ? 'default' : 'pointer',
-              flexShrink: 0
+              width: 20, 
+              height: 20, 
+              borderRadius: 6, 
+              border: `2px solid ${st.done ? '#ea580c' : '#cbd5e1'}`,
+              background: st.done ? '#ea580c' : '#ffffff', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              cursor: (locked || !isMember) ? 'default' : 'pointer',
+              flexShrink: 0, 
+              transition: 'all 0.15s ease'
             }}
           >
-            {st.done && <CheckCircle2 size={14} color="#fff" />}
-            {locked && <Lock size={10} color="#94a3b8" />}
+            {st.done && <CheckCircle2 size={13} color="#fff" />}
+            {locked && <Lock size={9} color="#94a3b8" />}
           </div>
+
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 14, fontWeight: 500, color: st.done ? '#94a3b8' : '#0f172a', textDecoration: st.done ? 'line-through' : 'none' }}>{task.n}</span>
-              {ready && <span style={S.badge('#10b981')}>Ready</span>}
-              {task.freq && !task.isPost && <span style={S.badge('#818cf8')}>{task.freq}</span>}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+              <span style={{ 
+                fontSize: 13, 
+                fontWeight: st.done ? 500 : 700, 
+                color: st.done ? '#94a3b8' : '#0f172a', 
+                textDecoration: st.done ? 'line-through' : 'none', 
+                letterSpacing: '-0.01em',
+                lineHeight: 1.3
+              }}>
+                {task.n}
+              </span>
+
+              {ready && <span style={{ ...S.badge('#10b981'), fontSize: 9.5, padding: '1px 6px' }}>Ready</span>}
+              {task.freq && !task.isPost && <span style={{ ...S.badge('#818cf8'), fontSize: 9.5, padding: '1px 6px' }}>{task.freq}</span>}
+
               {st.assigned && access !== 'client' && (
-                <span style={{ ...S.badge(st.timerActive ? '#f59e0b' : '#3b82f6'), display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                  ⏱️ {formatTaskDuration(st)}
-                  {st.timerActive && <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f59e0b', display: 'inline-block', animation: 'pulse 1.2s infinite' }} />}
+                <span style={{ ...S.badge(st.timerActive ? '#f59e0b' : '#3b82f6'), display: 'inline-flex', alignItems: 'center', gap: 3, fontSize: 9.5, padding: '1px 6px' }}>
+                  ⏱ {formatTaskDuration(st)}
+                  {st.timerActive && <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#f59e0b', display: 'inline-block', animation: 'pulse 1.2s infinite' }} />}
                 </span>
               )}
             </div>
+
             {st.notes && (
-              <div style={{ fontSize: 11, color: '#64748b', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, width: '100%', minWidth: 0 }}>
-                <div style={{ padding: '2px 6px', background: '#ffedd5', color: '#ea580c', borderRadius: 6, fontWeight: 800, fontSize: 9, textTransform: 'uppercase', flexShrink: 0 }}>Log</div>
+              <div style={{ fontSize: 10.5, color: '#64748b', marginTop: 3, display: 'flex', alignItems: 'center', gap: 5, width: '100%', minWidth: 0 }}>
+                <div style={{ padding: '1px 5px', background: '#ffedd5', color: '#ea580c', borderRadius: 4, fontWeight: 800, fontSize: 8.5, textTransform: 'uppercase', flexShrink: 0 }}>Log</div>
                 <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', flex: 1, minWidth: 0 }}>{st.notes.replace(/\n/g, ' ')}</span>
               </div>
             )}
             {st.review && (
-              <div style={{ fontSize: 11, color: '#0ea5e9', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, width: '100%', minWidth: 0 }}>
-                <div style={{ padding: '2px 6px', background: '#e0f2fe', color: '#0ea5e9', borderRadius: 6, fontWeight: 800, fontSize: 9, textTransform: 'uppercase', flexShrink: 0 }}>Review</div>
+              <div style={{ fontSize: 10.5, color: '#0ea5e9', marginTop: 3, display: 'flex', alignItems: 'center', gap: 5, width: '100%', minWidth: 0 }}>
+                <div style={{ padding: '1px 5px', background: '#e0f2fe', color: '#0ea5e9', borderRadius: 4, fontWeight: 800, fontSize: 8.5, textTransform: 'uppercase', flexShrink: 0 }}>Review</div>
                 <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', flex: 1, minWidth: 0 }}>{st.review.replace(/\n/g, ' ')}</span>
               </div>
             )}
           </div>
         </div>
-        <div className="task-item-actions" style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+
+        {/* Right Area: Assignee & Action Buttons */}
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
           {isTeamLead && !st.done && (
             !st.assigned ? (
               <button 
                 title="Assign Task" 
                 onClick={() => assignTask(task.id)} 
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 4, padding: '4px 8px', borderRadius: 8, 
-                  border: '1px solid #3b82f6', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', 
-                  fontSize: 10, fontWeight: 700, cursor: 'pointer'
+                  display: 'flex', alignItems: 'center', gap: 4, padding: '3px 8px', borderRadius: 6, 
+                  border: '1px solid #bfdbfe', background: '#eff6ff', color: '#2563eb', 
+                  fontSize: 10.5, fontWeight: 700, cursor: 'pointer'
                 }}
               >
-                <UserCheck size={12} /> Assign
+                <UserCheck size={11} /> Assign
               </button>
             ) : (
               <span 
                 onClick={() => assignTask(task.id)}
-                style={{ fontSize: 10, color: '#64748b', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontWeight: 600 }} 
-                title="Click to re-assign and notify again"
+                style={{ fontSize: 10, color: '#059669', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 3, fontWeight: 700, background: '#ecfdf5', padding: '2px 7px', borderRadius: 6, border: '1px solid #a7f3d0' }} 
+                title="Click to re-assign"
               >
-                <UserCheck size={12} color="#10b981" /> Assigned ({st.assignedBy || 'Lead'})
+                <UserCheck size={11} color="#059669" /> {st.assignedBy || 'Assigned'}
               </span>
             )
           )}
+
           {isMember && st.assigned && !st.done && (
             st.timerActive ? (
               <button 
                 title="Pause Timer" 
                 onClick={() => pauseTimer(task.id)} 
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', width: 26, height: 26, borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24, borderRadius: '50%',
                   border: 'none', background: '#f59e0b', color: '#fff', cursor: 'pointer'
                 }}
               >
-                <Pause size={12} fill="#fff" />
+                <Pause size={10} fill="#fff" />
               </button>
             ) : (
               <button 
                 title="Start Timer" 
                 onClick={() => startTimer(task.id)} 
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', width: 26, height: 26, borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24, borderRadius: '50%',
                   border: 'none', background: '#10b981', color: '#fff', cursor: 'pointer'
                 }}
               >
-                <Play size={12} fill="#fff" style={{ marginLeft: 1 }} />
+                <Play size={10} fill="#fff" style={{ marginLeft: 1 }} />
               </button>
             )
           )}
+
           <button 
+            title="Task Notes / Log"
             onClick={() => setModal({type: 'notes', task, nm: task.n})} 
             style={{
               color: st.review ? '#0ea5e9' : (st.notes ? '#ea580c' : '#94a3b8'), 
-              background: 'none', border: 'none', cursor: 'pointer', display: 'flex', padding: 0,
+              background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer', display: 'flex', padding: 5,
               position: 'relative'
             }}
           >
-            <MessageSquare size={16} />
-            {access === 'client' && st.done && !st.review && <span style={{ position: 'absolute', top: -4, right: -4, width: 8, height: 8, background: '#0ea5e9', borderRadius: '50%', border: '2px solid #fff' }} />}
+            <MessageSquare size={13} />
+            {access === 'client' && st.done && !st.review && <span style={{ position: 'absolute', top: -3, right: -3, width: 6, height: 6, background: '#0ea5e9', borderRadius: '50%', border: '1.5px solid #fff' }} />}
           </button>
+
+          {isMember && (
+            <button 
+              title="View SOP" 
+              onClick={() => { setModal({type: 'sop', task, nm: task.n}); genSOP(task.n); }} 
+              style={{ color: '#059669', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 6, cursor: 'pointer', display: 'flex', padding: 5 }}
+            >
+              <BookOpen size={13} />
+            </button>
+          )}
+
           {isAdmin && (
             <>
-              <button title="Edit Custom Task" onClick={() => setTaskModal({ type: 'edit', task })} style={{color: '#f59e0b', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', padding: 0}}><Settings size={16} /></button>
-              <button title="Delete Task" onClick={() => deleteTaskDef(task.id)} style={{color: '#f43f5e', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', padding: 0}}><Trash2 size={16} /></button>
+              <button title="Edit Task" onClick={() => setTaskModal({ type: 'edit', task })} style={{ color: '#d97706', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 6, cursor: 'pointer', display: 'flex', padding: 5 }}>
+                <Settings size={13} />
+              </button>
+              <button title="Delete Task" onClick={() => deleteTaskDef(task.id)} style={{ color: '#e11d48', background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: 6, cursor: 'pointer', display: 'flex', padding: 5 }}>
+                <Trash2 size={13} />
+              </button>
             </>
           )}
-          {isMember && (
-            <button title="View SOP" onClick={() => { setModal({type: 'sop', task, nm: task.n}); genSOP(task.n); }} style={{color: '#10b981', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', padding: 0}}><BookOpen size={16} /></button>
-          )}
-          <span style={S.badge(badgeColor)}>{displayName || '??'}</span>
+
+          <span style={{
+            fontSize: 10,
+            fontWeight: 800,
+            padding: '3px 8px',
+            borderRadius: 6,
+            background: `${badgeColor}15`,
+            color: badgeColor,
+            border: `1px solid ${badgeColor}35`,
+            letterSpacing: '0.02em',
+            textTransform: 'uppercase'
+          }}>
+            {displayName || '??'}
+          </span>
         </div>
       </motion.div>
     );
@@ -2853,274 +3174,328 @@ export default function App() {
         zIndex: 100
       }}>
         <div className="custom-scrollbar" style={{ padding: '32px 24px', flex: 1, display: 'flex', flexDirection: 'column', opacity: sidebarOpen ? 1 : 0, transition: 'opacity 0.2s', overflowY: 'auto' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 40, width: '100%', position: 'relative', flexShrink: 0 }}>
-            <img src="/logo.png" alt="Ops Hub Logo" style={{ height: 75, width: 'auto', objectFit: 'contain' }} />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30, width: '100%', position: 'relative', flexShrink: 0, paddingBottom: 16, borderBottom: '1px solid rgba(234,88,12,0.08)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{
+                width: 38,
+                height: 38,
+                borderRadius: 10,
+                background: 'linear-gradient(135deg, #ea580c, #f97316)',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 900,
+                fontSize: 18,
+                boxShadow: '0 3px 10px rgba(234, 88, 12, 0.22)'
+              }}>
+                SP
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: 18, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                  Spread<span style={{ color: '#ea580c' }}>Pixel</span>
+                </span>
+                <span style={{ fontSize: 10, fontWeight: 800, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 2 }}>
+                  Ops Hub
+                </span>
+              </div>
+            </div>
             {window.innerWidth <= 1024 && (
-              <button onClick={() => setSidebarOpen(false)} style={{ color: '#64748b', background: 'none', border: 'none', position: 'absolute', right: 0 }}><X size={20} /></button>
+              <button onClick={() => setSidebarOpen(false)} style={{ color: '#64748b', background: 'none', border: 'none', cursor: 'pointer', position: 'absolute', right: 0 }}><X size={20} /></button>
             )}
           </div>
 
-          <div style={{ flex: 1 }}>
-            {clients.filter(c => c.package !== 'lead' && (access !== 'client' || c.id === selId)).map(c => (
-              <div 
-                key={c.id} 
-                onClick={() => { setSelId(c.id); if (tab === 'team' || tab === 'live') setTab('sprint'); }}
+          {/* Search bar for clients */}
+          {clients.filter(c => c.package !== 'lead').length > 3 && (
+            <div style={{ position: 'relative', marginBottom: 14 }}>
+              <Search size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+              <input 
+                type="text" 
+                placeholder="Search clients..." 
+                value={clientFilterText} 
+                onChange={e => setClientFilterText(e.target.value)}
                 style={{ 
-                  padding: '16px', borderRadius: 20, cursor: 'pointer', marginBottom: 12,
-                  background: selId === c.id ? 'rgba(234,88,12,0.08)' : 'transparent', border: `1px solid ${selId === c.id ? 'rgba(234,88,12,0.2)' : 'transparent'}`
+                  width: '100%', padding: '8px 12px 8px 32px', background: '#fff5ed', border: '1px solid rgba(234,88,12,0.12)',
+                  borderRadius: 12, fontSize: 12, color: '#0f172a', outline: 'none'
                 }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ fontWeight: 600, color: selId === c.id ? '#ea580c' : '#64748b', fontSize: 14 }}>{c.name}</div>
-                    {c.tasks?.__client_name && <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{c.tasks.__client_name}</div>}
-                  </div>
-                  {isAdmin && (
-                    <div style={{ display: 'flex', gap: 10 }}>
-                      <Edit3 size={12} style={{ color: '#64748b', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); openEditModalForClient(c); }} />
-                      <Trash2 size={12} style={{ color: '#ea580c', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); handleDeleteClient(c); }} />
+              />
+            </div>
+          )}
+
+          <div style={{ flex: 1 }}>
+            {clients
+              .filter(c => c.package !== 'lead' && (access !== 'client' || c.id === selId))
+              .filter(c => !clientFilterText || c.name.toLowerCase().includes(clientFilterText.toLowerCase()) || (c.tasks?.__client_name && c.tasks.__client_name.toLowerCase().includes(clientFilterText.toLowerCase())))
+              .map(c => {
+                const totalTasks = (c.tasks?.__defs || DEFAULT_TASKS).length || 1;
+                const completedTasks = (c.tasks?.__defs || DEFAULT_TASKS).filter(t => c.tasks?.[t.id]?.done).length;
+                const pct = Math.round((completedTasks / totalTasks) * 100);
+                const isSelected = selId === c.id;
+                return (
+                  <div 
+                    key={c.id} 
+                    onClick={() => { setSelId(c.id); if (tab === 'team' || tab === 'live') setTab('sprint'); }}
+                    style={{ 
+                      padding: '12px 14px', borderRadius: 14, cursor: 'pointer', marginBottom: 8,
+                      background: isSelected ? 'linear-gradient(135deg, rgba(234,88,12,0.08) 0%, rgba(255,245,237,0.8) 100%)' : '#ffffff',
+                      border: isSelected ? '1px solid rgba(234,88,12,0.3)' : '1px solid rgba(15,23,42,0.06)',
+                      boxShadow: isSelected ? '0 4px 12px rgba(234,88,12,0.06)' : '0 1px 2px rgba(15,23,42,0.02)',
+                      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
+                        <div style={{ fontWeight: 700, color: isSelected ? '#ea580c' : '#0f172a', fontSize: 13, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</div>
+                        {c.tasks?.__client_name && <div style={{ fontSize: 11, color: '#64748b', marginTop: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.tasks.__client_name}</div>}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0, marginLeft: 8 }}>
+                        <span style={{ fontSize: 11, fontWeight: 800, color: isSelected ? '#ea580c' : '#94a3b8' }}>{pct}%</span>
+                        {isAdmin && (
+                          <div style={{ display: 'flex', gap: 6, marginLeft: 2 }}>
+                            <Edit3 size={12} style={{ color: '#94a3b8', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); openEditModalForClient(c); }} />
+                            <Trash2 size={12} style={{ color: '#ea580c', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); handleDeleteClient(c); }} />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-                <div style={{ height: 4, background: '#e2e8f0', borderRadius: 2, marginTop: 12 }}>
-                  <div style={{ height: '100%', width: `${Math.round((c.tasks.__defs || DEFAULT_TASKS).filter(t => c.tasks[t.id]?.done).length / (c.tasks.__defs || DEFAULT_TASKS).length * 100)}%`, background: '#ea580c', borderRadius: 2 }} />
-                </div>
-              </div>
-            ))}
+                    <div style={{ height: 4, background: '#f1f5f9', borderRadius: 99, marginTop: 8, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${pct}%`, background: isSelected ? 'linear-gradient(90deg, #ea580c, #f97316)' : '#cbd5e1', borderRadius: 99, transition: 'width 0.3s ease' }} />
+                    </div>
+                  </div>
+                );
+              })}
           </div>
 
           {isAdmin && (
             <button 
               onClick={() => { setAddingC(true); setNewName(""); setNewWebsite(""); setNewDriveLink(""); setNewClientName(""); setNewSlackId(""); setNewBD(""); }} 
-              style={{ width: '100%', padding: 16, border: '1px dashed rgba(234,88,12,0.2)', background: 'transparent', borderRadius: 20, color: '#64748b', margin: '12px 0', cursor: 'pointer', flexShrink: 0 }}
+              style={{ width: '100%', padding: '12px', border: '1px dashed rgba(234,88,12,0.25)', background: '#fffaf5', borderRadius: 14, color: '#ea580c', margin: '8px 0', cursor: 'pointer', flexShrink: 0, fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
             >
-              + New Client
+              <Plus size={14} /> Add New Client
             </button>
           )}
         </div>
 
         <div style={{ padding: '0 24px 24px', flexShrink: 0 }}>
-          <div style={{ padding: '24px 0', borderTop: '1px solid rgba(234,88,12,0.08)' }}>
-            <button 
-              onClick={() => { setAccess('none'); setAuthView('landing'); sessionStorage.removeItem('flc_access'); sessionStorage.removeItem('flc_user'); }}
-              style={{ width: '100%', padding: '16px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 12, background: '#fff5ed', color: '#64748b', border: '1px solid rgba(234,88,12,0.08)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
-            >
-              <LogOut size={16} /> Sign Out System
-            </button>
-          </div>
+          <button 
+            onClick={() => { setAccess('none'); setAuthView('landing'); sessionStorage.removeItem('flc_access'); sessionStorage.removeItem('flc_user'); }}
+            style={{ width: '100%', padding: '16px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 12, background: '#fff5ed', color: '#64748b', border: '1px solid rgba(234,88,12,0.08)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+          >
+            <LogOut size={16} /> Sign Out System
+          </button>
         </div>
       </aside>
+
       {/* Main Container */}
       <main style={S.main}>
-        <header style={S.header}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <header style={{ ...S.header, padding: '16px 36px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+          {/* Left Block: Client Identity & Quick Links */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0, flex: 1 }}>
             {(!sidebarOpen || window.innerWidth <= 1024) && (
-              <button onClick={() => setSidebarOpen(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center' }}>
-                <LayoutDashboard size={24} />
+              <button onClick={() => setSidebarOpen(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', padding: 0 }}>
+                <LayoutDashboard size={22} />
               </button>
             )}
-            {sel && (
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                  <h2 style={{ fontWeight: 900, fontSize: 20, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 10 }}>
-                    {sel.name}
-                    {syncing && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }} style={{ display: 'flex' }}><Clock size={16} color="#94a3b8" /></motion.div>}
-                  </h2>
-                  <span style={S.badge(pkg.color)}>{pkg.label}</span>
-                  {access === 'client' && <span style={S.badge('#94a3b8')}>View Only</span>}
-                  {isAdmin && <span style={S.badge('#a855f7')}>Admin: {user?.name}</span>}
-                  {access !== 'admin' && access !== 'client' && access !== 'none' && (
-                    <span style={S.badge(ROLES[access.toUpperCase()]?.color || '#10b981')}>
-                      {ROLES[access.toUpperCase()]?.label || 'Member'}: {user?.name}
-                    </span>
-                  )}
-                  <span style={{ color: '#cbd5e1' }} className="mobile-hide">•</span>
-                  <span style={{ fontSize: 12, color: syncing ? '#ea580c' : '#10b981', fontWeight: 700 }} className="mobile-hide">{syncing ? 'SYNCING...' : 'CLOUD SYNCED'}</span>
-                  {typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default' && (
-                    <button 
-                      onClick={() => Notification.requestPermission().then(perm => { if (perm === 'granted') toast.success('Desktop notifications enabled!'); })}
-                      style={{ padding: '2px 8px', borderRadius: 6, fontSize: 10, fontWeight: 800, background: '#ffedd5', border: '1px solid #ea580c', color: '#ea580c', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, marginLeft: 8 }}
-                    >
-                      🔔 Enable Alerts
-                    </button>
-                  )}
+            {sel ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <div style={{
+                  width: 42,
+                  height: 42,
+                  borderRadius: 12,
+                  background: 'linear-gradient(135deg, #ea580c, #f97316)',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 900,
+                  fontSize: 18,
+                  boxShadow: '0 2px 10px rgba(234, 88, 12, 0.22)',
+                  flexShrink: 0
+                }}>
+                  {sel.name?.[0]?.toUpperCase() || 'C'}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 6, flexWrap: 'wrap' }}>
-                  <div style={{ fontSize: 11, color: '#64748b' }}>
-                    {sel.tasks?.__client_name && <span style={{ fontWeight: 700, color: '#0f172a' }}>{sel.tasks.__client_name}</span>}
-                    {sel.tasks?.__client_name && ' • '}
-                    {sel.tasks?.__assigned_bd && <span style={{ fontWeight: 700, color: '#0f172a' }}>BD: {sel.tasks.__assigned_bd}</span>}
-                    {sel.tasks?.__assigned_bd && ' • '}
-                    Day {cDay} • Progress: {totalPct}%
-                  </div>
-                  
-                  {sel.tasks?.__website ? (
-                    <a 
-                      href={sel.tasks.__website.startsWith('http') ? sel.tasks.__website : `https://${sel.tasks.__website}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#ea580c', fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', borderBottom: '1px dashed transparent' }}
-                      onMouseEnter={e => { e.currentTarget.style.opacity = 0.8; e.currentTarget.style.borderBottomColor = '#ea580c'; }}
-                      onMouseLeave={e => { e.currentTarget.style.opacity = 1; e.currentTarget.style.borderBottomColor = 'transparent'; }}
-                    >
-                      <Globe size={12} /> {sel.tasks.__website.replace(/^https?:\/\/(www\.)?/, '')}
-                    </a>
-                  ) : isAdmin ? (
-                    <button 
-                      onClick={() => {
-                        setEditId(sel.id);
-                        setEditNm(sel.name);
-                        setNewPkg(sel.package);
-                        setNewDate(sel.startDate);
-                        setEditWebsite("");
-                        setEditDriveLink(sel.tasks?.__drive_link || "");
-                        setEditClientName(sel.tasks?.__client_name || "");
-                        setEditSlackId(sel.tasks?.__slack_id || "");
-                        setEditBD(sel.tasks?.__assigned_bd || "");
-                      }}
-                      style={{ background: 'none', border: 'none', padding: 0, margin: 0, fontSize: 11, color: '#94a3b8', fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
-                    >
-                      + Add Website
-                    </button>
-                  ) : null}
 
-                  {sel.tasks?.__drive_link ? (
-                    <a 
-                      href={sel.tasks.__drive_link.startsWith('http') ? sel.tasks.__drive_link : `https://${sel.tasks.__drive_link}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#ea580c', fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', borderBottom: '1px dashed transparent' }}
-                      onMouseEnter={e => { e.currentTarget.style.opacity = 0.8; e.currentTarget.style.borderBottomColor = '#ea580c'; }}
-                      onMouseLeave={e => { e.currentTarget.style.opacity = 1; e.currentTarget.style.borderBottomColor = 'transparent'; }}
-                    >
-                      <FolderOpen size={12} /> Google Drive
-                    </a>
-                  ) : isAdmin ? (
-                    <button 
-                      onClick={() => {
-                        setEditId(sel.id);
-                        setEditNm(sel.name);
-                        setNewPkg(sel.package);
-                        setNewDate(sel.startDate);
-                        setEditWebsite(sel.tasks?.__website || "");
-                        setEditDriveLink("");
-                        setEditClientName(sel.tasks?.__client_name || "");
-                        setEditSlackId(sel.tasks?.__slack_id || "");
-                        setEditBD(sel.tasks?.__assigned_bd || "");
-                      }}
-                      style={{ background: 'none', border: 'none', padding: 0, margin: 0, fontSize: 11, color: '#94a3b8', fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
-                    >
-                      + Add Drive Link
-                    </button>
-                  ) : null}
+                <h2 style={{ fontWeight: 900, fontSize: 20, color: '#0f172a', margin: 0, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  {sel.name}
+                  {syncing && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }} style={{ display: 'flex' }}><Clock size={15} color="#ea580c" /></motion.div>}
+                </h2>
+                
+                <span style={{ ...S.badge(pkg.color), background: `${pkg.color}12`, border: `1px solid ${pkg.color}30`, fontWeight: 800, fontSize: 11, padding: '4px 10px' }}>
+                  {pkg.label}
+                </span>
 
-                  {sel && (
-                    <button 
-                      onClick={() => setModal({ type: 'standard_notes', nm: `${sel.name} - Standard Notes` })}
-                      style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#ea580c', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer', transition: 'all 0.2s', borderBottom: '1px dashed transparent', padding: 0 }}
-                      onMouseEnter={e => { e.currentTarget.style.opacity = 0.8; e.currentTarget.style.borderBottomColor = '#ea580c'; }}
-                      onMouseLeave={e => { e.currentTarget.style.opacity = 1; e.currentTarget.style.borderBottomColor = 'transparent'; }}
-                    >
-                      <BookOpen size={12} /> Standard Note
-                    </button>
-                  )}
-                </div>
-                </div>
+                {sel.tasks?.__is_paused ? (
+                  <span style={{ background: '#fef2f2', border: '1px solid #fecaca', color: '#dc2626', fontWeight: 800, fontSize: 11, padding: '4px 10px', borderRadius: 20, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                    <Pause size={12} color="#dc2626" /> PAUSED (Day {cDay}/90)
+                  </span>
+                ) : (
+                  <span style={{ ...S.badge('#ea580c'), display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, padding: '4px 10px' }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ea580c', display: 'inline-block' }} />
+                    Day {cDay}/90
+                  </span>
+                )}
+
+                <div style={{ width: 1, height: 16, background: '#fed7aa', margin: '0 2px' }} />
+
+                {sel.tasks?.__website && (
+                  <a 
+                    href={sel.tasks.__website.startsWith('http') ? sel.tasks.__website : `https://${sel.tasks.__website}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, color: '#ea580c', fontWeight: 700, textDecoration: 'none', background: '#fff5ed', padding: '5px 12px', borderRadius: 9, border: '1px solid #fed7aa' }}
+                  >
+                    <Globe size={13} /> {sel.tasks.__website.replace(/^https?:\/\/(www\.)?/, '')}
+                  </a>
+                )}
+
+                {sel.tasks?.__drive_link ? (
+                  <a 
+                    href={sel.tasks.__drive_link.startsWith('http') ? sel.tasks.__drive_link : `https://${sel.tasks.__drive_link}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, color: '#ea580c', fontWeight: 700, textDecoration: 'none', background: '#fff5ed', padding: '5px 12px', borderRadius: 9, border: '1px solid #fed7aa' }}
+                  >
+                    <FolderOpen size={13} /> Drive
+                  </a>
+                ) : isAdmin ? (
+                  <button 
+                    onClick={() => {
+                      setEditId(sel.id);
+                      setEditNm(sel.name);
+                      setNewPkg(sel.package);
+                      setNewDate(sel.startDate);
+                      setEditWebsite(sel.tasks?.__website || "");
+                      setEditDriveLink("");
+                      setEditClientName(sel.tasks?.__client_name || "");
+                      setEditSlackId(sel.tasks?.__slack_id || "");
+                      setEditBD(sel.tasks?.__assigned_bd || "");
+                    }}
+                    style={{ background: '#ffffff', border: '1px dashed #fed7aa', padding: '5px 12px', borderRadius: 9, fontSize: 12, color: '#ea580c', fontWeight: 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                  >
+                    + Drive
+                  </button>
+                ) : null}
+
+                <button 
+                  onClick={() => setModal({ type: 'standard_notes', nm: `${sel.name} - Standard Notes` })}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, color: '#0f172a', fontWeight: 700, background: '#ffffff', padding: '5px 12px', borderRadius: 9, border: '1px solid #fed7aa', cursor: 'pointer' }}
+                >
+                  <BookOpen size={13} color="#ea580c" /> Notes
+                </button>
+
+                {isAdmin && (
+                  <button
+                    onClick={() => setModal({ type: 'share' })}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, color: '#ea580c', fontWeight: 700, background: '#fff5ed', padding: '5px 12px', borderRadius: 9, border: '1px solid #fed7aa', cursor: 'pointer' }}
+                  >
+                    <Share2 size={13} /> Share Portal
+                  </button>
+                )}
+
+                {isAdmin && (
+                  <button
+                    onClick={toggleClientPause}
+                    title={sel.tasks?.__is_paused ? "Resume client operations" : "Pause client operations"}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
+                      fontSize: 12,
+                      fontWeight: 800,
+                      padding: '5px 12px',
+                      borderRadius: 9,
+                      cursor: 'pointer',
+                      border: sel.tasks?.__is_paused ? '1px solid #86efac' : '1px solid #fed7aa',
+                      background: sel.tasks?.__is_paused ? '#f0fdf4' : '#ffffff',
+                      color: sel.tasks?.__is_paused ? '#16a34a' : '#d97706',
+                      boxShadow: sel.tasks?.__is_paused ? '0 2px 8px rgba(22, 163, 74, 0.15)' : 'none',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {sel.tasks?.__is_paused ? <Play size={13} fill="#16a34a" /> : <Pause size={13} />}
+                    {sel.tasks?.__is_paused ? 'Resume Work' : 'Stop / Pause'}
+                  </button>
+                )}
+              </div>
+            ) : (
+              <span style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Operations Dashboard</span>
             )}
           </div>
-          <div className="header-actions" style={{ display: 'flex', gap: 16 }}>
+
+          {/* Right Block: Clean Action Toolbar */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             {isAdmin && (
-               <button
-                 onClick={() => setTab('live')}
-                 style={{ ...S.btn(tab === 'live'), background: tab === 'live' ? '#ea580c' : '#fffbf7', color: tab === 'live' ? '#fff' : '#ea580c', border: '1px solid #ea580c', gap: 8, marginRight: 8 }}
-               >
-                 <TrendingUp size={16} /> <span className="mobile-hide">Admin View</span>
-               </button>
+              <button
+                onClick={() => setTab(tab === 'live' ? 'sprint' : 'live')}
+                style={{ ...S.btn(tab === 'live'), background: tab === 'live' ? '#ea580c' : '#fffbf7', color: tab === 'live' ? '#fff' : '#ea580c', border: '1px solid #fed7aa', padding: '8px 14px', fontSize: 12.5 }}
+              >
+                <TrendingUp size={14} /> <span className="mobile-hide">{tab === 'live' ? 'Tasks View' : 'Admin View'}</span>
+              </button>
             )}
             {isMember && !isAdmin && (
-               <button
-                 onClick={() => setTab('my-tasks')}
-                 style={{ ...S.btn(tab === 'my-tasks'), background: tab === 'my-tasks' ? '#ea580c' : '#fffbf7', color: tab === 'my-tasks' ? '#fff' : '#ea580c', border: '1px solid #ea580c', gap: 8, marginRight: 8 }}
-               >
-                 <CheckCircle2 size={16} /> <span className="mobile-hide">My Tasks</span>
-               </button>
-            )}
-            {isAdmin && sel && (
-               <button
-                 onClick={() => setModal({ type: 'share' })}
-                 style={{ ...S.btn(false), background: '#ffedd5', color: '#ea580c', border: '1px solid #fed7aa' }}
-               >
-                 <Share2 size={16} /> <span className="mobile-hide">Share Portal</span>
-               </button>
+              <button
+                onClick={() => setTab('my-tasks')}
+                style={{ ...S.btn(tab === 'my-tasks'), background: tab === 'my-tasks' ? '#ea580c' : '#fffbf7', color: tab === 'my-tasks' ? '#fff' : '#ea580c', border: '1px solid #fed7aa', padding: '8px 14px', fontSize: 12.5 }}
+              >
+                <CheckCircle2 size={14} /> <span className="mobile-hide">My Tasks</span>
+              </button>
             )}
             {isMember && (
               <button
                 onClick={() => setShowReport(true)}
-                style={{ ...S.btn(false), background: '#eff6ff', color: '#3b82f6', border: '1px solid #bfdbfe', gap: 8 }}
+                style={{ ...S.btn(false), background: '#eff6ff', color: '#3b82f6', border: '1px solid #bfdbfe', padding: '8px 14px', fontSize: 12.5 }}
               >
-                <FileDown size={16} /> <span className="mobile-hide">Report</span>
+                <FileDown size={14} /> <span className="mobile-hide">Report</span>
               </button>
             )}
             {isBDOrAdmin && (
               <button
-                onClick={() => setTab('bd-hub')}
-                style={{ ...S.btn(tab === 'bd-hub'), background: tab === 'bd-hub' ? '#ea580c' : '#fff5ed', color: tab === 'bd-hub' ? '#fff' : '#0f172a', border: '1px solid rgba(234,88,12,0.08)', gap: 8, marginRight: 8 }}
+                onClick={() => setTab(tab === 'bd-hub' ? 'sprint' : 'bd-hub')}
+                style={{ ...S.btn(tab === 'bd-hub'), background: tab === 'bd-hub' ? '#ea580c' : '#fff5ed', color: tab === 'bd-hub' ? '#fff' : '#0f172a', border: '1px solid #fed7aa', padding: '8px 14px', fontSize: 12.5 }}
               >
-                <Layers size={16} /> <span className="mobile-hide">BD Hub</span>
+                <Layers size={14} /> <span className="mobile-hide">BD Hub</span>
               </button>
             )}
-            <button
-              onClick={() => setTab('creative')}
-              style={{ ...S.btn(tab === 'creative'), background: tab === 'creative' ? '#7c3aed' : '#f5f3ff', color: tab === 'creative' ? '#fff' : '#7c3aed', border: '1px solid #c084fc', gap: 8, marginRight: 8, fontWeight: 800 }}
-            >
-              <Sparkles size={16} /> <span className="mobile-hide">Creative Hub</span>
-            </button>
             {isAdmin && (
               <button
-                onClick={() => setTab('team')}
-                style={{ ...S.btn(tab === 'team'), background: tab === 'team' ? '#ea580c' : '#fff5ed', color: tab === 'team' ? '#fff' : '#0f172a', border: '1px solid rgba(234,88,12,0.08)', gap: 8 }}
+                onClick={() => setTab(tab === 'team' ? 'sprint' : 'team')}
+                style={{ ...S.btn(tab === 'team'), background: tab === 'team' ? '#ea580c' : '#fff5ed', color: tab === 'team' ? '#fff' : '#0f172a', border: '1px solid #fed7aa', padding: '8px 14px', fontSize: 12.5 }}
               >
-                <Users size={16} /> <span className="mobile-hide">Manage Team</span>
+                <Users size={14} /> <span className="mobile-hide">Team</span>
               </button>
             )}
+            
+            {/* Notification Bell */}
             <div style={{ position: 'relative' }}>
               <button 
-                onClick={() => {
-                  setShowNotifications(!showNotifications);
-                  if (!showNotifications) {
-                    markAllNotificationsAsRead();
-                  }
-                }}
+                onClick={() => setShowNotifications(!showNotifications)}
                 style={{
-                  width: 42,
-                  height: 42,
-                  borderRadius: 12,
+                  width: 38,
+                  height: 38,
+                  borderRadius: 10,
                   background: '#fff5ed',
-                  border: '1px solid rgba(234,88,12,0.12)',
+                  border: '1px solid #fed7aa',
                   display: 'flex',
                   alignItems: 'center',
-                  justify: 'center',
-                  color: '#64748b',
+                  justifyContent: 'center',
+                  color: '#ea580c',
                   cursor: 'pointer',
-                  position: 'relative',
-                  transition: 'all 0.2s'
+                  position: 'relative'
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = '#ffedd5'}
-                onMouseLeave={e => e.currentTarget.style.background = '#fff5ed'}
               >
-                <Bell size={20} />
+                <Bell size={17} />
                 {unreadCount > 0 && (
                   <span style={{
                     position: 'absolute',
-                    top: -4,
-                    right: -4,
+                    top: -3,
+                    right: -3,
                     background: '#ea580c',
                     color: '#ffffff',
                     fontSize: 9,
                     fontWeight: 900,
                     borderRadius: '50%',
-                    width: 16,
-                    height: 16,
+                    width: 15,
+                    height: 15,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -3129,228 +3504,170 @@ export default function App() {
                   </span>
                 )}
               </button>
-              
-              <AnimatePresence>
-                {showNotifications && (
-                  <>
-                    <div 
-                      style={{ position: 'fixed', inset: 0, zIndex: 90, background: 'transparent' }} 
-                      onClick={() => setShowNotifications(false)} 
-                    />
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      style={{
-                        position: 'absolute',
-                        right: 0,
-                        top: 50,
-                        width: 320,
-                        background: '#ffffff',
-                        border: '1px solid rgba(0,0,0,0.08)',
-                        borderRadius: 16,
-                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                        zIndex: 100,
-                        overflow: 'hidden'
-                      }}
-                    >
-                      <div style={{
-                        padding: '12px 16px',
-                        borderBottom: '1px solid rgba(234,88,12,0.08)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        background: '#fff5ed'
-                      }}>
-                        <span style={{ fontWeight: 800, fontSize: 13, color: '#0f172a' }}>Recent Activity</span>
-                        {unreadCount > 0 && (
-                          <button 
-                            onClick={markAllNotificationsAsRead} 
-                            style={{ border: 'none', background: 'none', color: '#ea580c', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}
-                          >
-                            Mark all read
-                          </button>
-                        )}
-                      </div>
-                      <div style={{ maxHeight: 280, overflowY: 'auto' }} className="custom-scrollbar">
-                        {notifications.length === 0 ? (
-                          <div style={{ padding: '32px 16px', textAlign: 'center', color: '#64748b', fontSize: 12 }}>
-                            No notifications yet.
-                          </div>
-                        ) : (
-                          notifications.map((n, i) => (
-                            <div 
-                              key={n.id || i} 
-                              style={{ 
-                                padding: '12px 16px', 
-                                borderBottom: i < notifications.length - 1 ? '1px solid rgba(234,88,12,0.04)' : 'none', 
-                                background: n.unread ? '#fff7ed' : 'transparent', 
-                                display: 'flex', 
-                                flexDirection: 'column', 
-                                gap: 4 
-                              }}
-                            >
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10 }}>
-                                <span style={{ fontWeight: 800, fontSize: 11, color: n.type === 'system' ? '#3b82f6' : '#ea580c' }}>
-                                  {n.title}
-                                </span>
-                                <span style={{ fontSize: 9, color: '#94a3b8', whiteSpace: 'nowrap' }}>
-                                  {new Date(n.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </span>
-                              </div>
-                              <span style={{ fontSize: 12, color: '#334155', lineHeight: 1.4 }}>
-                                {n.body}
-                              </span>
-                            </div>
-                          ))
-                        )}
-                      </div>
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
             </div>
-            <div style={{ width: 42, height: 42, borderRadius: 12, background: '#ffedd5', border: '1px solid #fed7aa', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea580c', fontWeight: 800 }}>{user?.name?.[0] || 'F'}</div>
+
+            {/* User Avatar */}
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: '#ffedd5', border: '1px solid #fed7aa', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea580c', fontWeight: 800, fontSize: 14 }}>
+              {user?.name?.[0] || 'M'}
+            </div>
           </div>
         </header>
 
-        <div className="tab-bar" style={{ padding: '16px 24px 24px', borderBottom: '1px solid rgba(234,88,12,0.08)', background: '#fffbf7' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24, overflowX: 'auto' }} className="tab-scroll">
-            {/* Phase Selection */}
-             <div style={{ display: 'flex', gap: 8, background: '#fff5ed', padding: 6, borderRadius: 16, flexShrink: 0 }}>
+        {/* Segmented Phase Navigation Bar (Shown on Client Task views) */}
+        {sel && (tab === 'sprint' || tab.startsWith('ongoing')) && (
+          <div className="tab-bar" style={{ padding: '14px 36px', borderBottom: '1px solid rgba(234,88,12,0.08)', background: '#fffbf7', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, overflowX: 'auto', padding: '4px', background: '#ffffff', borderRadius: 14, border: '1px solid #fed7aa', boxShadow: '0 2px 8px rgba(15,23,42,0.03)' }} className="tab-scroll">
               {[
-                ["sprint", "Day 1-7", "Foundations", Calendar],
-                ["ongoing_8_30", "Day 8-30", "Operations", BarChart3],
-                ["ongoing_31_60", "Day 31-60", "Operations", BarChart3],
-                ["ongoing_61_90", "Day 61-90", "Operations", BarChart3]
-              ]
-                .map(([id, title, subtitle, Icon]) => (
-                <button 
-                  key={id} 
-                  onClick={() => { setTab(id); setPhase(id.startsWith('ongoing') ? 'ongoing' : id); }} 
-                  style={{
-                    ...S.btn(tab === id), flexDirection: 'column', alignItems: 'flex-start', padding: '8px 24px', gap: 0, minWidth: 140
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 16 }}>{typeof Icon === 'string' ? Icon : <Icon size={16} />}</span>
-                    <span style={{ fontSize: 15, fontWeight: 800 }}>{title}</span>
-                  </div>
-                  {subtitle && <span style={{ fontSize: 10, fontWeight: 700, opacity: 0.8, paddingLeft: 26, marginTop: -2 }}>{subtitle}</span>}
-                </button>
-              ))}
-            </div>
+                ["sprint", "Onboarding", "Day 1 – 15", Calendar, 1, 15],
+                ["ongoing_8_30", "Month 1 Ops", "Day 16 – 30", BarChart3, 16, 30],
+                ["ongoing_31_60", "Month 2 Scale", "Day 31 – 60", TrendingUp, 31, 60],
+                ["ongoing_61_90", "Month 3 Review", "Day 61 – 90", CheckCircle2, 61, 90]
+              ].map(([id, title, subtitle, Icon, minD, maxD]) => {
+                const isSelected = tab === id;
+                const phaseTasks = cTasks.filter(t => (id === 'sprint' ? t.phase === 'sprint' : t.phase === 'ongoing') && t.day >= minD && t.day <= maxD);
+                const phaseDone = phaseTasks.filter(t => sel?.tasks?.[t.id]?.done).length;
 
-            {/* Role Filter Icons */}
-            {sel && (tab === 'sprint' || tab.startsWith('ongoing')) && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0, position: 'relative' }}>
-                <div style={{ width: 1, height: 40, background: '#fed7aa', margin: '0 8px' }} />
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <Filter size={16} style={{ position: 'absolute', left: 16, color: '#ea580c', pointerEvents: 'none' }} />
-                  <select
-                    value={roleFilter}
-                    onChange={(e) => setRoleFilter(e.target.value)}
+                return (
+                  <button 
+                    key={id} 
+                    onClick={() => { setTab(id); setPhase(id.startsWith('ongoing') ? 'ongoing' : id); }} 
                     style={{
-                      appearance: 'none',
-                      WebkitAppearance: 'none',
-                      padding: '12px 40px 12px 42px',
-                      borderRadius: 12,
-                      fontSize: 14,
-                      fontWeight: 800,
+                      padding: '8px 16px',
+                      borderRadius: 10,
+                      border: isSelected ? '1px solid #ea580c' : '1px solid transparent',
+                      background: isSelected ? 'linear-gradient(135deg, #ea580c, #f97316)' : 'transparent',
+                      color: isSelected ? '#ffffff' : '#64748b',
                       cursor: 'pointer',
-                      border: '1px solid rgba(234,88,12,0.2)',
-                      background: '#fff7ed',
-                      color: '#ea580c',
-                      minWidth: 160,
-                      outline: 'none',
-                      boxShadow: '0 4px 6px -1px rgba(234,88,12,0.1)'
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      transition: 'all 0.15s ease',
+                      boxShadow: isSelected ? '0 3px 10px rgba(234, 88, 12, 0.22)' : 'none'
                     }}
                   >
-                    <option value="All">All Members</option>
-                    {teamMembers.map(m => (
-                      <option key={m.id} value={m.name}>{m.name}</option>
-                    ))}
-                  </select>
-                  <ChevronDown size={16} style={{ position: 'absolute', right: 16, color: '#ea580c', pointerEvents: 'none' }} />
-                </div>
+                    <div style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 7,
+                      background: isSelected ? 'rgba(255,255,255,0.2)' : '#fff5ed',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: isSelected ? '#ffffff' : '#ea580c'
+                    }}>
+                      <Icon size={14} />
+                    </div>
 
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ fontSize: 13, fontWeight: 800, color: isSelected ? '#ffffff' : '#0f172a' }}>{title}</span>
+                        <span style={{
+                          fontSize: 9.5,
+                          fontWeight: 800,
+                          padding: '1px 6px',
+                          borderRadius: 5,
+                          background: isSelected ? 'rgba(255,255,255,0.25)' : '#fff5ed',
+                          color: isSelected ? '#ffffff' : '#ea580c',
+                          border: isSelected ? '1px solid rgba(255,255,255,0.3)' : '1px solid #fed7aa'
+                        }}>
+                          {phaseDone}/{phaseTasks.length}
+                        </span>
+                      </div>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: isSelected ? 'rgba(255,255,255,0.85)' : '#64748b' }}>
+                        {subtitle}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Role Filter & Actions */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, position: 'relative' }}>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <Filter size={15} style={{ position: 'absolute', left: 14, color: '#ea580c', pointerEvents: 'none' }} />
+                <select
+                  value={roleFilter}
+                  onChange={(e) => setRoleFilter(e.target.value)}
+                  style={{
+                    appearance: 'none',
+                    WebkitAppearance: 'none',
+                    padding: '10px 34px 10px 36px',
+                    borderRadius: 12,
+                    fontSize: 13,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    border: '1px solid rgba(234,88,12,0.2)',
+                    background: '#fff7ed',
+                    color: '#ea580c',
+                    outline: 'none'
+                  }}
+                >
+                  <option value="All">All Members</option>
+                  {teamMembers.map(m => (
+                    <option key={m.id} value={m.name}>{m.name}</option>
+                  ))}
+                </select>
+                <ChevronDown size={15} style={{ position: 'absolute', right: 12, color: '#ea580c', pointerEvents: 'none' }} />
+              </div>
+
+              <button
+                onClick={() => setTodayDrawerOpen(true)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '10px 18px',
+                  borderRadius: 12,
+                  fontSize: 13,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  border: 'none',
+                  background: '#ea580c',
+                  color: '#ffffff',
+                  transition: 'all 0.15s',
+                  outline: 'none',
+                  boxShadow: '0 3px 8px rgba(234,88,12,0.22)'
+                }}
+              >
+                <Calendar size={15} />
+                <span>Today's Task</span>
+              </button>
+
+              {isAdmin && (
                 <button
-                  onClick={() => setTodayDrawerOpen(true)}
+                  onClick={() => setShowBulkModal(true)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: 8,
-                    padding: '12px 20px',
-                    fontSize: 14,
+                    padding: '10px 18px',
+                    borderRadius: 12,
+                    fontSize: 13,
                     fontWeight: 800,
                     cursor: 'pointer',
-                    border: '1px solid rgba(234,88,12,0.2)',
-                    background: '#ea580c',
-                    color: '#ffffff',
-                    transition: 'all 0.2s',
-                    outline: 'none',
-                    boxShadow: '0 4px 6px -1px rgba(234,88,12,0.2)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#c2410c';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#ea580c';
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    border: '1px solid #ddd6fe',
+                    background: '#f5f3ff',
+                    color: '#7c3aed',
+                    transition: 'all 0.15s',
+                    outline: 'none'
                   }}
                 >
-                  <Calendar size={16} />
-                  <span>Today's Task</span>
+                  <Layers size={15} />
+                  <span>Bulk Actions</span>
                 </button>
-
-                {isAdmin && (
-                  <button
-                    onClick={() => setShowBulkModal(true)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      padding: '12px 20px',
-                      borderRadius: 12,
-                      fontSize: 14,
-                      fontWeight: 800,
-                      cursor: 'pointer',
-                      border: '1px solid #ddd6fe',
-                      background: '#f5f3ff',
-                      color: '#7c3aed',
-                      transition: 'all 0.2s',
-                      outline: 'none',
-                      boxShadow: '0 4px 6px -1px rgba(124,58,237,0.1)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#ddd6fe';
-                      e.currentTarget.style.transform = 'translateY(-1px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#f5f3ff';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                  >
-                    <Layers size={16} />
-                    <span>Bulk Actions</span>
-                  </button>
-                )}
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         <div style={S.content} className="main-content">
           {tab === 'bd-hub' ? (
             <BDHub clients={clients} setClients={setClients} user={user} isAdmin={isAdmin} isBDOrAdmin={isBDOrAdmin} onEditLead={openEditModalForClient} onOpenAiScorer={openAiScorerForClient} sel={sel} />
-          ) : tab === 'creative' ? (
-            <CreativeHub sel={sel} setClients={setClients} user={user} isAdmin={isAdmin} />
           ) : tab === 'team' && isAdmin ? (
             <TeamManagement clients={clients} />
           ) : tab === 'live' && isAdmin ? (
-            <AdminLiveDash clients={clients} tasks={tasks} />
+            <AdminLiveDash clients={clients} tasks={DEFAULT_TASKS} />
           ) : tab === 'my-tasks' && isMember ? (
             <MemberMyTasksView />
           ) : !sel ? (
@@ -3359,27 +3676,227 @@ export default function App() {
               <div style={{ marginTop: 24, fontSize: 18, fontWeight: 700 }}>Select a client to begin</div>
             </div>
           ) : (
-            <AnimatePresence mode="wait">
-              {tab === 'sprint' && (
+            <>
+              {/* Operations Paused Notification Banner */}
+              {sel && sel.tasks?.__is_paused && (
+                <div style={{
+                  background: '#fffbeb',
+                  border: '1px solid #fde68a',
+                  borderRadius: 14,
+                  padding: '14px 20px',
+                  marginBottom: 20,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: 12,
+                  boxShadow: '0 2px 8px rgba(217, 119, 6, 0.06)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d97706', flexShrink: 0 }}>
+                      <Pause size={18} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 900, color: '#92400e', display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span>OPERATIONS PAUSED</span>
+                        <span style={{ fontSize: 11, fontWeight: 800, background: '#fef3c7', border: '1px solid #fde68a', padding: '1px 8px', borderRadius: 6, color: '#b45309' }}>
+                          Frozen on Day {cDay}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 12, color: '#b45309', marginTop: 2 }}>
+                        Client timeline and active tracking are frozen. Scheduled operational dates will automatically shift forward upon resumption.
+                      </div>
+                    </div>
+                  </div>
+                  {isAdmin && (
+                    <button
+                      onClick={toggleClientPause}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        fontSize: 12.5,
+                        fontWeight: 800,
+                        background: '#16a34a',
+                        color: '#ffffff',
+                        border: 'none',
+                        padding: '8px 16px',
+                        borderRadius: 10,
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 8px rgba(22, 163, 74, 0.25)'
+                      }}
+                    >
+                      <Play size={14} fill="#ffffff" /> Resume Operations
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Executive Metrics Ribbon */}
+              {(() => {
+                let minDay = 1;
+                let maxDay = 15;
+                if (tab === 'ongoing_8_30') { minDay = 16; maxDay = 30; }
+                else if (tab === 'ongoing_31_60') { minDay = 31; maxDay = 60; }
+                else if (tab === 'ongoing_61_90') { minDay = 61; maxDay = 90; }
+
+                const pTasks = cTasks.filter(t => (tab === 'sprint' ? t.phase === 'sprint' : t.phase === 'ongoing') && t.day >= minDay && t.day <= maxDay);
+                const pDone = pTasks.filter(t => sel?.tasks?.[t.id]?.done).length;
+                const pPct = pTasks.length ? Math.round((pDone / pTasks.length) * 100) : 0;
+                const todayDueTasks = cTasks.filter(t => t.day === cDay);
+                const todayDoneCount = todayDueTasks.filter(t => sel?.tasks?.[t.id]?.done).length;
+
+                return (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 16, marginBottom: 28 }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #fed7aa', borderRadius: 16, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14, boxShadow: '0 2px 10px rgba(15,23,42,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: '#fff5ed', border: '1px solid #fed7aa', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea580c' }}>
+                        <CheckCircle2 size={22} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 11, color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Phase Progress</div>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                          <span>{pDone}/{pTasks.length}</span>
+                          <span style={{ fontSize: 13, color: '#ea580c', fontWeight: 800 }}>({pPct}%)</span>
+                        </div>
+                        <div style={{ width: '100%', height: 4, background: '#f1f5f9', borderRadius: 99, marginTop: 6, overflow: 'hidden' }}>
+                          <div style={{ width: `${pPct}%`, height: '100%', background: '#ea580c', borderRadius: 99, transition: 'width 0.3s' }} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: '#ffffff', border: '1px solid #fed7aa', borderRadius: 16, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14, boxShadow: '0 2px 10px rgba(15,23,42,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: '#fff5ed', border: '1px solid #fed7aa', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea580c' }}>
+                        <Calendar size={22} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 11, color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Today's Work (Day {cDay})</div>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: '#0f172a' }}>
+                          {todayDoneCount} / {todayDueTasks.length} <span style={{ fontSize: 12, color: '#64748b', fontWeight: 600 }}>Completed</span>
+                        </div>
+                        <div style={{ fontSize: 11, color: '#ea580c', fontWeight: 700, marginTop: 4, cursor: 'pointer' }} onClick={() => setTodayDrawerOpen(true)}>
+                          Open Daily Drawer →
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: '#ffffff', border: '1px solid #fed7aa', borderRadius: 16, padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14, boxShadow: '0 2px 10px rgba(15,23,42,0.03)' }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: `${pkg.color}15`, border: `1px solid ${pkg.color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: pkg.color }}>
+                        <Sparkles size={22} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 11, color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Package Service Tier</div>
+                        <div style={{ fontSize: 15, fontWeight: 900, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {pkg.label}
+                        </div>
+                        <div style={{ fontSize: 11, color: pkg.color, fontWeight: 800, marginTop: 2 }}>
+                          PKR {pkg.price} / Month
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <AnimatePresence mode="wait">
+                {tab === 'sprint' && (
                 <motion.div key="sprint" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="responsive-grid">
-                   {[1, 2, 3, 4, 5, 6, 7].map(day => {
+                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(day => {
                     const dayTasks = cTasks.filter(t => t.phase === 'sprint' && t.day === day && (roleFilter === 'All' || t.role === roleFilter || ROLE_TO_NAME[t.role] === roleFilter));
                     if (!dayTasks.length && !isAdmin) return null;
                     
-                    const dayDate = sel?.startDate ? new Date(new Date(sel.startDate + 'T00:00:00Z').getTime() + ((workingDayMap[day] || day) - 1) * 86400000) : null;
+                    const effectiveStart = getEffectiveStartDate(sel);
+                    const dayDate = effectiveStart ? new Date(new Date(effectiveStart + 'T00:00:00Z').getTime() + ((workingDayMap[day] || day) - 1) * 86400000) : null;
                     const weekday = dayDate ? dayDate.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'long' }) : "";
                     const dateStr = dayDate ? dayDate.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' }) : "";
+                    const isCurrentDay = (workingDayMap[day] || day) === cDay;
+                    const dayDoneCount = dayTasks.filter(t => sel?.tasks?.[t.id]?.done).length;
+                    const allDayDone = dayTasks.length > 0 && dayDoneCount === dayTasks.length;
 
                     return (
-                      <div key={day} id={`day-card-${day}`} className="card-padding" style={S.card}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24, alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                            <h4 style={{ fontWeight: 800, fontSize: 16 }}>Day {day} Sprint <span style={{ color: '#94a3b8', fontWeight: 500, fontSize: 12, marginLeft: 6 }}>({weekday}, {dateStr})</span></h4>
-                            {isAdmin && <button title="Add Task" onClick={() => setTaskModal({ type: 'add', task: { id: 't'+Date.now(), phase: 'sprint', day, n: '', role: 'AM', deps: [] } })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#10b981', display: 'flex', padding: 0 }}><Plus size={18} /></button>}
+                      <div 
+                        key={day} 
+                        id={`day-card-${day}`} 
+                        style={{
+                          background: '#ffffff',
+                          border: isCurrentDay ? '1.5px solid #ea580c' : (allDayDone ? '1px solid #a7f3d0' : '1px solid #fed7aa'),
+                          borderRadius: 18,
+                          padding: '16px 18px',
+                          boxShadow: isCurrentDay ? '0 6px 20px rgba(234, 88, 12, 0.08)' : '0 2px 10px rgba(15,23,42,0.03)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 10,
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, paddingBottom: 10, borderBottom: '1px solid rgba(234,88,12,0.08)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <div style={{
+                              width: 32,
+                              height: 32,
+                              borderRadius: 9,
+                              background: isCurrentDay ? 'linear-gradient(135deg, #ea580c, #f97316)' : (allDayDone ? '#ecfdf5' : '#fff5ed'),
+                              color: isCurrentDay ? '#ffffff' : (allDayDone ? '#059669' : '#ea580c'),
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontWeight: 900,
+                              fontSize: 13,
+                              boxShadow: isCurrentDay ? '0 2px 8px rgba(234, 88, 12, 0.25)' : 'none'
+                            }}>
+                              {allDayDone ? <CheckCircle2 size={16} /> : day}
+                            </div>
+
+                            <div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <h4 style={{ fontWeight: 800, fontSize: 14.5, color: '#0f172a', margin: 0 }}>
+                                  Day {day} Onboarding
+                                </h4>
+                                {isAdmin && (
+                                  <button 
+                                    title="Add Task" 
+                                    onClick={() => setTaskModal({ type: 'add', task: { id: 't'+Date.now(), phase: 'sprint', day, n: '', role: 'AM', deps: [] } })} 
+                                    style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: 6, cursor: 'pointer', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 20, height: 20, padding: 0 }}
+                                  >
+                                    <Plus size={13} />
+                                  </button>
+                                )}
+                              </div>
+                              <div style={{ color: '#64748b', fontWeight: 600, fontSize: 11, marginTop: 1 }}>
+                                {weekday}, {dateStr}
+                              </div>
+                            </div>
                           </div>
-                          {(workingDayMap[day] || day) === cDay && <span style={S.badge('#ea580c')}>Active Today</span>}
+
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                            {isCurrentDay && (
+                              <span style={{ ...S.badge(sel?.tasks?.__is_paused ? '#d97706' : '#ea580c'), display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 10, padding: '2px 8px' }}>
+                                <span style={{ width: 5, height: 5, borderRadius: '50%', background: sel?.tasks?.__is_paused ? '#d97706' : '#ea580c', display: 'inline-block', animation: 'pulse 1.2s infinite' }} />
+                                {sel?.tasks?.__is_paused ? 'Paused Today' : 'Active Today'}
+                              </span>
+                            )}
+                            <span style={{
+                              fontSize: 10,
+                              fontWeight: 800,
+                              padding: '2px 8px',
+                              borderRadius: 6,
+                              background: allDayDone ? '#ecfdf5' : '#f8fafc',
+                              color: allDayDone ? '#059669' : '#64748b',
+                              border: `1px solid ${allDayDone ? '#a7f3d0' : '#e2e8f0'}`
+                            }}>
+                              {dayDoneCount}/{dayTasks.length} Done
+                            </span>
+                          </div>
                         </div>
-                        {dayTasks.length > 0 ? dayTasks.map(t => <TaskItem key={t.id} task={t} />) : <div style={{ fontSize: 13, color: '#94a3b8' }}>No tasks for Day {day}.</div>}
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                          {dayTasks.length > 0 ? (
+                            dayTasks.map(t => <TaskItem key={t.id} task={t} />)
+                          ) : (
+                            <div style={{ fontSize: 12, color: '#94a3b8', padding: '12px 0', textAlign: 'center' }}>
+                              No tasks scheduled for Day {day}.
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   })}
@@ -3395,23 +3912,23 @@ export default function App() {
                 ) : (
                   <motion.div key={tab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
    
-                     {/* Outreach Grid - 37 Boxes */}
+                      {/* Operations Tasks Grid */}
                     {(() => {
-                      let minDay = 8;
-                      let maxDay = 90;
-                      if (tab === 'ongoing_8_30') { minDay = 8; maxDay = 30; }
+                      let minDay = 16;
+                      let maxDay = 30;
+                      if (tab === 'ongoing_8_30') { minDay = 16; maxDay = 30; }
                       else if (tab === 'ongoing_31_60') { minDay = 31; maxDay = 60; }
                       else if (tab === 'ongoing_61_90') { minDay = 61; maxDay = 90; }
    
-                      const allPostDays = Array.from(new Set(cTasks.filter(t => t.isPost && t.day >= minDay && t.day <= maxDay).map(t => t.day))).sort((a,b)=>a-b);
-                      const visiblePostDays = allPostDays.filter(day => 
-                        cTasks.some(t => t.day === day && t.isPost && (roleFilter === 'All' || t.role === roleFilter || ROLE_TO_NAME[t.role] === roleFilter))
+                      const rangeTasks = cTasks.filter(t => (t.phase === 'ongoing' || t.day >= 16) && t.day >= minDay && t.day <= maxDay);
+                      const allDays = Array.from(new Set(rangeTasks.map(t => t.day))).sort((a,b)=>a-b);
+                      const visibleDays = allDays.filter(day => 
+                        cTasks.some(t => t.day === day && (roleFilter === 'All' || t.role === roleFilter || ROLE_TO_NAME[t.role] === roleFilter))
                       );
    
-                      if (visiblePostDays.length === 0) return null;
+                      if (visibleDays.length === 0 && !isAdmin) return null;
    
-                      const rangeTasks = cTasks.filter(t => t.isPost && t.day >= minDay && t.day <= maxDay);
-                      const rangeCompletedTasks = rangeTasks.filter(t => sel.tasks[t.id]?.done);
+                      const rangeCompletedTasks = rangeTasks.filter(t => sel?.tasks?.[t.id]?.done);
    
                       return (
                         <div className="card-padding" style={S.card}>
@@ -3421,12 +3938,12 @@ export default function App() {
                                 <Share2 size={20} color="#ea580c" />
                               </div>
                               <div>
-                                <h4 style={{ fontWeight: 800, fontSize: 18, color: '#0f172a' }}>Outreach Posts Schedule ({tab === 'ongoing_8_30' ? 'Day 8-30' : tab === 'ongoing_31_60' ? 'Day 31-60' : 'Day 61-90'})</h4>
+                                <h4 style={{ fontWeight: 800, fontSize: 18, color: '#0f172a' }}>Operations Schedule ({tab === 'ongoing_8_30' ? 'Day 16-30 (Month 1)' : tab === 'ongoing_31_60' ? 'Day 31-60 (Month 2)' : 'Day 61-90 (Month 3)'})</h4>
                                 <div style={{ fontSize: 12, color: '#64748b', fontWeight: 500 }}>
-                                  {tab === 'ongoing_8_30' ? 'Day 8 to 30' : tab === 'ongoing_31_60' ? 'Day 31 to 60' : 'Day 61 to 90'} • Pattern: Skip 1 Day, Post 1 Day
+                                  {tab === 'ongoing_8_30' ? 'Day 16 to 30' : tab === 'ongoing_31_60' ? 'Day 31 to 60' : 'Day 61 to 90'} • Recurring Operations Cadence (Mon-Sat)
                                 </div>
                               </div>
-                              {isAdmin && <button title="Add Post Day" onClick={() => setTaskModal({ type: 'add', task: { id: 't'+Date.now(), phase: 'ongoing', day: minDay, n: '', role: 'SMM', deps: [], isPost: true, freq: 'Outreach' } })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#10b981', display: 'flex', padding: 0 }}><Plus size={18} /></button>}
+                              {isAdmin && <button title="Add Operations Task" onClick={() => setTaskModal({ type: 'add', task: { id: 't'+Date.now(), phase: 'ongoing', day: minDay, n: '', role: 'AM', deps: [] } })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#10b981', display: 'flex', padding: 0 }}><Plus size={18} /></button>}
                             </div>
                             <div style={{ textAlign: 'right' }}>
                               <span style={{ fontSize: 13, fontWeight: 700, color: '#ea580c' }}>{rangeCompletedTasks.length} / {rangeTasks.length}</span>
@@ -3435,25 +3952,93 @@ export default function App() {
                           </div>
                           
                           <div className="responsive-grid">
-                            {visiblePostDays.map(day => {
-                              const dayTasks = cTasks.filter(t => t.day === day && t.isPost && (roleFilter === 'All' || t.role === roleFilter || ROLE_TO_NAME[t.role] === roleFilter));
+                            {visibleDays.map(day => {
+                              const dayTasks = cTasks.filter(t => t.day === day && (roleFilter === 'All' || t.role === roleFilter || ROLE_TO_NAME[t.role] === roleFilter));
                               const actualDay = workingDayMap[day] || day;
-                              const dayDate = sel?.startDate ? new Date(new Date(sel.startDate + 'T00:00:00Z').getTime() + (actualDay - 1) * 86400000) : null;
+                              const effectiveStart = getEffectiveStartDate(sel);
+                              const dayDate = effectiveStart ? new Date(new Date(effectiveStart + 'T00:00:00Z').getTime() + (actualDay - 1) * 86400000) : null;
                               const weekday = dayDate ? dayDate.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'long' }) : "";
                               const dateStr = dayDate ? dayDate.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' }) : "";
+                              const isCurrentDay = actualDay === cDay;
+                              const dayDoneCount = dayTasks.filter(t => sel?.tasks?.[t.id]?.done).length;
+                              const allDayDone = dayTasks.length > 0 && dayDoneCount === dayTasks.length;
    
                               return (
-                                <div key={day} id={`day-card-${day}`} className="card-padding" style={{ ...S.card, padding: 20 }}>
-                                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16, alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+                                <div 
+                                  key={day} 
+                                  id={`day-card-${day}`} 
+                                  style={{
+                                    background: '#ffffff',
+                                    border: isCurrentDay ? '1.5px solid #ea580c' : (allDayDone ? '1px solid #a7f3d0' : '1px solid #fed7aa'),
+                                    borderRadius: 18,
+                                    padding: '16px 18px',
+                                    boxShadow: isCurrentDay ? '0 6px 20px rgba(234, 88, 12, 0.08)' : '0 2px 10px rgba(15,23,42,0.03)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 10,
+                                    transition: 'all 0.2s ease'
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, paddingBottom: 10, borderBottom: '1px solid rgba(234,88,12,0.08)' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                                      <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(234,88,12,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ea580c', fontWeight: 800, fontSize: 13 }}>{day}</div>
-                                      <h4 style={{ fontWeight: 800, fontSize: 15, color: '#0f172a' }}>{weekday} <span style={{ color: '#94a3b8', fontWeight: 500, fontSize: 12, marginLeft: 6 }}>({dateStr})</span></h4>
-                                      {isAdmin && <button title="Add Task" onClick={() => setTaskModal({ type: 'add', task: { id: 't'+Date.now(), phase: 'ongoing', day, n: '', role: 'SMM', deps: [], isPost: true, freq: 'Outreach' } })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#10b981', display: 'flex', padding: 0 }}><Plus size={18} /></button>}
+                                      <div style={{
+                                        width: 32,
+                                        height: 32,
+                                        borderRadius: 9,
+                                        background: isCurrentDay ? 'linear-gradient(135deg, #ea580c, #f97316)' : (allDayDone ? '#ecfdf5' : '#fff5ed'),
+                                        color: isCurrentDay ? '#ffffff' : (allDayDone ? '#059669' : '#ea580c'),
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontWeight: 900,
+                                        fontSize: 13,
+                                        boxShadow: isCurrentDay ? '0 2px 8px rgba(234, 88, 12, 0.25)' : 'none'
+                                      }}>
+                                        {allDayDone ? <CheckCircle2 size={16} /> : day}
+                                      </div>
+
+                                      <div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                          <h4 style={{ fontWeight: 800, fontSize: 14.5, color: '#0f172a', margin: 0 }}>
+                                            {weekday}
+                                          </h4>
+                                          {isAdmin && (
+                                            <button 
+                                              title="Add Task" 
+                                              onClick={() => setTaskModal({ type: 'add', task: { id: 't'+Date.now(), phase: 'ongoing', day, n: '', role: 'AM', deps: [] } })} 
+                                              style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: 6, cursor: 'pointer', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 20, height: 20, padding: 0 }}
+                                            >
+                                              <Plus size={13} />
+                                            </button>
+                                          )}
+                                        </div>
+                                        <div style={{ color: '#64748b', fontWeight: 600, fontSize: 11, marginTop: 1 }}>
+                                          {dateStr}
+                                        </div>
+                                      </div>
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                      {actualDay === cDay && <span style={S.badge('#ea580c')}>Active Today</span>}
+
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                      {isCurrentDay && (
+                                        <span style={{ ...S.badge('#ea580c'), display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 10, padding: '2px 8px' }}>
+                                          <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#ea580c', display: 'inline-block', animation: 'pulse 1.2s infinite' }} />
+                                          Active Today
+                                        </span>
+                                      )}
+                                      <span style={{
+                                        fontSize: 10,
+                                        fontWeight: 800,
+                                        padding: '2px 8px',
+                                        borderRadius: 6,
+                                        background: allDayDone ? '#ecfdf5' : '#f8fafc',
+                                        color: allDayDone ? '#059669' : '#64748b',
+                                        border: `1px solid ${allDayDone ? '#a7f3d0' : '#e2e8f0'}`
+                                      }}>
+                                        {dayDoneCount}/{dayTasks.length} Done
+                                      </span>
                                     </div>
                                   </div>
+
                                   <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                                     {dayTasks.map(t => <TaskItem key={t.id} task={t} />)}
                                   </div>
@@ -3468,6 +4053,7 @@ export default function App() {
                 )
               )}
             </AnimatePresence>
+          </>
           )}
         </div>
       </main>
@@ -3698,102 +4284,6 @@ export default function App() {
                       <input placeholder="e.g. https://drive.google.com/..." value={editId ? editDriveLink : newDriveLink} onChange={e => editId ? setEditDriveLink(e.target.value) : setNewDriveLink(e.target.value)} style={S.input} />
                     </div>
 
-                    {/* ─── Brand Assets & Auto Color Picker ─── */}
-                    <div style={{ background: '#f5f3ff', border: '1.5px solid #ddd6fe', borderRadius: 16, padding: 18, marginBottom: 24 }}>
-                      <div style={{ fontSize: 11, fontWeight: 900, color: '#7c3aed', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <Sparkles size={14} /> Brand Logo & Auto Color Picker
-                      </div>
-
-                      {/* Logo File Upload / URL */}
-                      <div style={{ marginBottom: 14 }}>
-                        <div style={{ fontSize: 10, fontWeight: 900, color: '#475569', textTransform: 'uppercase', marginBottom: 6 }}>
-                          Brand Logo (URL or Image Upload)
-                        </div>
-                        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                          <input
-                            placeholder="e.g. https://domain.com/logo.png or upload image below..."
-                            value={editId ? editBrandLogoUrl : newBrandLogoUrl}
-                            onChange={e => {
-                              const val = e.target.value;
-                              if (editId) setEditBrandLogoUrl(val); else setNewBrandLogoUrl(val);
-                              if (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) {
-                                handleLogoImageColorExtraction(val);
-                              }
-                            }}
-                            style={{ ...S.input, flex: 1, fontSize: 12 }}
-                          />
-                          <label style={{ padding: '10px 14px', borderRadius: 12, background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)', color: '#fff', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 2px 8px rgba(124,58,237,0.3)' }}>
-                            {isExtractingColors ? 'Extracting...' : 'Upload Logo 🎨'}
-                            <input
-                              type="file"
-                              accept="image/*"
-                              style={{ display: 'none' }}
-                              onChange={async (e) => {
-                                const file = e.target.files?.[0];
-                                if (!file) return;
-                                setIsExtractingColors(true);
-                                try {
-                                  const reader = new FileReader();
-                                  reader.onload = async (event) => {
-                                    const dataUrl = event.target.result;
-                                    if (editId) setEditBrandLogoUrl(dataUrl); else setNewBrandLogoUrl(dataUrl);
-                                    const colors = await extractDominantColors(file, 3);
-                                    if (colors && colors.length > 0) {
-                                      const colorsStr = colors.join(', ');
-                                      if (editId) setEditBrandColors(colorsStr); else setNewBrandColors(colorsStr);
-                                      toast.success(`Extracted ${colors.length} brand colors from logo!`);
-                                    }
-                                    setIsExtractingColors(false);
-                                  };
-                                  reader.readAsDataURL(file);
-                                } catch (err) {
-                                  toast.error('Logo extraction failed: ' + err.message);
-                                  setIsExtractingColors(false);
-                                }
-                              }}
-                            />
-                          </label>
-                        </div>
-                      </div>
-
-                      {/* Brand Colors with Swatch Bubbles */}
-                      <div>
-                        <div style={{ fontSize: 10, fontWeight: 900, color: '#475569', textTransform: 'uppercase', marginBottom: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span>Brand Palette (Hex Colors)</span>
-                          <span style={{ color: '#7c3aed', fontSize: 10, fontWeight: 700 }}>Auto-extracted from logo</span>
-                        </div>
-                        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                          <input
-                            placeholder="#7C3AED, #0F172A, #059669"
-                            value={editId ? editBrandColors : newBrandColors}
-                            onChange={e => editId ? setEditBrandColors(e.target.value) : setNewBrandColors(e.target.value)}
-                            style={{ ...S.input, flex: 1, fontFamily: 'monospace', fontWeight: 700, fontSize: 13 }}
-                          />
-                          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                            {(editId ? editBrandColors : newBrandColors).split(',').map((hex, idx) => {
-                              const cleanHex = hex.trim();
-                              if (!cleanHex.startsWith('#')) return null;
-                              return (
-                                <div
-                                  key={idx}
-                                  style={{
-                                    width: 26,
-                                    height: 26,
-                                    borderRadius: '50%',
-                                    background: cleanHex,
-                                    border: '2px solid #ffffff',
-                                    boxShadow: '0 2px 6px rgba(0,0,0,0.18)',
-                                    flexShrink: 0
-                                  }}
-                                  title={`Color ${idx + 1}: ${cleanHex}`}
-                                />
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
                     <div style={{ marginBottom: 24 }}>
                       <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', tracking: 2, marginBottom: 8, textTransform: 'uppercase' }}>Slack Channel ID</div>
                       <input placeholder="e.g. C01234567" value={editId ? editSlackId : newSlackId} onChange={e => editId ? setEditSlackId(e.target.value) : setNewSlackId(e.target.value)} style={S.input} />
@@ -3812,11 +4302,40 @@ export default function App() {
                        </select>
                     </div>
                     <div style={{ marginBottom: 24 }}>
-                      <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', tracking: 2, marginBottom: 8, textTransform: 'uppercase' }}>Service Package</div>
-                      <div style={{ display: 'flex', gap: 8 }}>
-                        {PACKAGES.map(p => (
-                          <button key={p.id} onClick={() => setNewPkg(p.id)} style={S.btn(newPkg === p.id)}>{p.label}</button>
-                        ))}
+                      <div style={{ fontSize: 10, fontWeight: 900, color: '#dc2626', tracking: 2, marginBottom: 8, textTransform: 'uppercase' }}>Service Package (Client Tier)</div>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10 }}>
+                        {PACKAGES.map(p => {
+                          const isSelected = newPkg === p.id;
+                          return (
+                            <button
+                              key={p.id}
+                              type="button"
+                              onClick={() => setNewPkg(p.id)}
+                              style={{
+                                textAlign: 'left',
+                                padding: '12px 14px',
+                                borderRadius: 14,
+                                border: isSelected ? `2px solid ${p.color}` : '1px solid #fed7aa',
+                                background: isSelected ? `${p.color}12` : '#ffffff',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 4
+                              }}
+                            >
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                                <span style={{ fontWeight: 800, fontSize: 12, color: isSelected ? p.color : '#0f172a' }}>{p.label}</span>
+                                <span style={{ fontSize: 10, fontWeight: 900, color: p.color, background: `${p.color}15`, padding: '2px 6px', borderRadius: 6 }}>
+                                  PKR {p.price}
+                                </span>
+                              </div>
+                              <div style={{ fontSize: 10.5, color: '#64748b', lineHeight: 1.3 }}>
+                                {p.kra}
+                              </div>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                     <div style={{ marginBottom: 32 }}>
@@ -4497,7 +5016,7 @@ export default function App() {
                     return (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                         {todayTasks.map(t => {
-                          const st = sel.tasks[t.id] || { done: false, notes: '', review: '' };
+                          const st = sel?.tasks?.[t.id] || { done: false, notes: '', review: '' };
                           const role = ROLES[t.role];
                           const assigneeName = ROLE_TO_NAME[t.role] || t.role || 'Unassigned';
                           return (
