@@ -1991,29 +1991,12 @@ export default function App() {
         >
           {/* Brand Header */}
           <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 14 }}>
-              <div style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                background: 'linear-gradient(135deg, #ea580c, #f97316)',
-                color: '#ffffff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 900,
-                fontSize: 20,
-                boxShadow: '0 4px 14px rgba(234, 88, 12, 0.28)'
-              }}>
-                SP
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>
+              <div style={{ fontSize: 24, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                Spread<span style={{ color: '#ea580c' }}>Pixel</span>
               </div>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: 22, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-                  Spread<span style={{ color: '#ea580c' }}>Pixel</span>
-                </div>
-                <div style={{ fontSize: 10.5, fontWeight: 800, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                  Operations Hub
-                </div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 3 }}>
+                Operations Hub
               </div>
             </div>
             <h2 style={{ fontSize: 20, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', margin: 0 }}>
@@ -3120,30 +3103,13 @@ export default function App() {
       }}>
         <div className="custom-scrollbar" style={{ padding: '32px 24px', flex: 1, display: 'flex', flexDirection: 'column', opacity: sidebarOpen ? 1 : 0, transition: 'opacity 0.2s', overflowY: 'auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30, width: '100%', position: 'relative', flexShrink: 0, paddingBottom: 16, borderBottom: '1px solid rgba(234,88,12,0.08)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{
-                width: 38,
-                height: 38,
-                borderRadius: 10,
-                background: 'linear-gradient(135deg, #ea580c, #f97316)',
-                color: '#ffffff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 900,
-                fontSize: 18,
-                boxShadow: '0 3px 10px rgba(234, 88, 12, 0.22)'
-              }}>
-                SP
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontSize: 18, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-                  Spread<span style={{ color: '#ea580c' }}>Pixel</span>
-                </span>
-                <span style={{ fontSize: 10, fontWeight: 800, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 2 }}>
-                  Ops Hub
-                </span>
-              </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: 20, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                Spread<span style={{ color: '#ea580c' }}>Pixel</span>
+              </span>
+              <span style={{ fontSize: 10.5, fontWeight: 800, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 2 }}>
+                Ops Hub
+              </span>
             </div>
             {window.innerWidth <= 1024 && (
               <button onClick={() => setSidebarOpen(false)} style={{ color: '#64748b', background: 'none', border: 'none', cursor: 'pointer', position: 'absolute', right: 0 }}><X size={20} /></button>
