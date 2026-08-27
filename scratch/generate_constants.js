@@ -448,12 +448,12 @@ function generateGrowthDominanceTasks() {
     // Day 2
     { id: "gd_s02_a", service: "core", phase: "sprint", day: 2, n: "Audit Full Funnel Architecture", role: "SR_STRAT", deps: ["gd_s01_b"], hours: "2h", priority: "high" },
     { id: "gd_s02_b", service: "core", phase: "sprint", day: 2, n: "Execute Market Intelligence Scan", role: "SR_STRAT", deps: ["gd_s02_a"], hours: "1.5h", priority: "high" },
-    { id: "gd_s02_c", service: "cold_email", phase: "sprint", day: 2, n: "Create 30 Mailboxes across 10 Domains", role: "AUTO", deps: ["gd_s01_d"], hours: "2h", priority: "high" },
+    { id: "gd_s02_c", service: "cold_email", phase: "sprint", day: 2, n: "Create 10 Mailboxes across 10 Domains", role: "AUTO", deps: ["gd_s01_d"], hours: "2h", priority: "high" },
 
     // Day 3
     { id: "gd_s03_a", service: "core", phase: "sprint", day: 3, n: "Formulate Enterprise ICP Document", role: "SR_STRAT", deps: ["gd_s02_a"], hours: "1.5h", priority: "high" },
     { id: "gd_s03_b", service: "core", phase: "sprint", day: 3, n: "Build Lead Qualification Scorecard", role: "SR_STRAT", deps: ["gd_s03_a"], hours: "1h", priority: "high" },
-    { id: "gd_s03_c", service: "cold_email", phase: "sprint", day: 3, n: "Connect 30 Mailboxes to Warmup Pool", role: "AUTO", deps: ["gd_s02_c"], hours: "1h", priority: "high" },
+    { id: "gd_s03_c", service: "cold_email", phase: "sprint", day: 3, n: "Connect 10 Mailboxes to Warmup Pool", role: "AUTO", deps: ["gd_s02_c"], hours: "1h", priority: "high" },
     { id: "gd_s03_d", service: "cold_email", phase: "sprint", day: 3, n: "Set Automated Warmup Schedule", role: "AUTO", deps: ["gd_s03_c"], hours: "0.5h", priority: "high" },
 
     // Day 4
@@ -524,7 +524,7 @@ function generateGrowthDominanceTasks() {
 
     if (weekday === "Monday") {
       ongoing.push({ id: `gd_d${d}_kpi`, service: "core", phase: "ongoing", day: d, n: "Review Omnichannel Executive KPI Dashboard", role: "AM", freq: "Monday", hours: "1h", deps: [] });
-      ongoing.push({ id: `gd_d${d}_box`, service: "cold_email", phase: "ongoing", day: d, n: "Check Mailbox Health (30 Boxes)", role: "AUTO", freq: "Monday", hours: "0.5h", deps: [] });
+      ongoing.push({ id: `gd_d${d}_box`, service: "cold_email", phase: "ongoing", day: d, n: "Check Mailbox Health (10 Boxes)", role: "AUTO", freq: "Monday", hours: "0.5h", deps: [] });
       ongoing.push({ id: `gd_d${d}_list`, service: "cold_email", phase: "ongoing", day: d, n: "Build Weekly Verified Lead List (1,125 Contacts)", role: "DATA", freq: "Monday", hours: "2h", deps: [] });
       if (d >= 17) {
         ongoing.push({ id: `gd_d${d}_send`, service: "cold_email", phase: "ongoing", day: d, n: d < 20 ? "Send Cold Email Ramp-Up Batch" : "Send Cold Email Batch (750 Sends)", role: "OBS", freq: "Monday", hours: "1h", deps: [] });
@@ -662,8 +662,8 @@ export const PACKAGES = [
     label: "Growth Dominance",
     price: "500,000",
     color: "#8b5cf6",
-    kra: "30 Mailboxes, Ghostwriting, 3 Ads Platforms, SEO (30 KW), AI Chatbot",
-    desc: "Full Omnichannel: 750 sends/day, 3 LIs + Ghostwriting, Meta/Google/LI Ads (1M), Unlimited LPs, AI.",
+    kra: "10 Mailboxes, Ghostwriting, 3 Ads Platforms, SEO (30 KW), AI Chatbot",
+    desc: "Full Omnichannel: 250 sends/day, 3 LIs + Ghostwriting, Meta/Google/LI Ads (1M), Unlimited LPs, AI.",
     defaultServices: ['cold_email', 'linkedin_outreach', 'social_media', 'video_reels', 'ghostwriting', 'meta_ads', 'google_ads', 'landing_page', 'seo', 'ai_crm']
   }
 ];

@@ -1628,7 +1628,7 @@ Total Tasks: 422
 
 ======================================================================
 PACKAGE: GROWTH DOMINANCE (PKR 500,000 / Month)
-KRA: 30 Mailboxes, Ghostwriting, 3 Ads Platforms, SEO (30 KW), AI Chatbot
+KRA: 10 Mailboxes, Ghostwriting, 3 Ads Platforms, SEO (30 KW), AI Chatbot
 Total Tasks: 410
 ======================================================================
 
@@ -1643,12 +1643,12 @@ Total Tasks: 410
 ### Day 2:
   - [SR_STRAT] Audit Full Funnel Architecture | Est: 2h | Priority: high
   - [SR_STRAT] Execute Market Intelligence Scan | Est: 1.5h | Priority: high
-  - [AUTO] Create 30 Mailboxes across 10 Domains | Est: 2h | Priority: high
+  - [AUTO] Create 10 Mailboxes across 10 Domains | Est: 2h | Priority: high
 
 ### Day 3:
   - [SR_STRAT] Formulate Enterprise ICP Document | Est: 1.5h | Priority: high
   - [SR_STRAT] Build Lead Qualification Scorecard | Est: 1h | Priority: high
-  - [AUTO] Connect 30 Mailboxes to Warmup Pool | Est: 1h | Priority: high
+  - [AUTO] Connect 10 Mailboxes to Warmup Pool | Est: 1h | Priority: high
   - [AUTO] Set Automated Warmup Schedule | Est: 0.5h | Priority: high
 
 ### Day 4:
@@ -1726,7 +1726,7 @@ Total Tasks: 410
 
 ### Day 19:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Ramp-Up Batch | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -1768,7 +1768,7 @@ Total Tasks: 410
 
 ### Day 25:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -1814,7 +1814,7 @@ Total Tasks: 410
 
 ### Day 31:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -1855,7 +1855,7 @@ Total Tasks: 410
 
 ### Day 37:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -1896,7 +1896,7 @@ Total Tasks: 410
 
 ### Day 43:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -1938,7 +1938,7 @@ Total Tasks: 410
 
 ### Day 49:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -1980,7 +1980,7 @@ Total Tasks: 410
 
 ### Day 55:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -2025,7 +2025,7 @@ Total Tasks: 410
 
 ### Day 61:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -2066,7 +2066,7 @@ Total Tasks: 410
 
 ### Day 67:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -2107,7 +2107,7 @@ Total Tasks: 410
 
 ### Day 73:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -2148,7 +2148,7 @@ Total Tasks: 410
 
 ### Day 79:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
@@ -2189,7 +2189,7 @@ Total Tasks: 410
 
 ### Day 85:
   - [AM] Review Omnichannel Executive KPI Dashboard | Est: 1h | Priority: Normal
-  - [AUTO] Check Mailbox Health (30 Boxes) | Est: 0.5h | Priority: Normal
+  - [AUTO] Check Mailbox Health (10 Boxes) | Est: 0.5h | Priority: Normal
   - [DATA] Build Weekly Verified Lead List (1,125 Contacts) | Est: 2h | Priority: Normal
   - [OBS] Send Cold Email Batch (750 Sends) | Est: 1h | Priority: Normal
   - [OBS] Send LinkedIn Connection Requests across 3 Profiles | Est: 1h | Priority: Normal
