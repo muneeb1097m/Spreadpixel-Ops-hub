@@ -4243,7 +4243,7 @@ export default function App() {
                                 transition: 'all 0.15s ease'
                               }}
                             >
-                              {p.label} (PKR {p.price})
+                              {p.label}
                             </button>
                           );
                         })}
