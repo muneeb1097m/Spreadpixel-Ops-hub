@@ -564,34 +564,37 @@ export default function App() {
                   }
                 });
 
-                // Merge metadata keys (starting with __)
-                const metadataKeys = ['__website', '__drive_link', '__client_name', '__standard_notes', '__client_notes', '__defs', '__meta_updated_at', '__assigned_bd', '__sops'];
-                const dbMetaTime = formatted.tasks?.__meta_updated_at ? new Date(formatted.tasks.__meta_updated_at).getTime() : 0;
-                const localMetaTime = c.tasks?.__meta_updated_at ? new Date(c.tasks.__meta_updated_at).getTime() : 0;
+                // Merge all metadata keys (starting with __)
+                const dbMetaTime = Math.max(
+                  formatted.tasks?.__meta_updated_at ? new Date(formatted.tasks.__meta_updated_at).getTime() : 0,
+                  formatted.tasks?.__updated_at ? new Date(formatted.tasks.__updated_at).getTime() : 0,
+                  formatted.updatedAt ? new Date(formatted.updatedAt).getTime() : 0
+                );
+                const localMetaTime = Math.max(
+                  c.tasks?.__meta_updated_at ? new Date(c.tasks.__meta_updated_at).getTime() : 0,
+                  c.tasks?.__updated_at ? new Date(c.tasks.__updated_at).getTime() : 0,
+                  c.updatedAt ? new Date(c.updatedAt).getTime() : 0
+                );
 
-                metadataKeys.forEach(key => {
+                const allRealtimeMetaKeys = new Set([
+                  ...Object.keys(formatted.tasks || {}).filter(k => k.startsWith('__')),
+                  ...Object.keys(c.tasks || {}).filter(k => k.startsWith('__'))
+                ]);
+
+                allRealtimeMetaKeys.forEach(key => {
                   const dbVal = formatted.tasks?.[key];
                   const localVal = c.tasks?.[key];
                   if (dbMetaTime >= localMetaTime) {
-                    if (dbVal !== undefined && dbVal !== null && dbVal !== "") {
+                    if (dbVal !== undefined) {
                       mergedTasks[key] = dbVal;
-                    }
-                  } else {
-                    if (localVal) {
+                    } else if (localVal !== undefined) {
                       mergedTasks[key] = localVal;
                     }
-                  }
-                });
-
-                // Merge payment metadata
-                Object.keys(formatted.tasks || {}).forEach(k => {
-                  if (k.startsWith('__payment_month')) {
-                    const dbVal = formatted.tasks[k];
-                    const localVal = c.tasks?.[k];
-                    if (dbVal !== undefined && dbVal !== null && dbVal !== "") {
-                      mergedTasks[k] = dbVal;
-                    } else if (localVal) {
-                      mergedTasks[k] = localVal;
+                  } else {
+                    if (localVal !== undefined) {
+                      mergedTasks[key] = localVal;
+                    } else if (dbVal !== undefined) {
+                      mergedTasks[key] = dbVal;
                     }
                   }
                 });
@@ -908,7 +911,11 @@ export default function App() {
     const nowIso = new Date().toISOString();
     const currentLatest = clientsRef.current.find(c => c.id === selId) || sel;
 
-    let updatedTasks = { ...(currentLatest.tasks || {}), __updated_at: nowIso };
+    let updatedTasks = { 
+      ...(currentLatest.tasks || {}), 
+      __updated_at: nowIso,
+      __meta_updated_at: nowIso 
+    };
 
     if (!isPaused) {
       const activeDay = dayNum();

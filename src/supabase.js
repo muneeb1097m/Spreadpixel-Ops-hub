@@ -57,8 +57,16 @@ export async function upsertClient(client) {
         const dbTasks = existing.tasks_data || {};
         const finalTasks = { ...dbTasks };
         
-        const dbMetaTime = dbTasks.__meta_updated_at ? new Date(dbTasks.__meta_updated_at).getTime() : 0;
-        const localMetaTime = client.tasks?.__meta_updated_at ? new Date(client.tasks.__meta_updated_at).getTime() : 0;
+        const dbMetaTime = Math.max(
+          dbTasks.__meta_updated_at ? new Date(dbTasks.__meta_updated_at).getTime() : 0,
+          dbTasks.__updated_at ? new Date(dbTasks.__updated_at).getTime() : 0,
+          existing.updated_at ? new Date(existing.updated_at).getTime() : 0
+        );
+        const localMetaTime = Math.max(
+          client.tasks?.__meta_updated_at ? new Date(client.tasks.__meta_updated_at).getTime() : 0,
+          client.tasks?.__updated_at ? new Date(client.tasks.__updated_at).getTime() : 0,
+          client.updatedAt ? new Date(client.updatedAt).getTime() : 0
+        );
 
         if (localMetaTime > 0 && localMetaTime < dbMetaTime) {
             client.name = existing.name;
@@ -66,42 +74,26 @@ export async function upsertClient(client) {
             client.package = existing.package;
         }
 
-        // 1. Merge metadata fields (starting with __)
-        const metadataKeys = [
-          '__website', '__drive_link', '__client_name', '__standard_notes', '__client_notes', 
-          '__defs', '__slack_id', '__meta_updated_at', '__assigned_bd',
-          '__bd_outreach_stage', '__bd_outreach_notes', '__bd_outreach_icp', 
-          '__bd_outreach_raw_profile', '__bd_outreach_score', '__bd_outreach_ai_explanation', 
-          '__bd_outreach_company', '__bd_outreach_headline', '__bd_outreach_date',
-          '__bd_outreach_parent_client_id', '__linkedin_profiles', '__bd_outreach_linkedin_profile_id',
-          '__bd_outreach_linkedin_url', '__creative_content_calendar', '__creative_brand_brief',
-          '__brand_logo_url', '__brand_colors', '__brand_niche', '__brand_logo_position', '__brand_platform'
-        ];
-        metadataKeys.forEach(key => {
+        // 1. Merge ALL metadata fields (any key starting with __ including pause state, notes, creative, BD, payments, etc.)
+        const allMetaKeys = new Set([
+          ...Object.keys(dbTasks).filter(k => k.startsWith('__')),
+          ...Object.keys(client.tasks || {}).filter(k => k.startsWith('__'))
+        ]);
+
+        allMetaKeys.forEach(key => {
           const dbVal = dbTasks[key];
           const localVal = client.tasks?.[key];
           if (localMetaTime >= dbMetaTime) {
-            if (localVal !== undefined && localVal !== null && localVal !== "") {
+            if (localVal !== undefined) {
               finalTasks[key] = localVal;
-            } else if (dbVal) {
+            } else if (dbVal !== undefined) {
               finalTasks[key] = dbVal;
             }
           } else {
-            if (dbVal) {
+            if (dbVal !== undefined) {
               finalTasks[key] = dbVal;
-            }
-          }
-        });
-
-        // 2. Merge payment month metadata keys
-        Object.keys(dbTasks).forEach(k => {
-          if (k.startsWith('__payment_month')) {
-            const dbVal = dbTasks[k];
-            const localVal = client.tasks?.[k];
-            if (localVal !== undefined && localVal !== null && localVal !== "") {
-              finalTasks[k] = localVal;
-            } else if (dbVal) {
-              finalTasks[k] = dbVal;
+            } else if (localVal !== undefined) {
+              finalTasks[key] = localVal;
             }
           }
         });
